@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Mobile</string>
+    <string name="app_name">安全卫士</string>
+    <string name="url_server">http://192.168.106.2:8080/updateinfo.html</string>
 </resources>

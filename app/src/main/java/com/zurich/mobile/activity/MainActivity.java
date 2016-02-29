@@ -1,9 +1,9 @@
-package zurich.mobile.activity;
+package com.zurich.mobile.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import zurich.mobile.R;
+import com.zurich.mobile.R;
 
 public class MainActivity extends AppCompatActivity {
 
