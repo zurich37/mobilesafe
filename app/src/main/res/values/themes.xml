@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pv_linear_determinate">
+        <item>@style/LightDeterminateLinearProgressView</item>
+        <item>@style/DarkDeterminateLinearProgressView</item>
+    </array>
+</resources>
