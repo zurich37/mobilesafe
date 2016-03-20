@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViews() {
 
         skinTabIconController = new SkinTabIconController(getBaseContext());
-        skinTabIconController.addTab(radioMainActivitySafe, R.drawable.ic_tab_safe1);
+        skinTabIconController.addTab(radioMainActivitySafe, R.drawable.ic_tab_safe);
         skinTabIconController.addTab(radioMainActivityNormal, R.drawable.ic_tab_home);
         skinTabIconController.addTab(radioMainActivityManage, R.drawable.ic_tab_manage);
         skinTabIconController.init();
