@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryQuarter">#3303A9F4</color>
     <color name="colorAccentQuarter">#3300E5FF</color>
+
+    <color name="white_bg">#ffffff</color>
+    <color name="text_normal">#212121</color>
+    <color name="text_second">#727272</color>
 </resources>

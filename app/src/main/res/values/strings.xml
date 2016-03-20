@@ -2,4 +2,18 @@
     <string name="app_name">安全卫士</string>
     <string name="url_server">http://192.168.106.2:8080/updateinfo.html</string>
     <string name="net_wrong">当前网络没有连接，请检查网络设置！</string>
+
+    <!-- s管理中心 -->
+    <string name="manage_center_download">下载管理</string>
+    <string name="manage_center_installed">软件卸载</string>
+    <string name="manage_center_apk_move">应用搬家</string>
+    <string name="manage_center_favorite">云收藏</string>
+    <string name="manage_center_apk_manage">安装包清理</string>
+    <string name="manage_center_installed_backup">备份</string>
+    <string name="manage_center_fast_pass">免流量快传</string>
+    <string name="manage_center_skin">更换皮肤</string>
+    <string name="manage_center_google">谷歌检测</string>
+    <string name="manage_center_hongbao">抢红包</string>
+    <string name="manage_center_setting">设置</string>
+    <string name="manage_center_scan">扫一扫</string>
 </resources>

@@ -23,23 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="main_page"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".activity.SplashActivity$DownLoadCompleteReceiver">
-
-            <intent-filter>
-
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-
-            </intent-filter>
-
-        </receiver>
     </application>
 
 </manifest>

@@ -6,12 +6,12 @@ import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -44,6 +44,8 @@ public class SplashActivity extends FragmentActivity {
     private String versionFromServer;
 
     private Intent mainIntent;
+    private long downloadId;
+    private DownLoadCompleteReceiver downLoadCompleteReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,19 @@ public class SplashActivity extends FragmentActivity {
             else {
                 GlobalUtils.showToast(mContext, getResources().getString(R.string.net_wrong));
                 startActivity(mainIntent);
+                finish();
             }
         }
 
         TextView tv_version = (TextView) findViewById(R.id.tv_wec);
         tv_version.setText("精简极致体验  v" + currentVersionName);
+
+        AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
+        aa.setDuration(2000);
+        findViewById(R.id.rl_splash_root).startAnimation(aa);
+
+        downLoadCompleteReceiver = new DownLoadCompleteReceiver();
+        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     /**
@@ -92,9 +102,10 @@ public class SplashActivity extends FragmentActivity {
                         Dialog.Builder builder = null;
                         String description = response.getString("description");
                         final String apkUrl = response.getString("apkurl");
-                        builder = new SimpleDialog.Builder(R.style.SimpleDialog) {
+                        builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
                             @Override
                             public void onPositiveActionClicked(DialogFragment fragment) {
+                                //开始升级
                                 startUpdate(apkUrl);
                                 super.onPositiveActionClicked(fragment);
                             }
@@ -143,7 +154,7 @@ public class SplashActivity extends FragmentActivity {
 
                 DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(apkUrl));
-                request.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, fileName);
+                request.setDestinationInExternalFilesDir(mContext, null, fileName);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 request.setTitle("安全卫士");
                 request.setDescription("正在下载...");
@@ -152,9 +163,7 @@ public class SplashActivity extends FragmentActivity {
                 request.allowScanningByMediaScanner();
                 // 设置为可见和可管理
                 request.setVisibleInDownloadsUi(true);
-                SharedPreferences sPreferences = getSharedPreferences("downloadplato", 0);
-                long mEnqueue = downloadManager.enqueue(request);
-                sPreferences.edit().putLong("plato", mEnqueue).commit();
+                downloadId = downloadManager.enqueue(request);
             }
         }
     }
@@ -165,26 +174,26 @@ public class SplashActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             long myDwonloadID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
-            SharedPreferences sPreferences = context.getSharedPreferences("downloadplato", 0);
-
-            long refernece = sPreferences.getLong("plato", 0);
-
-            if (refernece == myDwonloadID) {
+            if (downloadId == myDwonloadID) {
 
                 String serviceString = Context.DOWNLOAD_SERVICE;
 
                 DownloadManager dManager = (DownloadManager) context.getSystemService(serviceString);
 
                 Intent install = new Intent(Intent.ACTION_VIEW);
-
                 Uri downloadFileUri = dManager.getUriForDownloadedFile(myDwonloadID);
-
                 install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
-
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(install);
+
                 mActivity.finish();
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(downLoadCompleteReceiver);
+        super.onDestroy();
     }
 }
