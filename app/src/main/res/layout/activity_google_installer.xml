@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#00A7ED"
+        android:orientation="vertical">
+
+        <com.zurich.mobile.widget.GifMovieView
+            android:id="@+id/gifView"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerInParent="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@drawable/google_wrong" />
+
+            <TextView
+                android:id="@+id/statusTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="尚未安装‘谷歌服务框架’，部分大型游戏可能出现黑屏闪退的现象，建议使用‘谷歌安装器’一键安装"
+                android:textColor="#ffffff"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/operationTv"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ripple_button_bg"
+        android:gravity="center"
+        android:text="下载谷歌安装器"
+        android:textColor="@color/text_normal"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp"
+        android:text="小贴士：\n游戏无法启动、闪退、黑屏、白屏，大都是因为手机中没有安装谷歌市场及服务框架\n在这里你可以看到手机的谷歌安装状态，一切尽在自己掌握~"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/infoTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:text="查看使用教程"
+        android:textColor="#00A7ED"
+        android:textSize="14dp" />
+
+</LinearLayout>

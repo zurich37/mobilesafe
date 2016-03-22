@@ -5,6 +5,11 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/background.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/common_background_divider.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/google_right.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/google_service_download_button_normal.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/google_service_download_button_pressed.9.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/google_wrong.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_googler_service.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_launcher.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_tab_home.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_tab_manage.png" charset="UTF-8" />
@@ -22,7 +27,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/manage_center_setting.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/manage_center_skin.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/manage_center_sudoku_pressed.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/notify.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/setting_update.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

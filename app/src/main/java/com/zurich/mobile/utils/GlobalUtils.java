@@ -3,6 +3,8 @@ package com.zurich.mobile.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -95,6 +97,20 @@ public class GlobalUtils {
      */
     public static void showToast(Context context, String text){
         Toast.makeText(context, text, 1).show();
+    }
+
+    public static boolean isInstallSoftware(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo pInfo = packageManager.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            // 判断是否获取到了对应的包名信息
+            if (pInfo != null) {
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

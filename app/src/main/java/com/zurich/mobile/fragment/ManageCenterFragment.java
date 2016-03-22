@@ -1,6 +1,7 @@
 package com.zurich.mobile.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
+import com.zurich.mobile.activity.GoogleInstallerActivity;
+import com.zurich.mobile.activity.SettingActivity;
 import com.zurich.mobile.utils.GlobalUtils;
 
 /**
@@ -317,7 +320,7 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
     @Override
     public void onClick(View v) {
 //        Intent intent;
-//        switch (v.getId()){
+        switch (v.getId()){
 //            case R.id.rl_update://可更新
 //                intent = new Intent(mContext, AppUpdateActivity.class);
 //                startActivity(intent);
@@ -411,11 +414,9 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
 //
 //                ClientLogger.addActionManageToolClickLog(mContext, "removal");
 //                break;
-//            case R.id.tv_google://谷歌检测
-//                startActivity(new Intent(mContext, GoogleInstallerActivity.class));
-//                ClientLogger.addActionManageToolClickLog(mContext, "google_check");
-//                UMengConstant.addUMengLog(mContext, UMengConstant.EVENT_GOOGLE_CHECK_ENTER, UMengConstant.EVENT_GOOGLE_CHECK_ENTER, null);
-//                break;
+            case R.id.tv_google://谷歌检测
+                startActivity(new Intent(mContext, GoogleInstallerActivity.class));
+                break;
 //            case R.id.tv_scan://扫一扫
 //                Runnable task = new Runnable() {
 //                    @Override
@@ -433,13 +434,12 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
 //                };
 //                CommonThreadPoolFactory.getDefaultExecutor().submit(task);
 //                break;
-//            case R.id.tv_setting://设置
-//                SettingActivity.launch(mContext, hasUpdate);
-//                UMengConstant.addUMengLog(mContext, UMengConstant.EVENT_ENTER_SETTING, null, null);
-//                break;
+            case R.id.tv_setting://设置
+                SettingActivity.launch(mContext, hasUpdate);
+                break;
 //            default:
 //                break;
-//        }
+        }
     }
 
     @Override

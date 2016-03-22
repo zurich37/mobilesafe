@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="SimpleDialogLight" parent="Material.App.Dialog.Simple.Light">
         <item name="di_inAnimation">@anim/anim_scale_in</item>
@@ -15,7 +16,10 @@
         <item name="di_inAnimation">@anim/anim_scale_in</item>
         <item name="di_outAnimation">@anim/anim_scale_out</item>
     </style>
-
+    <style name="ToolbarRippleStyle" parent="Material.Drawable.Ripple.Touch.MatchView.Light">
+        <item name="rd_backgroundColor">@android:color/transparent</item>
+        <item name="rd_rippleColor">#33FFFFFF</item>
+    </style>
     <!--管理中心style-->
     <style name="ManageCenterRelative">
         <item name="android:layout_width">match_parent</item>

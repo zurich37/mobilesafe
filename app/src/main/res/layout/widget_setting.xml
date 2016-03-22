@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_height="65dp"
+    android:background="@drawable/ripple_button_bg"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/setting_icon"
+        android:layout_width="22dp"
+        android:layout_centerVertical="true"
+        android:layout_height="22dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/setting_icon"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/setting_arrow">
+    <TextView
+        android:id="@+id/setting_name"
+        android:layout_width="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/text_normal"
+        android:text="安装设置"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/setting_sub_name"
+        android:layout_width="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:visibility="gone"
+        android:layout_marginTop="3dp"
+        android:textSize="12dp"
+        android:layout_marginRight="3dp"
+        android:textColor="@color/text_second"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/setting_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/setting_more"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"
+        android:layout_height="1px"/>
+</RelativeLayout>
