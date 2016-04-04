@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 /**
- * Created by weixi_000
+ * Created by weixinfei
  */
 public class PackageInfoUtil {
 

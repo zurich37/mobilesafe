@@ -10,7 +10,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by weixi_000 on 2016/2/28.
+ * Created by weixinfei on 2016/2/28.
  */
 public class MySingleton {
     private static MySingleton mInstance;

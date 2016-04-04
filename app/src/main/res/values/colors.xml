@@ -12,4 +12,9 @@
     <color name="text_second">#727272</color>
 
     <color name="gray">#C8C8C8</color>
+
+    <!--app asset-->
+    <color name="asset_title_color">#333333</color>
+    <color name="asset_info_color">#83898f</color>
+
 </resources>

@@ -1,5 +1,7 @@
 package com.zurich.mobile.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -11,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
@@ -27,18 +30,20 @@ import com.zurich.mobile.net.MySingleton;
 import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.utils.PackageInfoUtil;
 import com.zurich.mobile.utils.SharedPreferenceUtil;
+import com.zurich.mobile.view.kbv.KenBurnsView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by weixi_000 .
+ * Created by weixinfei .
  */
 public class SplashActivity extends FragmentActivity {
 
+    private String SPLASH_SCREEN_OPTION_1 = "Fade in + Ken Burns";
+
     private Activity mActivity;
     private Context mContext;
-
     //params
     private String currentVersionName;
     private String versionFromServer;
@@ -46,6 +51,10 @@ public class SplashActivity extends FragmentActivity {
     private Intent mainIntent;
     private long downloadId;
     private DownLoadCompleteReceiver downLoadCompleteReceiver;
+
+    //views
+    private TextView mLogo;
+    private KenBurnsView mKenBurns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +71,48 @@ public class SplashActivity extends FragmentActivity {
 
         currentVersionName = PackageInfoUtil.getSelfVersionName(this);
 
+        initView();
+
         if (localVersion.equals("0")) {
-            if (GlobalUtils.isOnline(mContext))
-                checkUpdate();
-            else {
-                GlobalUtils.showToast(mContext, getResources().getString(R.string.net_wrong));
-                startActivity(mainIntent);
-                finish();
-            }
+            checkUpdate();
         }
 
+        downLoadCompleteReceiver = new DownLoadCompleteReceiver();
+        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    private void initView() {
+        mKenBurns = (KenBurnsView) findViewById(R.id.kenBurnsView);
         TextView tv_version = (TextView) findViewById(R.id.tv_wec);
         tv_version.setText("精简极致体验  v" + currentVersionName);
+        mLogo = (TextView) findViewById(R.id.splsh_logo);
 
         AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
         aa.setDuration(2000);
         findViewById(R.id.rl_splash_root).startAnimation(aa);
 
-        downLoadCompleteReceiver = new DownLoadCompleteReceiver();
-        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        setAnimation(SPLASH_SCREEN_OPTION_1);
+    }
+
+    private void animation1() {
+        ObjectAnimator var1 = ObjectAnimator.ofFloat(this.mLogo, "scaleX", new float[]{5.0F, 1.0F});
+        var1.setInterpolator(new AccelerateDecelerateInterpolator());
+        var1.setDuration(1200L);
+        ObjectAnimator var2 = ObjectAnimator.ofFloat(this.mLogo, "scaleY", new float[]{5.0F, 1.0F});
+        var2.setInterpolator(new AccelerateDecelerateInterpolator());
+        var2.setDuration(1200L);
+        ObjectAnimator var3 = ObjectAnimator.ofFloat(this.mLogo, "alpha", new float[]{0.0F, 1.0F});
+        var3.setInterpolator(new AccelerateDecelerateInterpolator());
+        var3.setDuration(1200L);
+        AnimatorSet var4 = new AnimatorSet();
+        var4.play(var1).with(var2).with(var3);
+        var4.setStartDelay(1000L);
+        var4.start();
+    }
+
+    public void setAnimation(String animation) {
+        mKenBurns.setImageResource(R.drawable.splash_background);
+        animation1();
     }
 
     /**
@@ -98,6 +130,7 @@ public class SplashActivity extends FragmentActivity {
                     if (currentVersionName.equals(versionFromServer)) {
                         SharedPreferenceUtil.setSettingPrefs(getBaseContext(), SharedPreferenceUtil.PACKAGE_INFOS_VERSION_NAME, currentVersionName);
                         startActivity(mainIntent);
+                        SplashActivity.this.finish();
                     } else {
                         Dialog.Builder builder = null;
                         String description = response.getString("description");
@@ -114,7 +147,7 @@ public class SplashActivity extends FragmentActivity {
                             public void onNegativeActionClicked(DialogFragment fragment) {
                                 startActivity(mainIntent);
                                 super.onNegativeActionClicked(fragment);
-                                finish();
+                                SplashActivity.this.finish();
                             }
                         };
 
@@ -134,6 +167,7 @@ public class SplashActivity extends FragmentActivity {
             public void onErrorResponse(VolleyError error) {
                 GlobalUtils.showToast(mContext, getResources().getString(R.string.net_wrong));
                 startActivity(mainIntent);
+                SplashActivity.this.finish();
             }
         });
 
@@ -186,14 +220,14 @@ public class SplashActivity extends FragmentActivity {
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(install);
 
-                mActivity.finish();
+                SplashActivity.this.finish();
             }
         }
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         unregisterReceiver(downLoadCompleteReceiver);
-        super.onDestroy();
+        super.onStop();
     }
 }

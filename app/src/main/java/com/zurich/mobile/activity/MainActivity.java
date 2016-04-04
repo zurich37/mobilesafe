@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
     ViewPagerCompat viewPager;
 
     private ToolbarManager mToolbarManager;
+    private SkinTabIconController skinTabIconController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
     }
 
     private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.main_tool_bar);
         mToolbar.setTitle("安全卫士");
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
@@ -72,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
 
     private void setupViews() {
 
-        SkinTabIconController skinTabIconController = new SkinTabIconController(getBaseContext());
+        skinTabIconController = new SkinTabIconController(getBaseContext());
+        skinTabIconController.resetSkin();
         skinTabIconController.addTab(radioMainActivitySafe, R.drawable.ic_tab_safe);
         skinTabIconController.addTab(radioMainActivityNormal, R.drawable.ic_tab_home);
         skinTabIconController.addTab(radioMainActivityManage, R.drawable.ic_tab_manage);
@@ -82,23 +84,32 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
     }
 
     private void setFragments() {
-
-        viewPager.setAdapter(null);
         viewPager.setAdapter(new FragmentArrayPageAdapter(getSupportFragmentManager(), new SafeFragment(), new NormalFragment(), new ManageCenterFragment()));
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
-
         FragmentSwitchController fragmentSwitchController = new FragmentSwitchController(viewPager, radioMainActivitySafe, radioMainActivityNormal, radioMainActivityManage);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mToolbarManager.createMenu(R.menu.menu_main);
+//        mToolbarManager.createMenu(R.menu.menu_main);
         return true;
     }
 
     @Override
     public void onToolbarGroupChanged(int oldGroupId, int groupId) {
         mToolbarManager.notifyNavigationStateChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        skinTabIconController.destroy();
     }
 }

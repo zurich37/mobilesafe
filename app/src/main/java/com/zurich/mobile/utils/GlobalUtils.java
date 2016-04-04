@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.io.File;
 
 /**
- * Created by weixi_000 on 2016/3/6.
+ * Created by weixinfei on 2016/3/6.
  */
 public class GlobalUtils {
 

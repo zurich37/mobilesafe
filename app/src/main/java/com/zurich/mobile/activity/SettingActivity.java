@@ -6,7 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.utils.GlobalUtils;
@@ -14,9 +14,10 @@ import com.zurich.mobile.utils.PackageInfoUtil;
 import com.zurich.mobile.widget.SettingLayout;
 
 /**
- * Created by weixi_000 on 2016/3/20.
+ * 设置页面
+ * Created by weixinfei on 2016/3/20.
  */
-public class SettingActivity extends FragmentActivity {
+public class SettingActivity extends AppCompatActivity {
     private Activity mActivity;
     //检查更新
     private BroadcastReceiver mDialogReceiver;
@@ -36,6 +37,7 @@ public class SettingActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setTitle("设置");
+
         hasUpdate =getIntent().getBooleanExtra("hasUpdate",false);
         mActivity = SettingActivity.this;
         initView();

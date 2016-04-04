@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scroll_settingActivity_root"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <include
+        android:id="@+id/setting_toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scroll_settingActivity_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@id/setting_toolbar"
+        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:text="常用设置"
-            android:textColor="@color/text_normal"
-            android:textSize="12sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/gray" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:text="其他"
-            android:textColor="@color/text_normal"
-            android:textSize="12sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/gray" />
-
-        <com.zurich.mobile.widget.SettingLayout
-            android:id="@+id/setting_update"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:setting_icon="@drawable/setting_update"
-            app:setting_name="检查更新" />
+            android:orientation="vertical">
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="常用设置"
+                android:textColor="@color/text_normal"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="其他"
+                android:textColor="@color/text_normal"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/gray" />
+
+            <com.zurich.mobile.widget.SettingLayout
+                android:id="@+id/setting_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setting_icon="@drawable/setting_update"
+                app:setting_name="检查更新" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

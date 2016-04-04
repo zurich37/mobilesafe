@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_button_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants">
+        <!-- 内容区域 -->
+        <LinearLayout
+            android:id="@+id/layout_packageScanned_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingTop="10dp">
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <!-- 标题 -->
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/TextAppearance_AppName_ManageList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="糗事百科" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+                    <!-- 大小 -->
+                    <TextView
+                        android:id="@+id/size"
+                        style="@style/asset_secondary_style"
+                        android:text="180M" />
+
+                    <View
+                        android:id="@+id/divide"
+                        android:layout_width="1dp"
+                        android:layout_height="8dip"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="4dip"
+                        android:background="@color/asset_info_color" />
+
+                    <!-- 版本 -->
+                    <TextView
+                        android:id="@+id/version"
+                        style="@style/asset_secondary_style"
+                        android:layout_marginLeft="4dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <!-- 时间 -->
+                    <TextView
+                        android:id="@+id/downloadTime"
+                        style="@style/asset_secondary_style"
+                        android:text="18个月前" />
+
+                    <!-- 版本提示信息，例如：新版本 -->
+                    <TextView
+                        android:id="@+id/ic_version_info"
+                        style="@style/asset_secondary_style"
+                        android:layout_marginLeft="8dp"
+                        android:text="新版本" />
+
+                    <!-- 数据包提示信息，例如：含数据包 -->
+                    <TextView
+                        android:id="@+id/ic_pack_info"
+                        style="@style/asset_secondary_style"
+                        android:layout_marginLeft="8dp"
+                        android:text="含数据包" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_packageScannedItem_openStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dip" />
+
+            <com.rey.material.widget.CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:focusable="false"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" />
+        </LinearLayout>
+
+        <!-- 展开区域 -->
+        <LinearLayout
+            android:id="@+id/bottom_area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_packageScanned_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp">
+
+            <Button
+                android:id="@+id/install"
+                style="@style/ButtonAppearance_OpenArea_ManageList_Without_Backgound"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_button_bg"
+                android:text="安装" />
+
+            <Button
+                android:id="@+id/file_path"
+                style="@style/ButtonAppearance_OpenArea_ManageList_Without_Backgound"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dip"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_button_bg"
+                android:text="文件位置Bub" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/backuped_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_backuped" />
+    </RelativeLayout>
+
+    <View style="@style/ListDivider" />
+</LinearLayout>

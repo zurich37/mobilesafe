@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Created by weixi_000
+ * Created by weixinfei
  */
 public class SharedPreferenceUtil {
     public static final String SETTING_PREFS_NAME = "setting";

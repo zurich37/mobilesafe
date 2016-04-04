@@ -1,0 +1,112 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 底部操作栏和扫描提示栏 -->
+    <FrameLayout
+        android:id="@+id/batch_operation_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical" >
+        <Button
+            android:id="@+id/delete_selected_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="@color/text_normal"
+            android:background="@drawable/ripple_button_bg"
+            android:text="删除选中"/>
+
+	    <LinearLayout
+	        android:id="@+id/con_tx_shower"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@android:color/white"
+	        android:orientation="vertical"
+	        android:gravity="center_vertical"
+	        android:paddingLeft="16dp"
+	        android:paddingRight="16dp"
+	        android:visibility="visible" >
+	        <TextView
+	            android:id="@+id/tx_num_shower"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"/>
+	
+	        <TextView
+	            android:id="@+id/tx_shower"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:singleLine="true"/>
+	    </LinearLayout>
+    </FrameLayout>
+
+    <!-- 内容列表 -->
+    <ListView
+        android:id="@+id/list_view_packs_scanned"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animationCache="true"
+        android:paddingTop="34dp"
+        android:clipToPadding="false"
+        android:divider="@null"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/batch_operation_layout"
+        android:scrollingCache="true" />
+    
+    <View
+        style="@style/BottomLine"
+        android:layout_gravity="bottom"
+        android:layout_alignBottom="@id/list_view_packs_scanned"/>
+    
+    <!-- 顶部信息提示栏 -->
+    <LinearLayout
+        android:id="@+id/layout_packageManage_tips"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:background="#eeffffff">
+        <TextView
+            android:id="@+id/tx_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+        	android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:textColor="#484e5a"
+            android:textSize="14dp"
+            android:singleLine="true"/>
+
+       	<ImageView
+           	android:id="@+id/checkbox_select_all"
+           	android:layout_width="wrap_content"
+           	android:layout_height="fill_parent"
+           	android:paddingLeft="16dp"
+           	android:paddingRight="16dp"
+           	android:contentDescription="复选框全选未选中"/>
+    </LinearLayout>
+    
+    <!-- 顶部分割线 -->
+    <View 
+        android:id="@+id/view_packageManage_divider"
+        style="@style/ListDivider"
+        android:layout_below="@id/layout_packageManage_tips"/>
+       
+    <!-- 加载中提示 -->
+    <RelativeLayout
+        android:id="@+id/scan_content_waiting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tx_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+</RelativeLayout>

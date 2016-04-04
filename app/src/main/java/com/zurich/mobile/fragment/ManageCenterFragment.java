@@ -22,7 +22,7 @@ import com.zurich.mobile.activity.SettingActivity;
 import com.zurich.mobile.utils.GlobalUtils;
 
 /**
- * Created by weixi_000 on 2016/3/20.
+ * Created by weixinfei on 2016/3/20.
  */
 public class ManageCenterFragment extends AppBaseFragment implements View.OnClickListener {
     private Context mContext;

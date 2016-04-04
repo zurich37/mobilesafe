@@ -14,7 +14,7 @@ import com.zurich.mobile.R;
 
 /**
  * 设置界面组件
- * Created by weixi_000 on 2016/3/20.
+ * Created by weixinfei on 2016/3/20.
  */
 public class SettingLayout extends RelativeLayout {
     private TextView tvName;
