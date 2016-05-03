@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_title_style"
+        android:text="4.恭喜您,设置完成" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ffd7d7d7" />
+
+    <com.zurich.mobile.widget.SettingLayout
+        android:id="@+id/setting_setup4_isopen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setting_name="点击开启安全防盗"
+        app:setting_sub_name="已开启"/>
+
+</LinearLayout>

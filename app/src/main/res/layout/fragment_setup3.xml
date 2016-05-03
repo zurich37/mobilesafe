@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_title_style"
+        android:text="3.设置安全号码" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:background="#ffd7d7d7" />
+
+    <TextView
+        style="@style/text_content_style"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginBottom="10dp"
+        android:text="SIM卡变更后\n报警短信会发送给安全号码" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <com.rey.material.widget.EditText
+            android:id="@+id/et_setup3_phone"
+            style="@style/LightEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入或者选择安全号码"
+            android:inputType="phone"
+            android:minHeight="30dp"
+            android:minWidth="200dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            app:et_labelTextSize="18dp"
+            app:et_supportTextSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_setup3_confirm"
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ripple_button_bg"
+            android:gravity="center"
+            android:text="确认"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffd7d7d7" />
+
+    <Button
+        android:id="@+id/btn_setup3_select_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_button_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="选择联系人"
+        android:textSize="18dp" />
+
+</LinearLayout>

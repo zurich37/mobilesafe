@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_title_style"
+        android:text="2.手机卡绑定" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ffd7d7d7" />
+
+    <com.rey.material.widget.TextView
+        style="@style/text_content_style"
+        android:padding="10dp"
+        android:gravity="left"
+        android:lineSpacingMultiplier="1.2"
+        android:text="通过绑定SIM卡:\n下次重启手机如果发现SIM卡变化\n就会向指定号码发送报警短信" />
+
+    <com.zurich.mobile.widget.SettingLayout
+        android:id="@+id/sl_setup_bind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setting_name="绑定sim卡"
+        app:setting_icon="@drawable/fragment_bind_sim" />
+</LinearLayout>
