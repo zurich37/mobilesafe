@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.io.File;
 
 /**
+ * 通用的工具类
  * Created by weixinfei on 2016/3/6.
  */
 public class GlobalUtils {
@@ -111,6 +112,11 @@ public class GlobalUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static int convertDiptoPx(Context context, int dip) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dip * scale + 0.5f * (dip >= 0 ? 1 : -1));
     }
 
 }

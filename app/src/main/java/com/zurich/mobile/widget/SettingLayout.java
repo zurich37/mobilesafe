@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rey.material.widget.CheckBox;
 import com.zurich.mobile.R;
 
 /**
@@ -19,7 +20,7 @@ import com.zurich.mobile.R;
 public class SettingLayout extends RelativeLayout {
     private TextView tvName;
     private ImageView ivIcon;
-    private ImageView ivArrow;
+    private CheckBox checkBox;
     private TextView tvSubName;
     public SettingLayout(Context context) {
         super(context);
@@ -42,7 +43,7 @@ public class SettingLayout extends RelativeLayout {
         tvName = (TextView) layout.findViewById(R.id.setting_name);
         tvSubName = (TextView) layout.findViewById(R.id.setting_sub_name);
         ivIcon = (ImageView) layout.findViewById(R.id.setting_icon);
-        ivArrow = (ImageView) layout.findViewById(R.id.setting_arrow);
+        checkBox = (CheckBox) layout.findViewById(R.id.setting_check);
         setViewDatas(context, attrs);
     }
     private void setViewDatas(Context context, AttributeSet attrs) {
@@ -68,18 +69,11 @@ public class SettingLayout extends RelativeLayout {
         tvSubName.setVisibility(VISIBLE);
     }
 
-
-    public void hasNewVersion(boolean has){
-        if (has){
-//            tvTag.setVisibility(VISIBLE);
-//            tvTag.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-            ivArrow.setVisibility(GONE);
-        }
+    public void setCheckBox(boolean isChecked){
+        checkBox.setChecked(isChecked);
     }
 
+    public boolean getCheckBox(){
+        return checkBox.isChecked();
+    }
 }

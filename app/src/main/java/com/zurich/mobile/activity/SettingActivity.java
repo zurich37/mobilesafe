@@ -62,7 +62,6 @@ public class SettingActivity extends AppCompatActivity {
         SettingLayout settingUpdate = (SettingLayout) findViewById(R.id.setting_update);
         String versionName ="版本："+ PackageInfoUtil.getSelfVersionName(this);
         settingUpdate.setTvSubName(versionName);
-        settingUpdate.hasNewVersion(hasUpdate);
 //        settingUpdate.setOnClickListener(this);
 //        SettingLayout settingInvitation = (SettingLayout) findViewById(R.id.setting_invitation);
 //        settingInvitation.setOnClickListener(this);

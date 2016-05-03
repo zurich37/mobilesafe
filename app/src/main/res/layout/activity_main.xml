@@ -66,6 +66,14 @@
         android:layout_alignTop="@id/layout_navigationActivity_tabs"
         android:background="#ffd7d7d7" />
 
+    <com.rey.material.widget.SnackBar
+        android:id="@+id/main_sn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"/>
+
     <com.zurich.mobile.view.ViewPagerCompat
         android:id="@+id/pager_navigationActivity_content"
         android:layout_width="match_parent"

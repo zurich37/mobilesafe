@@ -9,10 +9,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
@@ -35,12 +37,18 @@ import com.zurich.mobile.view.kbv.KenBurnsView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Created by weixinfei .
  */
 public class SplashActivity extends FragmentActivity {
 
     private String SPLASH_SCREEN_OPTION_1 = "Fade in + Ken Burns";
+    protected static final String TAG = "SplashActivity";
 
     private Activity mActivity;
     private Context mContext;
@@ -73,12 +81,50 @@ public class SplashActivity extends FragmentActivity {
 
         initView();
 
+        initDbSource();
+
         if (localVersion.equals("0")) {
             checkUpdate();
+        }else {
+            enterHomePage();
         }
 
         downLoadCompleteReceiver = new DownLoadCompleteReceiver();
         registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    private void initDbSource() {
+        // 把asset下的数据库 拷贝到系统的目录里面
+        copyDB("address.db");
+        copyDB("commonnum.db");
+        copyDB("antivirus.db");
+    }
+
+    private void copyDB(String dbfilename) {
+        /**
+         * 拷贝资产目录下的数据库文件
+         */
+        File file = new File(getFilesDir(), dbfilename);
+        if (file.exists() && file.length() > 0) {
+            Log.i(TAG, "数据库文件已经拷贝过了，无需重复拷贝");
+        } else {
+            try {
+                // 数据库文件只需要拷贝一次，如果已经拷贝成功了。以后就不需要重复的拷贝了
+                AssetManager am = getAssets();
+                InputStream is = am.open(dbfilename);
+                // 创建一个文件 /data/data/包名/files/address.db
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while ((len = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+                is.close();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initView() {
@@ -129,8 +175,7 @@ public class SplashActivity extends FragmentActivity {
                     versionFromServer = response.getString("version");
                     if (currentVersionName.equals(versionFromServer)) {
                         SharedPreferenceUtil.setSettingPrefs(getBaseContext(), SharedPreferenceUtil.PACKAGE_INFOS_VERSION_NAME, currentVersionName);
-                        startActivity(mainIntent);
-                        SplashActivity.this.finish();
+                        enterHomePage();
                     } else {
                         Dialog.Builder builder = null;
                         String description = response.getString("description");
@@ -145,9 +190,8 @@ public class SplashActivity extends FragmentActivity {
 
                             @Override
                             public void onNegativeActionClicked(DialogFragment fragment) {
-                                startActivity(mainIntent);
                                 super.onNegativeActionClicked(fragment);
-                                SplashActivity.this.finish();
+                                enterHomePage();
                             }
                         };
 
@@ -165,13 +209,17 @@ public class SplashActivity extends FragmentActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                GlobalUtils.showToast(mContext, getResources().getString(R.string.net_wrong));
-                startActivity(mainIntent);
-                SplashActivity.this.finish();
+                GlobalUtils.showToast(mContext, getResources().getString(R.string.update_fail));
+                enterHomePage();
             }
         });
 
         MySingleton.getInstance(this).addToRequestQueue(updRequest);
+    }
+
+    private void enterHomePage() {
+        startActivity(mainIntent);
+        SplashActivity.this.finish();
     }
 
     /**
@@ -230,4 +278,5 @@ public class SplashActivity extends FragmentActivity {
         unregisterReceiver(downLoadCompleteReceiver);
         super.onStop();
     }
+
 }

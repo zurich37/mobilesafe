@@ -3,6 +3,7 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#536DFE</color>
+    <color name="colorControlNormal">#FF78909C</color>
     <color name="colorPrimaryQuarter">#212121</color>
     <color name="colorAccentQuarter">#3300E5FF</color>
     <color name="icons">#FFFFFF</color>
@@ -10,11 +11,19 @@
     <color name="white">#ffffff</color>
     <color name="text_normal">#212121</color>
     <color name="text_second">#727272</color>
+    <color name="text_content">#777777</color>
 
+    <color name="primary_bg">#59B4AD</color>
+    <color name="primary_dark">#34879E</color>
     <color name="gray">#C8C8C8</color>
 
     <!--app asset-->
     <color name="asset_title_color">#333333</color>
     <color name="asset_info_color">#83898f</color>
+
+    <color name="guideBackgroundColor1">#E8FFC1</color>
+    <color name="guideBackgroundColor2">#9EF5CF</color>
+    <color name="guideBackgroundColor3">#51DACF</color>
+    <color name="guideBackgroundColor4">#2196F3</color>
 
 </resources>

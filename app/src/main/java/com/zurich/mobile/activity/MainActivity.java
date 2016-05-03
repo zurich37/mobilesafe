@@ -1,15 +1,15 @@
 package com.zurich.mobile.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
-import com.rey.material.app.ToolbarManager;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.FragmentArrayPageAdapter;
 import com.zurich.mobile.controller.FragmentSwitchController;
@@ -23,7 +23,7 @@ import com.zurich.mobile.view.ViewPagerCompat;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ToolbarManager.OnToolbarGroupChangedListener {
+public class MainActivity extends FragmentActivity{
 
     @Bind(R.id.radio_mainActivity_safe)
     RadioButton radioMainActivitySafe;
@@ -34,8 +34,10 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
     @Bind(R.id.pager_navigationActivity_content)
     ViewPagerCompat viewPager;
 
-    private ToolbarManager mToolbarManager;
     private SkinTabIconController skinTabIconController;
+    private FragmentSwitchController fragmentSwitchController;
+    private ImageView ivToolbarBack;
+    private TextView tvToolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +52,10 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
 
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.main_tool_bar);
-        mToolbar.setTitle("安全卫士");
-        mToolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(mToolbar);
+        ivToolbarBack = (ImageView) mToolbar.findViewById(R.id.iv_toolbar_back);
+        tvToolbarTitle = (TextView) mToolbar.findViewById(R.id.tv_toolbar_title);
+        ivToolbarBack.setVisibility(View.GONE);
         mToolbar.setOnMenuItemClickListener(onMenuItemClick);
-        mToolbarManager = new ToolbarManager(getDelegate(), mToolbar, R.id.tb_group_main, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
-
-        mToolbarManager.registerOnToolbarGroupChangedListener(this);
     }
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
@@ -86,19 +85,7 @@ public class MainActivity extends AppCompatActivity implements ToolbarManager.On
     private void setFragments() {
         viewPager.setAdapter(new FragmentArrayPageAdapter(getSupportFragmentManager(), new SafeFragment(), new NormalFragment(), new ManageCenterFragment()));
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
-        FragmentSwitchController fragmentSwitchController = new FragmentSwitchController(viewPager, radioMainActivitySafe, radioMainActivityNormal, radioMainActivityManage);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        mToolbarManager.createMenu(R.menu.menu_main);
-        return true;
-    }
-
-    @Override
-    public void onToolbarGroupChanged(int oldGroupId, int groupId) {
-        mToolbarManager.notifyNavigationStateChanged();
+        fragmentSwitchController = new FragmentSwitchController(viewPager, radioMainActivitySafe, radioMainActivityNormal, radioMainActivityManage);
     }
 
     @Override
