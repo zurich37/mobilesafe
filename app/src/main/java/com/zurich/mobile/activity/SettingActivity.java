@@ -169,25 +169,9 @@ public class SettingActivity extends AppCompatActivity {
 //        registerReceiver(mDialogReceiver, filter);
 //    }
 
-    public static void launch(Context activity,boolean hasUpdate) {
+    public static void launch(Context activity) {
         //activity.startActivity(new Intent(activity, SettingActivity.class));
-        activity.startActivity(new Intent(activity, SettingActivity.class).putExtra("hasUpdate",hasUpdate));
-    }
-
-    public static void launchSettingSpace(Context mContext) {
-        Intent intent = new Intent();
-        intent.setClassName(mContext, SettingActivity.class.getName());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(SETTING_INDEX, SETTING_LOCATION);
-        mContext.startActivity(intent);
-    }
-
-    public static void launchSettingAutoDelete(Context mContext) {
-        Intent intent = new Intent();
-        intent.setClassName(mContext, SettingActivity.class.getName());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(SETTING_INDEX, SETTING_AUTO_APK_DELETE);
-        mContext.startActivity(intent);
+        activity.startActivity(new Intent(activity, SettingActivity.class));
     }
 
 }

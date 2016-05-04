@@ -25,7 +25,7 @@ public class SetupThridFragment extends AppBaseFragment implements View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        safenumber = SharedPreferenceUtil.getSafePhoneNumberPrefs(getContext(), "safenumber", "");
+        safenumber = SharedPreferenceUtil.getSafePhoneNumberPrefs(getContext(), "");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SetupThridFragment extends AppBaseFragment implements View.OnClickL
             if (TextUtils.isEmpty(res))
                 GlobalUtils.showToast(getContext(), "安全号码不能为空");
             else {
-                SharedPreferenceUtil.setSafePhoneNumberPrefs(getContext(), "safenumber", res);
+                SharedPreferenceUtil.setSafePhoneNumberPrefs(getContext(), res);
                 GlobalUtils.showToast(getContext(), "成功保存");
             }
         }

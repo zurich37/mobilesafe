@@ -17,8 +17,7 @@
         <ListView
             android:id="@+id/lv_taskmanager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fastScrollEnabled="true"/>
+            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:id="@+id/ll_loading"
@@ -39,6 +38,7 @@
         </LinearLayout>
 
     </FrameLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +57,7 @@
             android:layout_alignParentRight="true"
             android:text="剩余/总内存：" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

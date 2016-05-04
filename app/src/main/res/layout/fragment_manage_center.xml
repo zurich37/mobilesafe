@@ -15,55 +15,34 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/rl_update"
+                android:id="@+id/rl_call_access"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="120dp">
 
                 <TextView
                     android:id="@+id/app_update_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_centerInParent="true"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:text="应用更新"
+                    android:text="通信助手"
                     android:textColor="@color/text_normal"
-                    android:textSize="15dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/app_update_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="25dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/app_update_title"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/ll_update_icon_area"
-                        android:layout_width="wrap_content"
-                        android:layout_height="22dp"
-                        android:gravity="center"
-                        android:orientation="horizontal" />
 
                     <TextView
                         android:id="@+id/app_update_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
+                        android:paddingTop="10dp"
+                        android:layout_centerHorizontal="true"
                         android:includeFontPadding="false"
-                        android:text="16个应用可更新"
+                        android:text="通信小管家"
+                        android:layout_below="@id/app_update_title"
                         android:textColor="#777777"
                         android:textSize="12dp" />
-                </LinearLayout>
             </RelativeLayout>
 
             <TextView
@@ -71,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@drawable/common_background_divider"
-                android:layout_below="@+id/rl_update"
+                android:layout_below="@id/rl_call_access"
                 android:layout_marginTop="20dp" />
 
             <LinearLayout
@@ -96,7 +75,7 @@
                         android:id="@+id/tv_download_title"
                         style="@style/ManageCenterRelativeTitle"
                         android:layout_toRightOf="@+id/iv_download"
-                        android:text="下载管理" />
+                        android:text="淘应用" />
 
                     <TextView
                         android:id="@+id/tv_download_count"
@@ -128,7 +107,7 @@
                         android:id="@+id/tv_unload_title"
                         style="@style/ManageCenterRelativeTitle"
                         android:layout_toRightOf="@+id/iv_unload"
-                        android:text="软件卸载" />
+                        android:text="隐私保护" />
 
                     <TextView
                         android:id="@+id/tv_unload_count"
@@ -224,17 +203,6 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
-                <TextView
-                    android:id="@+id/tv_hongbao"
-                    style="@style/ManageCenterExtraFunction"
-                    android:drawableTop="@drawable/manage_center_hongbao"
-                    android:text="@string/manage_center_hongbao"/>
-
-                <TextView
-                    android:id="@+id/tv_skin"
-                    style="@style/ManageCenterExtraFunction"
-                    android:drawableTop="@drawable/manage_center_skin"
-                    android:text="@string/manage_center_skin"/>
 
                 <TextView
                     android:id="@+id/tv_favorite"
@@ -259,11 +227,6 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
-                <TextView
-                    android:id="@+id/tv_move"
-                    style="@style/ManageCenterExtraFunction"
-                    android:drawableTop="@drawable/manage_center_move"
-                    android:text="@string/manage_center_apk_move"/>
 
                 <TextView
                     android:id="@+id/tv_google"
@@ -271,11 +234,6 @@
                     android:drawableTop="@drawable/manage_center_google"
                     android:text="@string/manage_center_google"/>
 
-                <TextView
-                    android:id="@+id/tv_scan"
-                    style="@style/ManageCenterExtraFunction"
-                    android:drawableTop="@drawable/manage_center_scan"
-                    android:text="@string/manage_center_scan"/>
 
                 <TextView
                     android:id="@+id/tv_setting"

@@ -9,6 +9,15 @@
         android:id="@+id/main_tool_bar"
         layout="@layout/toolbar_layout" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="安全卫士"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
     <RadioGroup
         android:id="@+id/layout_navigationActivity_tabs"
         android:layout_width="match_parent"
@@ -28,20 +37,6 @@
             android:paddingBottom="4dp"
             android:paddingTop="7dp"
             android:text="手机防护"
-            android:textColor="@color/text_normal"
-            android:textSize="12dp" />
-
-        <RadioButton
-            android:id="@+id/radio_mainActivity_normal"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_button_bg"
-            android:button="@null"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingTop="7dp"
-            android:text="常用功能"
             android:textColor="@color/text_normal"
             android:textSize="12dp" />
 

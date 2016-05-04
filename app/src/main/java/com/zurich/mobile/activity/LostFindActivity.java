@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
  */
 public class LostFindActivity extends FragmentActivity implements View.OnClickListener {
 
-    public static final String SAFECONFIG = "safe_config";
     @Bind(R.id.tv_lostfind_number)
     TextView tvLostfindNumber;
     @Bind(R.id.iv_lostfind_status)
@@ -35,16 +34,16 @@ public class LostFindActivity extends FragmentActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_find);
         ButterKnife.bind(this);
-        Boolean isConfiged = SharedPreferenceUtil.getLostFindConfigPrefs(getBaseContext(), SAFECONFIG, false);
+        Boolean isConfiged = SharedPreferenceUtil.getLostFindConfigPrefs(getBaseContext(), false);
         if (isConfiged) {
             initActionBar();
-            boolean protecting = SharedPreferenceUtil.getProtectConfigPrefs(getBaseContext(), "protecting", false);
+            boolean protecting = SharedPreferenceUtil.getProtectConfigPrefs(getBaseContext(), false);
             if (protecting) {
                 ivLostfindStatus.setImageResource(R.drawable.lock);
             } else {
                 ivLostfindStatus.setImageResource(R.drawable.unlock);
             }
-            tvLostfindNumber.setText(SharedPreferenceUtil.getSafePhoneNumberPrefs(getBaseContext(), "safenumber", ""));
+            tvLostfindNumber.setText(SharedPreferenceUtil.getSafePhoneNumberPrefs(getBaseContext(), ""));
         }else {
             Intent intent = new Intent(getBaseContext(), SetupSafeActivty.class);
             startActivity(intent);

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/image_packageClearChildAppItem_icon"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="16dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_packageClearChildAppItem_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="15dp"
+                tools:text="猫眼电影" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/text_packageClearChildAppItem_versionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="50dp"
+                    android:textColor="#808181"
+                    android:textSize="12dp"
+                    tools:text="2.1.0" />
+
+                <TextView
+                    android:id="@+id/text_packageClearChildAppItem_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#808181"
+                    android:textSize="12dp"
+                    tools:text="未安装" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_packageClearChildAppItem_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textColor="#808181"
+            android:textSize="12dp"
+            tools:text="188M" />
+
+        <ImageView
+            android:id="@+id/image_packageClearChildAppItem_checked"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="center" />
+    </LinearLayout>
+
+    <View style="@style/ListDivider" />
+</LinearLayout>

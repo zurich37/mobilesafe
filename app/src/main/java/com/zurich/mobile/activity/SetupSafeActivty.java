@@ -114,7 +114,7 @@ public class SetupSafeActivty extends FragmentActivity {
         btnSetup1Over.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!SharedPreferenceUtil.getProtectConfigPrefs(getBaseContext(), "protecting", false)) {
+                if (!SharedPreferenceUtil.getProtectConfigPrefs(getBaseContext(), false)) {
                     Dialog.Builder builder = null;
                     builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
                         @Override
@@ -136,7 +136,7 @@ public class SetupSafeActivty extends FragmentActivity {
                     DialogFragment fragment = DialogFragment.newInstance(builder);
                     fragment.show(getSupportFragmentManager(), null);
                 } else {
-                    SharedPreferenceUtil.setLostFindConfigPrefs(getBaseContext(), "safe_config", true);
+                    SharedPreferenceUtil.setLostFindConfigPrefs(getBaseContext(), true);
                     GlobalUtils.showToast(getBaseContext(), "已完成设置！");
                     finish();
                 }

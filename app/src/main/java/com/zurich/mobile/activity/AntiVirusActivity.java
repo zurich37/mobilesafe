@@ -155,8 +155,6 @@ public class AntiVirusActivity extends FragmentActivity {
         ivScan.startAnimation(ra);
 
         tvScanStatus.setText("正在初始化8核杀毒引擎");
-
-        pbAntiProgress.setMinimumHeight(DensityUtil.dip2px(getBaseContext(), 20));
     }
 
     class ScanInfo {

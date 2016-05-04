@@ -7,12 +7,13 @@
     <!--顶部分数-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:background="@color/colorPrimary"
         android:gravity="center_horizontal">
 
         <RelativeLayout
             android:id="@+id/rl_safe_score"
+            android:layout_marginTop="20dp"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="20dp">
@@ -101,7 +102,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_soft_manager"
+            android:id="@+id/tv_app_manager"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"

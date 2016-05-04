@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/text_packageClearGroupItem_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textColor="@android:color/black"
+                android:drawablePadding="16dp"
+                android:textSize="15dp"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                tools:text="应用安装包" />
+
+            <TextView
+                android:id="@+id/text_packageClearGroupItem_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="16dp"
+                android:gravity="right"
+                android:textColor="#808181"
+                android:textSize="12dp"
+                tools:text="188M" />
+
+            <ImageView
+                android:id="@+id/image_packageClearGroupItem_checked"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:scaleType="center"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_packageClearGroupItem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="right|center_vertical"/>
+    </FrameLayout>
+
+    <View style="@style/ListDivider" />
+</LinearLayout>

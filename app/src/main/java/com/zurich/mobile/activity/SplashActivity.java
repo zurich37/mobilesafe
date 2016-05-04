@@ -75,7 +75,7 @@ public class SplashActivity extends FragmentActivity {
         mainIntent = new Intent();
         mainIntent.setAction(Account.STTART_MAIN_PAGE);
 
-        String localVersion = SharedPreferenceUtil.getSettingPrefs(this, SharedPreferenceUtil.SETTING_PREFS_NAME, "0");
+        String localVersion = SharedPreferenceUtil.getSettingPrefs(this, "0");
 
         currentVersionName = PackageInfoUtil.getSelfVersionName(this);
 
@@ -174,7 +174,7 @@ public class SplashActivity extends FragmentActivity {
                 try {
                     versionFromServer = response.getString("version");
                     if (currentVersionName.equals(versionFromServer)) {
-                        SharedPreferenceUtil.setSettingPrefs(getBaseContext(), SharedPreferenceUtil.PACKAGE_INFOS_VERSION_NAME, currentVersionName);
+                        SharedPreferenceUtil.setSettingPrefs(getBaseContext(), currentVersionName);
                         enterHomePage();
                     } else {
                         Dialog.Builder builder = null;

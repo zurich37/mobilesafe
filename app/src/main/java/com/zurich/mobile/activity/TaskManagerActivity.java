@@ -1,5 +1,6 @@
 package com.zurich.mobile.activity;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import com.zurich.mobile.adapter.itemfactory.TaskManagerTitleFactory;
 import com.zurich.mobile.engine.TaskInfoProvider;
 import com.zurich.mobile.model.TaskInfo;
 import com.zurich.mobile.utils.GlobalUtils;
+import com.zurich.mobile.utils.SharedPreferenceUtil;
 import com.zurich.mobile.utils.SystemInfoUtils;
 
 import java.util.ArrayList;
@@ -68,14 +70,15 @@ public class TaskManagerActivity extends FragmentActivity {
     // 总内存
     private long totalRam;
 
+    private String listUserTaskTitle;
+    private String listSystemTaskTitle;
+    private AssemblyPinnedSectionAdapter mAdapter;
+
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             llLoading.setVisibility(View.GONE);
         }
     };
-    private String listUserTaskTitle;
-    private String listSystemTaskTitle;
-    private AssemblyPinnedSectionAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +165,7 @@ public class TaskManagerActivity extends FragmentActivity {
             datas.addAll(userTaskInfos);
         }
 
-        if (systemTaskInfos != null && systemTaskInfos.size() > 0) {
+        if (systemTaskInfos != null && systemTaskInfos.size() > 0 && SharedPreferenceUtil.getSysTaskVisiblePrefs(getBaseContext(), false)) {
             listSystemTaskTitle = "系统进程(" + systemTaskInfos.size() + ")";
             datas.add((userTaskInfos != null && userTaskInfos.size() > 0) ? userTaskInfos.size() + 1 : 0, listSystemTaskTitle);
             datas.addAll(systemTaskInfos);
@@ -250,13 +253,21 @@ public class TaskManagerActivity extends FragmentActivity {
      * 进入设置界面
      */
     public void enterSetting(View view) {
-//        Intent intent = new Intent(this, TaskManagerSettingActivity.class);
-//        startActivityForResult(intent, 0);
+        Intent intent = new Intent(this, TaskManagerSettingActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        updateAdapter();
+        if (resultCode == Activity.RESULT_OK){
+            Boolean isShow = data.getBooleanExtra("is_show_sys", false);
+            if (isShow){
+                initData();
+            }else {
+                systemTaskInfos.clear();
+                initAdapterData();
+            }
+        }
     }
 }

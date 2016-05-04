@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+        tools:background="#000000">
+
+        <TextView
+            android:id="@+id/text_clearHeader_wasteSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="80dp"
+            android:textStyle="bold"
+            tools:text="315"/>
+
+        <TextView
+            android:id="@+id/text_clearHeader_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:text="MB"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_clearHeader"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom"
+        tools:background="#000000"
+        style="@style/Material.Widget.ProgressView.Linear"/>
+
+    <TextView
+        android:id="@+id/text_clearHeader_dir"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:textSize="12dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        tools:text="/sdcard/downloads"/>
+
+    <TextView
+        android:id="@+id/text_clearHeader_allClean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_all_clean"
+        android:layout_gravity="center"
+        android:drawablePadding="16dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:text="清理完毕"
+        tools:background="#FF1FA525"/>
+</merge>

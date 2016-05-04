@@ -18,6 +18,7 @@ import com.rey.material.widget.EditText;
 import com.rey.material.widget.SnackBar;
 import com.zurich.mobile.R;
 import com.zurich.mobile.activity.AntiVirusActivity;
+import com.zurich.mobile.activity.AppManagerActivity;
 import com.zurich.mobile.activity.LostFindActivity;
 import com.zurich.mobile.activity.TaskManagerActivity;
 import com.zurich.mobile.utils.GlobalUtils;
@@ -31,7 +32,6 @@ import java.util.Random;
  */
 public class SafeFragment extends AppBaseFragment implements View.OnClickListener {
 
-    public static final String CHECKSAFESETTING = "check_safe_setting";
     public static final int CHECKEDSAFE = 1;
     public static final int CHECKNOSAFE = 0;
     public static int SAFESCORE = 74;
@@ -48,7 +48,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     private Dialog.Builder dialogBuilder;
     private TextView tvSafeAntiVirus;
     private TextView tvTaskManager;
-    private TextView tvSoftManager;
+    private TextView tvAppManager;
     private Intent intent;
 
     @Override
@@ -71,7 +71,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
         tvLostFind = (TextView) findViewById(R.id.tv_safe_lost_find);
         tvSafeAntiVirus = (TextView) findViewById(R.id.tv_safe_anti_virus);
         tvTaskManager = (TextView) findViewById(R.id.tv_task_manager);
-        tvSoftManager = (TextView) findViewById(R.id.tv_soft_manager);
+        tvAppManager = (TextView) findViewById(R.id.tv_app_manager);
 
         mSnackBar = (SnackBar) getActivity().findViewById(R.id.main_sn);
         mSnackBar.applyStyle(R.style.Material_Widget_SnackBar_Tablet);
@@ -79,7 +79,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
         tvLostFind.setOnClickListener(this);
         tvSafeAntiVirus.setOnClickListener(this);
         tvTaskManager.setOnClickListener(this);
-        tvSoftManager.setOnClickListener(this);
+        tvAppManager.setOnClickListener(this);
 
         rlSafeScore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +106,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     }
 
     private void initScore() {
-        int safeSettingPrefs = SharedPreferenceUtil.getSafeSettingPrefs(getContext(), CHECKSAFESETTING, 0);
+        int safeSettingPrefs = SharedPreferenceUtil.getSafeSettingPrefs(getContext(), 0);
         if (safeSettingPrefs == CHECKNOSAFE){
             SAFESCORE = 82;
             mRunnable = new SafeRunnable(SAFESCORE);
@@ -132,6 +132,10 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
                 break;
             case R.id.tv_task_manager:
                 intent.setClass(getContext(), TaskManagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_app_manager:
+                intent.setClass(getContext(), AppManagerActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -210,7 +214,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
 
                 if(pwd.equals(pwd_confirm)){
                     //存储这个密码
-                    SharedPreferenceUtil.setSafePasswordPrefs(getContext(), "password", pwd);
+                    SharedPreferenceUtil.setSafePasswordPrefs(getContext(), pwd);
 
                     enterLostFindActivity();
                     super.onPositiveActionClicked(fragment);
@@ -260,7 +264,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
                     .duration(1000)
                     .show();
             return false;
-        } else if (!etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), "password", null))) {
+        } else if (!etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null))) {
             if(mSnackBar.getState() == SnackBar.STATE_SHOWN)
                 mSnackBar.dismiss();
             mSnackBar.text("密码错误")
@@ -269,7 +273,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
                     .show();
             return false;
         }
-        else if (etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), "password", null))){
+        else if (etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null))){
             GlobalUtils.showToast(getContext(), "密码正确");
             return true;
         }
@@ -281,7 +285,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
      * @return
      */
     private boolean isSetupPwd(){
-        String password = SharedPreferenceUtil.getSafePasswordPrefs(getContext(), "password", null);
+        String password = SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null);
         return !TextUtils.isEmpty(password);
     }
 
@@ -332,6 +336,6 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     public void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacks(mRunnable);
-        SharedPreferenceUtil.setSafeSettingPrefs(getContext(), CHECKSAFESETTING, 0);
+        SharedPreferenceUtil.setSafeSettingPrefs(getContext(), 0);
     }
 }
