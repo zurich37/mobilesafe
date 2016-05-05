@@ -2,6 +2,7 @@ package com.zurich.mobile.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -13,7 +14,11 @@ import com.zurich.mobile.controller.FragmentSwitchController;
 import com.zurich.mobile.controller.SkinTabIconController;
 import com.zurich.mobile.fragment.ManageCenterFragment;
 import com.zurich.mobile.fragment.SafeFragment;
+import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.view.ViewPagerCompat;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +42,9 @@ public class MainActivity extends FragmentActivity {
 
     private SkinTabIconController skinTabIconController;
     private FragmentSwitchController fragmentSwitchController;
+
+    private static Boolean isQuit = false;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,5 +89,28 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         skinTabIconController.destroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 0) {
+            if (isQuit == false) {
+                isQuit = true;
+                GlobalUtils.showToast(getBaseContext(), "再按一次返回键退出程序");
+                TimerTask task = null;
+                task = new TimerTask() {
+                    public void run() {
+                        isQuit = false;
+                    }
+                };
+                timer.schedule(task, 2000);
+            } else {
+                finish();
+                System.exit(0);
+            }
+        }else if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 2){
+            super.onKeyDown(keyCode, event);
+        }
+        return false;
     }
 }
