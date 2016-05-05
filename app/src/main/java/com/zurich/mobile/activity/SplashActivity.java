@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * 启动页
  * Created by weixinfei .
  */
 public class SplashActivity extends FragmentActivity {
