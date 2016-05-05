@@ -109,6 +109,7 @@ public class MainActivity extends FragmentActivity {
                 System.exit(0);
             }
         }else if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 1){
+            viewPager.setCurrentItem(0);
             super.onKeyDown(keyCode, event);
         }
         return false;
