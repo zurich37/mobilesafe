@@ -599,7 +599,7 @@ public class PackageClearActivity extends FragmentActivity {
                         + "包名：" + makeSafe(appPackage.appPackageName)
                         + "\n"
                         + "位置：" + appPackage.filePath)
-                        .title("破损安装包")
+                        .title("完整安装包")
                         .positiveAction("安装")
                         .negativeAction("我知道了");
                 DialogFragment fragment = DialogFragment.newInstance(builder);
