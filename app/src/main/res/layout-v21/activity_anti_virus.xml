@@ -57,8 +57,9 @@
                 <ProgressBar
                     android:id="@+id/pb_anti_progress"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"/>
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:theme="@style/LinearProgress"/>
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>

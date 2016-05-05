@@ -32,10 +32,15 @@
     <ProgressBar
         android:id="@+id/progress_clearHeader"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
+        android:minHeight="25dp"
+        android:maxHeight="25dp"
         android:layout_gravity="bottom"
         tools:background="#000000"
-        style="@style/Material.Widget.ProgressView.Linear"/>
+        android:indeterminate="false"
+        android:max="100"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:theme="@style/LinearProgress"/>
 
     <TextView
         android:id="@+id/text_clearHeader_dir"

@@ -70,8 +70,20 @@ public class PackageClearActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setTitle("安装包清理");
         setContentView(R.layout.activity_package_clear);
+        initToolBar();
         initViews();
         startScan();
+    }
+
+    private void initToolBar() {
+        View toolBar = findViewById(R.id.pkg_clear_tool_bar);
+        toolBar.findViewById(R.id.tool_bar);
+        toolBar.findViewById(R.id.iv_toolbar_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void initViews() {
@@ -90,9 +102,6 @@ public class PackageClearActivity extends FragmentActivity {
             @Override
             protected void onHeadScroll(int headHeight, int scrollDistance, float percent) {
                 updateToolbarBackgroundColor(percent);
-//                View windowContentOverlayView = getSimpleToolbarHelper().getWindowContentOverlayView();
-//                windowContentOverlayView.getBackground().setAlpha((int) (percent * 255));
-//                windowContentOverlayView.setVisibility(View.VISIBLE);
             }
         }.setToolbarHeight(toolbarHeight));
 

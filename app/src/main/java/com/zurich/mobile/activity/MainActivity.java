@@ -18,6 +18,10 @@ import com.zurich.mobile.view.ViewPagerCompat;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 主页面
+ * 包含两个Fragment
+ */
 public class MainActivity extends FragmentActivity {
 
     @Bind(R.id.radio_mainActivity_safe)

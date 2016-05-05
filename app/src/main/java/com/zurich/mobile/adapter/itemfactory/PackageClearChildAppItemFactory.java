@@ -6,10 +6,10 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.rey.material.widget.CheckBox;
 import com.zurich.mobile.R;
 import com.zurich.mobile.assemblyadapter.AssemblyChildItem;
 import com.zurich.mobile.assemblyadapter.AssemblyChildItemFactory;
@@ -45,7 +45,7 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
         private TextView versionNameTextView;
         private TextView descTextView;
         private TextView sizeTextView;
-        private ImageView checkedImageView;
+        private CheckBox checkBox;
 
         private Drawable checkedDrawable;
         private Drawable uncheckedDrawable;
@@ -61,12 +61,12 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
             versionNameTextView = (TextView) convertView.findViewById(R.id.text_packageClearChildAppItem_versionName);
             descTextView = (TextView) convertView.findViewById(R.id.text_packageClearChildAppItem_desc);
             sizeTextView = (TextView) convertView.findViewById(R.id.text_packageClearChildAppItem_size);
-            checkedImageView = (ImageView) convertView.findViewById(R.id.image_packageClearChildAppItem_checked);
+            checkBox = (CheckBox) convertView.findViewById(R.id.image_packageClearChildAppItem_checked);
         }
 
         @Override
         protected void onConfigViews(Context context) {
-            checkedImageView.setOnClickListener(new View.OnClickListener() {
+            checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (eventListener != null) {
@@ -119,9 +119,9 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
             }
 
             if (appPackage.isChecked()) {
-                checkedImageView.setImageDrawable(checkedDrawable);
+                checkBox.setChecked(true);
             } else {
-                checkedImageView.setImageDrawable(uncheckedDrawable);
+                checkBox.setChecked(false);
             }
         }
     }
