@@ -2,12 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical" >
 
-    <include
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
         android:id="@+id/lost_find_tool_bar"
-        layout="@layout/toolbar_layout" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -54,7 +57,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/unlock" />
+            android:src="@drawable/ic_lock_open" />
     </RelativeLayout>
 
     <View style="@style/ListDivider" />
@@ -76,8 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:background="#81bcf2"
+        android:background="#d6d8da"
         android:gravity="left"
+        android:textColor="@color/text_normal"
         android:paddingLeft="5dp"
         android:text="功能简介" />
 

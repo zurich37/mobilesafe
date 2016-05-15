@@ -7,11 +7,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.rey.material.widget.ListView;
 import com.zurich.mobile.R;
@@ -29,14 +29,12 @@ import butterknife.ButterKnife;
  * 选择联系人
  * Created by weixinfei on 16/4/24.
  */
-public class SelectContactActivity extends FragmentActivity {
+public class SelectContactActivity extends BaseActivity {
 
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @Bind(R.id.lv_select_contact)
     ListView lvSelectContact;
+    @Bind(R.id.setup_tool_bar)
+    Toolbar mToolbar;
     private AssemblyAdapter mAdapter;
     public static final String RESULT_CONTACT_NUMBER = "contact_number";
 
@@ -52,7 +50,7 @@ public class SelectContactActivity extends FragmentActivity {
 
     private void initData() {
 
-        new AsyncTask<Void, Void, Boolean>(){
+        new AsyncTask<Void, Void, Boolean>() {
 
             private ArrayList<ContactInfo> datas;
 
@@ -66,12 +64,12 @@ public class SelectContactActivity extends FragmentActivity {
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
-                if (aBoolean && mAdapter == null){
+                if (aBoolean && mAdapter == null) {
                     mAdapter = new AssemblyAdapter(datas);
                     mAdapter.addItemFactory(new SelectContactItemFactory(new SelectContactEventListener()));
                     lvSelectContact.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     GlobalUtils.showToast(getBaseContext(), "您还没有任何联系人");
                 }
             }
@@ -79,13 +77,40 @@ public class SelectContactActivity extends FragmentActivity {
     }
 
     private void initActionBar() {
-        ivToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mToolbar.setTitle(getResources().getString(R.string.select_contact));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
                 onBackPressed();
-            }
-        });
-        tvToolbarTitle.setText("安全防盗");
+                return true;
+            case R.id.men_action_settings:
+                SettingActivity.launch(SelectContactActivity.this);
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

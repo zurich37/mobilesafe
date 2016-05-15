@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.AssemblyPinnedSectionAdapter;
-import com.zurich.mobile.assemblyadapter.AssemblyItem;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
 
 /**
  * 进程管理title
  * Created by weixinfei on 16/5/2.
  */
-public class TaskManagerTitleFactory extends AssemblyItemFactory<TaskManagerTitleFactory.TaskmanagerTitleItem> implements AssemblyPinnedSectionAdapter.PinnedSectionItemFactory{
+public class TaskManagerTitleFactory extends AssemblyRecyclerItemFactory<TaskManagerTitleFactory.TaskmanagerTitleItem> implements AssemblyPinnedSectionAdapter.PinnedSectionItemFactory{
     @Override
     public boolean isTarget(Object itemObject) {
         return itemObject instanceof String;
@@ -26,8 +26,10 @@ public class TaskManagerTitleFactory extends AssemblyItemFactory<TaskManagerTitl
         return new TaskmanagerTitleItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_task_manager_title, parent, false), this);
     }
 
-    public class TaskmanagerTitleItem extends AssemblyItem<String, TaskManagerTitleFactory>{
+    public class TaskmanagerTitleItem extends AssemblyRecyclerItem<String, TaskManagerTitleFactory> {
 
+
+        private TextView tvTitle;
 
         protected TaskmanagerTitleItem(View convertView, TaskManagerTitleFactory itemFactory) {
             super(convertView, itemFactory);
@@ -35,6 +37,7 @@ public class TaskManagerTitleFactory extends AssemblyItemFactory<TaskManagerTitl
 
         @Override
         protected void onFindViews(View convertView) {
+            tvTitle = (TextView) convertView.findViewById(R.id.tvTask_list_title);
         }
 
         @Override
@@ -43,7 +46,7 @@ public class TaskManagerTitleFactory extends AssemblyItemFactory<TaskManagerTitl
 
         @Override
         protected void onSetData(int position, String str) {
-            ((TextView)convertView).setText(str);
+            tvTitle.setText(str);
         }
     }
 }

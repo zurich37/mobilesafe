@@ -6,6 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="fabCircleColor">@color/fabCircleColor_dark</item>
+        <item name="iconColor">@color/white</item>
+        <item name="stateSelector">@color/state_selector_light</item>
+    </style>
+
+    <!--DarkTheme-->
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryDarkTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="iconColor">@color/white</item>
+        <item name="stateSelector">@color/state_selector_dark</item>
     </style>
 
     <style name="SimpleDialogLight" parent="Material.App.Dialog.Simple.Light">
@@ -180,4 +197,13 @@
         <item name="android:layout_height">10dp</item>
     </style>
 
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--右上角小圆点菜单-->
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!--兼容Api 21之前的版本 -->
+        <item name="overlapAnchor">false</item>
+    </style>
 </resources>

@@ -13,30 +13,34 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StatFs;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
-import android.widget.AbsListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.adapter.AssemblyPinnedSectionAdapter;
 import com.zurich.mobile.adapter.itemfactory.AppManagerItemFactory;
 import com.zurich.mobile.adapter.itemfactory.AppManagerTitleFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.engine.AppInfoProvider;
 import com.zurich.mobile.model.AppInfo;
 import com.zurich.mobile.utils.DensityUtil;
 import com.zurich.mobile.utils.GlobalUtils;
+import com.zurich.mobile.widget.HintView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,27 +52,20 @@ import butterknife.ButterKnife;
  * 应用管理
  * Created by weixinfei on 16/5/3.
  */
-public class AppManagerActivity extends FragmentActivity {
+public class AppManagerActivity extends BaseActivity {
     private static final String TAG = "AppManagerActivity";
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
-    @Bind(R.id.lv_appmanager)
-    ListView lvAppmanager;
-    @Bind(R.id.ll_loading)
-    LinearLayout llLoading;
+
+    @Bind(R.id.recycler_app_manager)
+    RecyclerView recyclerView;
     @Bind(R.id.tv_avail_rom)
     TextView tvAvailRom;
     @Bind(R.id.tv_avail_sd)
     TextView tvAvailSd;
+    @Bind(R.id.toolbar_app_manager)
+    Toolbar mToolbar;
+    @Bind(R.id.hint_app_manager)
+    HintView hintView;
     private List<AppInfo> appInfos;
-
-
-    /**
-     * 被点击的条目
-     */
-    private AppInfo appInfo;
 
     /**
      * 用户程序集合
@@ -84,10 +81,10 @@ public class AppManagerActivity extends FragmentActivity {
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            llLoading.setVisibility(View.GONE);
+            hintView.hidden();
         }
     };
-    private AssemblyPinnedSectionAdapter mAdapter;
+    private AssemblyRecyclerAdapter mAdapter;
     private String listUserAppTitle;
     private String listSystemAppTitle;
 
@@ -107,36 +104,63 @@ public class AppManagerActivity extends FragmentActivity {
 
     }
 
-
     private void initActionBar() {
-        tvToolbarTitle.setText("应用管理");
-        ivToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mToolbar.setTitle(getResources().getString(R.string.safe_soft_manager));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
                 onBackPressed();
-            }
-        });
+                return true;
+            case R.id.men_action_settings:
+                SettingActivity.launch(AppManagerActivity.this);
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
         tvAvailSd.setText("SD卡可用：" + getTotalSpace(Environment.getExternalStorageDirectory().getAbsolutePath()));
         tvAvailRom.setText("内存可用：" + getTotalSpace(Environment.getDataDirectory().getAbsolutePath()));
         //滑动时隐藏气泡
-        lvAppmanager.setOnScrollListener(new AbsListView.OnScrollListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                dismissPopupWindow();
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy < 0 | dy > 0) {
+                    dismissPopupWindow();
+                }
+                super.onScrolled(recyclerView, dx, dy);
             }
         });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initData() {
-        llLoading.setVisibility(View.VISIBLE);
+        hintView.loading().show();
         new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -162,10 +186,10 @@ public class AppManagerActivity extends FragmentActivity {
                 super.onPostExecute(aBoolean);
                 if (aBoolean) {
                     if (mAdapter == null) {
-                        mAdapter = new AssemblyPinnedSectionAdapter(new ArrayList<Object>());
+                        mAdapter = new AssemblyRecyclerAdapter(new ArrayList<Object>());
                         mAdapter.addItemFactory(new AppManagerTitleFactory());
                         mAdapter.addItemFactory(new AppManagerItemFactory(new EventListener()));
-                        lvAppmanager.setAdapter(mAdapter);
+                        recyclerView.setAdapter(mAdapter);
                     }
                     initAdapterData();
                     handler.sendEmptyMessage(0);
@@ -213,6 +237,7 @@ public class AppManagerActivity extends FragmentActivity {
 
     /**
      * 气泡显示
+     *
      * @param view
      * @param appInfo
      */
@@ -252,9 +277,9 @@ public class AppManagerActivity extends FragmentActivity {
         int[] location = new int[2];
         view.getLocationInWindow(location);
         //根据手机手机的分辨率 把60dip 转化成 不同的值 px
-        int px = DensityUtil.dip2px(getApplicationContext(), 60);
+        int px = DensityUtil.dip2px(getApplicationContext(), 80);
         System.out.println(px);
-        popupWindow.showAtLocation(lvAppmanager, Gravity.TOP + Gravity.LEFT, px, location[1]);
+        popupWindow.showAtLocation(recyclerView, Gravity.TOP + Gravity.LEFT, px, location[1]);
         AlphaAnimation aa = new AlphaAnimation(0.5f, 1.0f);
         aa.setDuration(200);
         ScaleAnimation sa = new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0.5f);

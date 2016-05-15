@@ -4,8 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-    <include layout="@layout/toolbar_layout" />
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_task_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
 
     <com.zurich.mobile.widget.SettingLayout
         android:id="@+id/setting_task_show_system"

@@ -11,15 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyItem;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
 import com.zurich.mobile.model.TaskInfo;
 
 /**
  * 进程Item
  * Created by weixinfei on 16/5/2.
  */
-public class TaskManagerItemFactory extends AssemblyItemFactory<TaskManagerItemFactory.TaskManagerItem> {
+public class TaskManagerItemFactory extends AssemblyRecyclerItemFactory<TaskManagerItemFactory.TaskManagerItem> {
     @Override
     public boolean isTarget(Object itemObject) {
         return itemObject instanceof TaskInfo;
@@ -30,7 +30,7 @@ public class TaskManagerItemFactory extends AssemblyItemFactory<TaskManagerItemF
         return new TaskManagerItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_task_manager, parent, false), this);
     }
 
-    public class TaskManagerItem extends AssemblyItem<TaskInfo, TaskManagerItemFactory>{
+    public class TaskManagerItem extends AssemblyRecyclerItem<TaskInfo, TaskManagerItemFactory> {
         private TextView tvTaskName;
         private ImageView ivTaskIcon;
         private TextView tvMemSize;

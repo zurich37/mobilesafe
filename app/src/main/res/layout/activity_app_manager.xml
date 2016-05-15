@@ -2,56 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_layout" />
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_app_manager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50">
 
-        <ListView
-            android:id="@+id/lv_appmanager"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_app_manager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/ll_loading"
+        <com.zurich.mobile.widget.HintView
+            android:id="@+id/hint_app_manager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="正在读取应用程序数据..." />
-        </LinearLayout>
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_avail_rom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="内存可用：" />
 
         <TextView
             android:id="@+id/tv_avail_sd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:text="SD卡可用：" />
     </RelativeLayout>

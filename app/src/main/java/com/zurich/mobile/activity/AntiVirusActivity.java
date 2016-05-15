@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -23,7 +25,6 @@ import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.zurich.mobile.R;
 import com.zurich.mobile.db.Dao.AntivirusDao;
-import com.zurich.mobile.utils.DensityUtil;
 import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.utils.Md5Utils;
 
@@ -38,15 +39,11 @@ import butterknife.ButterKnife;
  * 手机杀毒
  * Created by weixinfei on 16/4/30.
  */
-public class AntiVirusActivity extends FragmentActivity {
+public class AntiVirusActivity extends BaseActivity {
 
     protected static final int SCANING = 1;
     protected static final int SCAN_FINISH = 2;
     protected static final int UPDATE_PROGRESS = 3;
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @Bind(R.id.iv_scan)
     ImageView ivScan;
     @Bind(R.id.tv_scan_status)
@@ -55,6 +52,8 @@ public class AntiVirusActivity extends FragmentActivity {
     LinearLayout llAntiContainer;
     @Bind(R.id.pb_anti_progress)
     ProgressBar pbAntiProgress;
+    @Bind(R.id.anti_virus_tool_bar)
+    Toolbar mToolbar;
 
     private AntiHandler mHandler;
     /**
@@ -78,13 +77,40 @@ public class AntiVirusActivity extends FragmentActivity {
     }
 
     private void initActionBar() {
-        tvToolbarTitle.setText("手机杀毒");
-        ivToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mToolbar.setTitle(getResources().getString(R.string.safe_soft_manager));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
                 onBackPressed();
-            }
-        });
+                return true;
+            case R.id.men_action_settings:
+                SettingActivity.launch(AntiVirusActivity.this);
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initData() {

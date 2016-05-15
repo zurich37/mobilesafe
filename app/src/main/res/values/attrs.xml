@@ -17,4 +17,15 @@
         <attr name="setting_icon" format="reference" />
     </declare-styleable>
 
+
+    <attr name="accentColor" format="reference" />
+    <attr name="iconColor" format="reference" />
+    <attr name="windowBackground" format="reference" />
+    <attr name="stateSelector" format="reference" />
+    <attr name="fabCircleColor" format="reference" />
+    <attr name="listBackground" format="reference" />
+
+
+    <attr name="preferenceTheme" format="reference" />
+
 </resources>

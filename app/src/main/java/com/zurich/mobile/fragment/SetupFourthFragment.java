@@ -30,11 +30,11 @@ public class SetupFourthFragment extends AppBaseFragment {
             public void onClick(View v) {
                 if (settingLayout.getCheckBox()) {
                     settingLayout.setCheckBox(false);
-                    SharedPreferenceUtil.setProtectConfigPrefs(getContext(), false);
+                    SharedPreferenceUtil.setProtectConfigPrefs(false);
                     settingLayout.setTvSubName("未开启");
                 } else {
                     settingLayout.setCheckBox(true);
-                    SharedPreferenceUtil.setProtectConfigPrefs(getContext(), true);
+                    SharedPreferenceUtil.setProtectConfigPrefs(true);
                     settingLayout.setTvSubName("已开启");
                 }
             }
@@ -58,7 +58,7 @@ public class SetupFourthFragment extends AppBaseFragment {
 
     @Override
     public void onLoadData() {
-        lostFindSetting = SharedPreferenceUtil.getProtectConfigPrefs(getContext(), false);
+        lostFindSetting = SharedPreferenceUtil.getProtectConfigPrefs();
         showData();
     }
 }

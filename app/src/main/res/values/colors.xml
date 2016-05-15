@@ -6,7 +6,14 @@
     <color name="colorControlNormal">#FF78909C</color>
     <color name="colorPrimaryQuarter">#212121</color>
     <color name="colorAccentQuarter">#3300E5FF</color>
+    <color name="window_background">@android:color/white</color>
+    <color name="fabCircleColor_dark">#0288D1</color>
     <color name="icons">#FFFFFF</color>
+
+    <!--darkTheme-->
+    <color name="colorPrimaryDarkTheme">#525065</color>
+    <color name="colorPrimaryDarkDarkTheme">#4a4959</color>
+    <color name="colorAccentDarkTheme">#536DFE</color>
 
     <color name="white">#ffffff</color>
     <color name="text_normal">#212121</color>
@@ -26,4 +33,19 @@
     <color name="guideBackgroundColor3">#51DACF</color>
     <color name="guideBackgroundColor4">#2196F3</color>
 
+    <!--recycler view-->
+    <color name="bg_item_normal_state">#fff0f0f0</color>
+    <color name="bg_item_swiping_state">#ffddddff</color>
+    <color name="bg_item_swiping_active_state">#ff9999ff</color>
+
+    <color name="bg_swipe_item_neutral">@android:color/transparent</color>
+    <color name="bg_swipe_item_pinned">#fff9930d</color>
+    <color name="bg_swipe_item_dismiss">#ff2f8b2a</color>
+    <color name="bg_swipe_group_item_pinned">#fff45f30</color>
+    <color name="bg_swipe_group_item_dismiss">#ff295db3</color>
+
+    <!--列表背景-->
+    <color name="window_background_dark">#403f4d</color>
+    <color name="list_background">#E5E5E5</color>
+    <color name="list_background_dark">@color/window_background_dark</color>
 </resources>

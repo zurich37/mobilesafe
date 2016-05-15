@@ -15,6 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
@@ -68,6 +70,10 @@ public class SplashActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*set it to be no title*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*set it to be full screen*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
         mActivity = SplashActivity.this;
@@ -76,7 +82,7 @@ public class SplashActivity extends FragmentActivity {
         mainIntent = new Intent();
         mainIntent.setAction(Account.STTART_MAIN_PAGE);
 
-        String localVersion = SharedPreferenceUtil.getSettingPrefs(this, "0");
+        String localVersion = SharedPreferenceUtil.getLocalVersionPrefs();
 
         currentVersionName = PackageInfoUtil.getSelfVersionName(this);
 
@@ -84,7 +90,7 @@ public class SplashActivity extends FragmentActivity {
 
         initDbSource();
 
-        if (localVersion.equals("0")) {
+        if (localVersion.equals("")) {
             checkUpdate();
         }else {
             enterHomePage();
@@ -175,7 +181,7 @@ public class SplashActivity extends FragmentActivity {
                 try {
                     versionFromServer = response.getString("version");
                     if (currentVersionName.equals(versionFromServer)) {
-                        SharedPreferenceUtil.setSettingPrefs(getBaseContext(), currentVersionName);
+                        SharedPreferenceUtil.setLocalVersionPrefs(currentVersionName);
                         enterHomePage();
                     } else {
                         Dialog.Builder builder = null;

@@ -7,23 +7,28 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.adapter.AssemblyPinnedSectionAdapter;
 import com.zurich.mobile.adapter.itemfactory.TaskManagerItemFactory;
 import com.zurich.mobile.adapter.itemfactory.TaskManagerTitleFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.engine.TaskInfoProvider;
 import com.zurich.mobile.model.TaskInfo;
 import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.utils.SharedPreferenceUtil;
 import com.zurich.mobile.utils.SystemInfoUtils;
+import com.zurich.mobile.widget.HintView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +40,20 @@ import butterknife.ButterKnife;
  * 进程管理
  * Created by weixinfei on 16/5/2.
  */
-public class TaskManagerActivity extends FragmentActivity {
+public class TaskManagerActivity extends BaseActivity {
 
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @Bind(R.id.tv_process_count)
     TextView tvProcessCount;
     @Bind(R.id.tv_mem_info)
     TextView tvMemInfo;
+    @Bind(R.id.task_manager_toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.btn_task_setting)
+    Button btnTaskSetting;
+    @Bind(R.id.hint_task_hint)
+    HintView hintView;
     @Bind(R.id.lv_taskmanager)
-    ListView lvTaskmanager;
-    @Bind(R.id.ll_loading)
-    LinearLayout llLoading;
+    RecyclerView recyclerView;
     // 活动管理器 activitymanager
     private ActivityManager am;
 
@@ -72,11 +77,11 @@ public class TaskManagerActivity extends FragmentActivity {
 
     private String listUserTaskTitle;
     private String listSystemTaskTitle;
-    private AssemblyPinnedSectionAdapter mAdapter;
+    private AssemblyRecyclerAdapter mAdapter;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            llLoading.setVisibility(View.GONE);
+            hintView.hidden();
         }
     };
 
@@ -97,16 +102,41 @@ public class TaskManagerActivity extends FragmentActivity {
     }
 
     private void initActionBar() {
-        ivToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        tvToolbarTitle.setText("进程管理");
+        mToolbar.setTitle(getResources().getString(R.string.safe_task_manager));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.men_action_settings:
+                enterSetting();
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void initView() {
         runningProcessCount = SystemInfoUtils.getRunningProcessCount(this);
@@ -116,16 +146,26 @@ public class TaskManagerActivity extends FragmentActivity {
         tvMemInfo.setText("剩余/总内存："
                 + Formatter.formatFileSize(this, availRam) + "/"
                 + Formatter.formatFileSize(this, totalRam));
+
+        btnTaskSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enterSetting();
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initData() {
-        llLoading.setVisibility(View.VISIBLE);
-        new AsyncTask<Void, Void, Boolean>(){
+        hintView.loading().show();
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
             protected Boolean doInBackground(Void... params) {
                 taskInfos = TaskInfoProvider.getTaskInfos(getApplicationContext());
-                if (taskInfos != null && taskInfos.size() >0)
+                if (taskInfos != null && taskInfos.size() > 0)
                     return true;
                 return false;
             }
@@ -133,7 +173,7 @@ public class TaskManagerActivity extends FragmentActivity {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 super.onPostExecute(aBoolean);
-                if (aBoolean){
+                if (aBoolean) {
                     userTaskInfos = new ArrayList<TaskInfo>();
                     systemTaskInfos = new ArrayList<TaskInfo>();
                     for (TaskInfo taskInfo : taskInfos) {
@@ -145,10 +185,10 @@ public class TaskManagerActivity extends FragmentActivity {
                     }
                     handler.sendEmptyMessage(0);
                     if (mAdapter == null) {
-                        mAdapter = new AssemblyPinnedSectionAdapter(new ArrayList<Object>());
+                        mAdapter = new AssemblyRecyclerAdapter(new ArrayList<Object>());
                         mAdapter.addItemFactory(new TaskManagerTitleFactory());
                         mAdapter.addItemFactory(new TaskManagerItemFactory());
-                        lvTaskmanager.setAdapter(mAdapter);
+                        recyclerView.setAdapter(mAdapter);
                     }
                     initAdapterData();
                 }
@@ -165,7 +205,7 @@ public class TaskManagerActivity extends FragmentActivity {
             datas.addAll(userTaskInfos);
         }
 
-        if (systemTaskInfos != null && systemTaskInfos.size() > 0 && SharedPreferenceUtil.getSysTaskVisiblePrefs(getBaseContext(), false)) {
+        if (systemTaskInfos != null && systemTaskInfos.size() > 0 && SharedPreferenceUtil.getSysTaskVisiblePrefs()) {
             listSystemTaskTitle = "系统进程(" + systemTaskInfos.size() + ")";
             datas.add((userTaskInfos != null && userTaskInfos.size() > 0) ? userTaskInfos.size() + 1 : 0, listSystemTaskTitle);
             datas.addAll(systemTaskInfos);
@@ -216,16 +256,16 @@ public class TaskManagerActivity extends FragmentActivity {
         List dataList = mAdapter.getDataList();
         userTaskInfos.clear();
         systemTaskInfos.clear();
-        for (int i = 1; i < dataList.size(); i++){
-            if (dataList.get(i) instanceof TaskInfo){
-                if (((TaskInfo)dataList.get(i)).isChecked()){
-                    am.killBackgroundProcesses(((TaskInfo)dataList.get(i)).getPackname());
-                    savedMem += ((TaskInfo)dataList.get(i)).getMemsize();
+        for (int i = 1; i < dataList.size(); i++) {
+            if (dataList.get(i) instanceof TaskInfo) {
+                if (((TaskInfo) dataList.get(i)).isChecked()) {
+                    am.killBackgroundProcesses(((TaskInfo) dataList.get(i)).getPackname());
+                    savedMem += ((TaskInfo) dataList.get(i)).getMemsize();
                     total++;
-                }else {
-                    if (((TaskInfo)dataList.get(i)).isUserTask()){
+                } else {
+                    if (((TaskInfo) dataList.get(i)).isUserTask()) {
                         userTaskInfos.add((TaskInfo) dataList.get(i));
-                    }else {
+                    } else {
                         systemTaskInfos.add((TaskInfo) dataList.get(i));
                     }
                 }
@@ -252,7 +292,7 @@ public class TaskManagerActivity extends FragmentActivity {
     /**
      * 进入设置界面
      */
-    public void enterSetting(View view) {
+    public void enterSetting() {
         Intent intent = new Intent(this, TaskManagerSettingActivity.class);
         startActivityForResult(intent, 0);
     }
@@ -260,11 +300,11 @@ public class TaskManagerActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             Boolean isShow = data.getBooleanExtra("is_show_sys", false);
-            if (isShow){
+            if (isShow) {
                 initData();
-            }else {
+            } else {
                 systemTaskInfos.clear();
                 initAdapterData();
             }

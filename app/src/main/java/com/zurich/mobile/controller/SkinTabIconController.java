@@ -1,7 +1,6 @@
 package com.zurich.mobile.controller;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -69,7 +68,7 @@ public class SkinTabIconController {
             colors[0] = mainColor;
             colors[1] = Color.parseColor("#717171");
 
-            item.tabButton.setTextColor(new ColorStateList(states, colors));
+//            item.tabButton.setTextColor(new ColorStateList(states, colors));
         }
     }
 

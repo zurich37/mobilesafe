@@ -8,15 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyItem;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
 import com.zurich.mobile.model.AppInfo;
 
 /**
  * 应用管理item
  * Created by weixinfei on 16/5/3.
  */
-public class AppManagerItemFactory extends AssemblyItemFactory<AppManagerItemFactory.AppManagerItem> {
+public class AppManagerItemFactory extends AssemblyRecyclerItemFactory<AppManagerItemFactory.AppManagerItem> {
 
     private final AppManagerClicEvent appManagerClicEvent;
 
@@ -33,7 +33,7 @@ public class AppManagerItemFactory extends AssemblyItemFactory<AppManagerItemFac
         return new AppManagerItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_app_manager, parent, false), this);
     }
 
-    public class AppManagerItem extends AssemblyItem<AppInfo, AppManagerItemFactory> {
+    public class AppManagerItem extends AssemblyRecyclerItem<AppInfo, AppManagerItemFactory> {
 
         private TextView tvAppName;
         private ImageView ivAppIcon;

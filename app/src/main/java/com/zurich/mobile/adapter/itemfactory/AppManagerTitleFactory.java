@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.AssemblyPinnedSectionAdapter;
-import com.zurich.mobile.assemblyadapter.AssemblyItem;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
 
 /**
  * 应用管理title
  * Created by weixinfei on 16/5/3.
  */
-public class AppManagerTitleFactory extends AssemblyItemFactory<AppManagerTitleFactory.AppManagerTitleItem> implements AssemblyPinnedSectionAdapter.PinnedSectionItemFactory{
+public class AppManagerTitleFactory extends AssemblyRecyclerItemFactory<AppManagerTitleFactory.AppManagerTitleItem> implements AssemblyPinnedSectionAdapter.PinnedSectionItemFactory {
     @Override
     public boolean isTarget(Object itemObject) {
         return itemObject instanceof String;
@@ -26,14 +26,17 @@ public class AppManagerTitleFactory extends AssemblyItemFactory<AppManagerTitleF
         return new AppManagerTitleItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_app_manager_title, parent, false), this);
     }
 
-    public class AppManagerTitleItem extends AssemblyItem<String, AppManagerTitleFactory>{
+    public class AppManagerTitleItem extends AssemblyRecyclerItem<String, AppManagerTitleFactory> {
+
+        private TextView tvTitle;
+
         protected AppManagerTitleItem(View convertView, AppManagerTitleFactory itemFactory) {
             super(convertView, itemFactory);
         }
 
         @Override
         protected void onFindViews(View convertView) {
-
+            tvTitle = (TextView) convertView.findViewById(R.id.tv_app_manger_title);
         }
 
         @Override
@@ -43,7 +46,7 @@ public class AppManagerTitleFactory extends AssemblyItemFactory<AppManagerTitleF
 
         @Override
         protected void onSetData(int position, String str) {
-            ((TextView)convertView).setText(str);
+            tvTitle.setText(str);
         }
     }
 }

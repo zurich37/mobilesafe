@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LinearProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">#e3148ce2</item>
+        <item name="android:progressBackgroundTint">#b18dc8e4</item>
+        <item name="android:height">25dp</item>
+    </style>
+
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Api 21-->
+        <item name="android:overlapAnchor">false</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <!--设置 toolbar 弹出的OptionMenu 背景颜色和字体颜色-->
+    <style name="MyOptionMenuStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/window_background</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+</resources>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <include
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
         android:id="@+id/anti_virus_tool_bar"
-        layout="@layout/toolbar_layout" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
 
     <RelativeLayout
         android:id="@+id/rl_anti_head"
@@ -56,10 +59,10 @@
 
                 <ProgressBar
                     android:id="@+id/pb_anti_progress"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:theme="@style/LinearProgress"/>
+                    android:theme="@style/LinearProgress" />
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>

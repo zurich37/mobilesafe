@@ -4,13 +4,15 @@ import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rey.material.app.Dialog;
@@ -37,17 +39,15 @@ import butterknife.ButterKnife;
  * 安全防护引导
  * Created by weixinfei on 16/4/24.
  */
-public class SetupSafeActivty extends FragmentActivity {
+public class SetupSafeActivty extends BaseActivity {
     @Bind(R.id.pager_setup_content)
     ViewPagerCompat viewPagerCompat;
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @Bind(R.id.btn_setup1_over)
     Button btnSetup1Over;
     @Bind(R.id.indicator_setup_safe)
     FixedIndicatorView indicatorSetupSafe;
+    @Bind(R.id.setup_tool_bar)
+    Toolbar mToolbar;
 
     private int[] colors;
     private int mState = ViewPager.SCROLL_STATE_IDLE; // 初始位于停止滑动状态
@@ -69,13 +69,40 @@ public class SetupSafeActivty extends FragmentActivity {
     }
 
     private void initActionBar() {
-        ivToolbarBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        tvToolbarTitle.setText("安全防盗");
+        mToolbar.setTitle(getResources().getString(R.string.setup_safe_protect));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.men_action_settings:
+                SettingActivity.launch(SetupSafeActivty.this);
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -114,7 +141,7 @@ public class SetupSafeActivty extends FragmentActivity {
         btnSetup1Over.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!SharedPreferenceUtil.getProtectConfigPrefs(getBaseContext(), false)) {
+                if (!SharedPreferenceUtil.getProtectConfigPrefs()) {
                     Dialog.Builder builder = null;
                     builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
                         @Override
@@ -136,7 +163,7 @@ public class SetupSafeActivty extends FragmentActivity {
                     DialogFragment fragment = DialogFragment.newInstance(builder);
                     fragment.show(getSupportFragmentManager(), null);
                 } else {
-                    SharedPreferenceUtil.setLostFindConfigPrefs(getBaseContext(), true);
+                    SharedPreferenceUtil.setLostFindConfigPrefs(true);
                     GlobalUtils.showToast(getBaseContext(), "已完成设置！");
                     finish();
                 }

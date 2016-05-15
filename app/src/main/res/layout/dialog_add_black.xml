@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/et_add_black_number"
+        style="@style/LightEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="请输入号码："
+        android:inputType="phone"
+        android:paddingTop="8dp"
+        android:textDirection="locale"
+        app:et_labelTextSize="18dp"
+        app:et_supportTextSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+        <CheckBox
+            android:id="@+id/cb_add_black_sms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="短信拦截"
+            android:checked="false"/>
+
+        <CheckBox
+            android:id="@+id/cb_add_black_call"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="电话拦截"
+            android:checked="true"/>
+    </LinearLayout>
+
+</LinearLayout>

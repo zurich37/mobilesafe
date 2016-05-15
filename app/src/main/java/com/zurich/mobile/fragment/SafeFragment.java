@@ -106,7 +106,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     }
 
     private void initScore() {
-        int safeSettingPrefs = SharedPreferenceUtil.getSafeSettingPrefs(getContext(), 0);
+        int safeSettingPrefs = SharedPreferenceUtil.getSafeSettingPrefs();
         if (safeSettingPrefs == CHECKNOSAFE){
             SAFESCORE = 82;
             mRunnable = new SafeRunnable(SAFESCORE);
@@ -214,7 +214,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
 
                 if(pwd.equals(pwd_confirm)){
                     //存储这个密码
-                    SharedPreferenceUtil.setSafePasswordPrefs(getContext(), pwd);
+                    SharedPreferenceUtil.setSafePasswordPrefs(pwd);
 
                     enterLostFindActivity();
                     super.onPositiveActionClicked(fragment);
@@ -264,7 +264,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
                     .duration(1000)
                     .show();
             return false;
-        } else if (!etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null))) {
+        } else if (!etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs())) {
             if(mSnackBar.getState() == SnackBar.STATE_SHOWN)
                 mSnackBar.dismiss();
             mSnackBar.text("密码错误")
@@ -273,7 +273,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
                     .show();
             return false;
         }
-        else if (etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null))){
+        else if (etPassStr.equals(SharedPreferenceUtil.getSafePasswordPrefs())){
             GlobalUtils.showToast(getContext(), "密码正确");
             return true;
         }
@@ -285,7 +285,7 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
      * @return
      */
     private boolean isSetupPwd(){
-        String password = SharedPreferenceUtil.getSafePasswordPrefs(getContext(), null);
+        String password = SharedPreferenceUtil.getSafePasswordPrefs();
         return !TextUtils.isEmpty(password);
     }
 
@@ -336,6 +336,6 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     public void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacks(mRunnable);
-        SharedPreferenceUtil.setSafeSettingPrefs(getContext(), 0);
+        SharedPreferenceUtil.setSafeSettingPrefs(0);
     }
 }

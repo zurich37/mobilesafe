@@ -32,26 +32,26 @@
                     android:textStyle="bold" />
 
 
-                    <TextView
-                        android:id="@+id/app_update_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:layout_centerHorizontal="true"
-                        android:includeFontPadding="false"
-                        android:text="通信小管家"
-                        android:layout_below="@id/app_update_title"
-                        android:textColor="#777777"
-                        android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/app_update_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/app_update_title"
+                    android:layout_centerHorizontal="true"
+                    android:includeFontPadding="false"
+                    android:paddingTop="10dp"
+                    android:text="通信小管家"
+                    android:textColor="#777777"
+                    android:textSize="12dp" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/bg_divider"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="@drawable/common_background_divider"
                 android:layout_below="@id/rl_call_access"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/common_background_divider" />
 
             <LinearLayout
                 android:id="@+id/ll_manager_center_main1"
@@ -61,7 +61,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/rl_download"
+                    android:id="@+id/rl_find_app"
                     style="@style/ManageCenterRelative">
 
                     <ImageView
@@ -93,7 +93,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rl_unload"
+                    android:id="@+id/rl_protect"
                     style="@style/ManageCenterRelative">
 
                     <ImageView
@@ -205,16 +205,16 @@
 
 
                 <TextView
-                    android:id="@+id/tv_favorite"
+                    android:id="@+id/tv_clean_cache"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_favorite1"
-                    android:text="@string/manage_center_favorite"/>
+                    android:text="@string/manage_center_favorite" />
 
                 <TextView
-                    android:id="@+id/tv_backup"
+                    android:id="@+id/tv_all_tools"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_backup"
-                    android:text="@string/manage_center_installed_backup"/>
+                    android:text="@string/manage_center_installed_backup" />
             </LinearLayout>
 
             <LinearLayout
@@ -232,14 +232,14 @@
                     android:id="@+id/tv_google"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_google"
-                    android:text="@string/manage_center_google"/>
+                    android:text="@string/manage_center_google" />
 
 
                 <TextView
                     android:id="@+id/tv_setting"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_setting"
-                    android:text="@string/manage_center_setting"/>
+                    android:text="@string/manage_center_setting" />
             </LinearLayout>
 
         </RelativeLayout>

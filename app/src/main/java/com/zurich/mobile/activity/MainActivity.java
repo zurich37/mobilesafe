@@ -1,12 +1,11 @@
 package com.zurich.mobile.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.FragmentArrayPageAdapter;
@@ -15,6 +14,7 @@ import com.zurich.mobile.controller.SkinTabIconController;
 import com.zurich.mobile.fragment.ManageCenterFragment;
 import com.zurich.mobile.fragment.SafeFragment;
 import com.zurich.mobile.utils.GlobalUtils;
+import com.zurich.mobile.utils.SharedPreferenceUtil;
 import com.zurich.mobile.view.ViewPagerCompat;
 
 import java.util.Timer;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * 主页面
  * 包含两个Fragment
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.radio_mainActivity_safe)
     RadioButton radioMainActivitySafe;
@@ -35,10 +35,8 @@ public class MainActivity extends FragmentActivity {
     RadioButton radioMainActivityManage;
     @Bind(R.id.pager_navigationActivity_content)
     ViewPagerCompat viewPager;
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
+    @Bind(R.id.main_tool_bar)
+    Toolbar mToolbar;
 
     private SkinTabIconController skinTabIconController;
     private FragmentSwitchController fragmentSwitchController;
@@ -58,12 +56,37 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initToolbar() {
-        ivToolbarBack.setVisibility(View.GONE);
-        tvToolbarTitle.setVisibility(View.INVISIBLE);
+        setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.men_action_settings:
+                SettingActivity.launch(MainActivity.this);
+                return true;
+            case R.id.men_action_change_mode:
+                SharedPreferenceUtil.setDarkMode(!SharedPreferenceUtil.getThemeMode());
+                MainActivity.this.recreate();//重新创建当前Activity实例
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupViews() {
-
         skinTabIconController = new SkinTabIconController(getBaseContext());
         skinTabIconController.resetSkin();
         skinTabIconController.addTab(radioMainActivitySafe, R.drawable.ic_tab_safe);
@@ -108,7 +131,7 @@ public class MainActivity extends FragmentActivity {
                 finish();
                 System.exit(0);
             }
-        }else if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 1){
+        } else if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 1) {
             viewPager.setCurrentItem(0);
             super.onKeyDown(keyCode, event);
         }

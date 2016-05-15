@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/black_number_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_black_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/black_number_tool_bar" />
+
+    <com.zurich.mobile.widget.HintView
+        android:id="@+id/hint_black_number_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/black_number_tool_bar" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_black_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_white"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="?attr/colorPrimary"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        app:pressedTranslationZ="6dp"
+        app:rippleColor="#794e95e2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

@@ -41,11 +41,11 @@ public class SetupSecondFragment extends AppBaseFragment{
                 if (slSetupBind.getCheckBox()){
                     slSetupBind.setCheckBox(false);
                     slSetupBind.setTvSubName("没有绑定sim卡");
-                    SharedPreferenceUtil.setBindNumberPrefs(getContext(), null);
+                    SharedPreferenceUtil.setBindNumberPrefs(null);
                 }else {
                     slSetupBind.setCheckBox(true);
                     slSetupBind.setTvSubName("已绑定sim卡");
-                    SharedPreferenceUtil.setBindNumberPrefs(getContext(), simSerialNumber);
+                    SharedPreferenceUtil.setBindNumberPrefs(simSerialNumber);
                 }
             }
         });
@@ -68,7 +68,7 @@ public class SetupSecondFragment extends AppBaseFragment{
 
     @Override
     public void onLoadData() {
-        bindNumber = SharedPreferenceUtil.getBindNumberPrefs(getContext(), null);
+        bindNumber = SharedPreferenceUtil.getBindNumberPrefs();
         showData();
     }
 }

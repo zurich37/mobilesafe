@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_visibility_white_24dp"
-        android:title="setting"
-        app:showAsAction="always" />
+        android:id="@+id/men_action_settings"
+        android:title="@string/title_activity_setting"/>
+    <item
+        android:id="@+id/men_action_change_mode"
+        android:title="@string/menu_mode" />
+    <item
+        android:id="@+id/men_action_about_me"
+        android:title="@string/menu_about_me" />
+    <item
+        android:id="@+id/menu_action_share"
+        android:title="@string/menu_share" />
 
 </menu>

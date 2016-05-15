@@ -7,8 +7,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -49,14 +52,21 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 安装包清理
  * Created by weixinfei on 16/5/4.
  */
-public class PackageClearActivity extends FragmentActivity {
+public class PackageClearActivity extends BaseActivity {
+    @Bind(R.id.pkg_clear_tool_bar)
+    Toolbar mToolbar;
+    @Bind(R.id.expandList_packageClear_list)
+    ExpandableListView listView;
+    @Bind(R.id.text_packageClear_cleanButton)
+    TextView cleanButtonTextView;
     private ClearHeaderView clearHeaderView;
-    private ExpandableListView listView;
-    private TextView cleanButtonTextView;
     private ViewGroup bottomViewGroup;
 
     private ListHeadScrollListener listHeadScrollListener;
@@ -68,22 +78,48 @@ public class PackageClearActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("安装包清理");
         setContentView(R.layout.activity_package_clear);
-        initToolBar();
+        ButterKnife.bind(this);
+        initActionBar();
         initViews();
         startScan();
     }
 
-    private void initToolBar() {
-        View toolBar = findViewById(R.id.pkg_clear_tool_bar);
-        toolBar.findViewById(R.id.tool_bar);
-        toolBar.findViewById(R.id.iv_toolbar_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void initActionBar() {
+        mToolbar.setTitle(getResources().getString(R.string.manage_center_apk_manage));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
+
+    //设置menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
                 onBackPressed();
-            }
-        });
+                return true;
+            case R.id.men_action_settings:
+                SettingActivity.launch(PackageClearActivity.this);
+                return true;
+            case R.id.men_action_about_me:
+                return true;
+            case R.id.menu_action_share:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void initViews() {
