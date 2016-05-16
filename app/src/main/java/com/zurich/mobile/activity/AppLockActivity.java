@@ -102,7 +102,7 @@ public class AppLockActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initActionBar() {
-        mToolbar.setTitle(getResources().getString(R.string.safe_soft_manager));
+        mToolbar.setTitle(getResources().getString(R.string.manage_center_privacy_protect));
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -179,10 +179,10 @@ public class AppLockActivity extends BaseActivity implements View.OnClickListene
             }
             final AppInfo appinfo;
             if (unlockflag) {
-                holder.iv_status.setBackgroundResource(R.drawable.ic_lock_outline);
+                holder.iv_status.setBackgroundResource(R.drawable.ic_lock_open);
                 appinfo = unlockAppInfos.get(position);
             } else {
-                holder.iv_status.setBackgroundResource(R.drawable.ic_lock_open);
+                holder.iv_status.setBackgroundResource(R.drawable.ic_lock_outline);
                 appinfo = lockedAppInfos.get(position);
             }
             holder.iv_icon.setImageDrawable(appinfo.getIcon());

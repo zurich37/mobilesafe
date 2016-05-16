@@ -206,4 +206,17 @@
         <!--兼容Api 21之前的版本 -->
         <item name="overlapAnchor">false</item>
     </style>
+
+    <!--首页textview样式-->
+    <style name="tv_four_main">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">@drawable/ripple_button_bg</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

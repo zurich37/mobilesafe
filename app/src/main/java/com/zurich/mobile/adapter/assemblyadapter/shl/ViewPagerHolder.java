@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter.shl;
+package com.zurich.mobile.adapter.assemblyadapter.shl;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;

@@ -1,4 +1,4 @@
-package com.zurich.mobile.dao;
+package com.zurich.mobile.db.Dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

@@ -35,7 +35,7 @@ import android.widget.TextView;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.AppManagerItemFactory;
 import com.zurich.mobile.adapter.itemfactory.AppManagerTitleFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.engine.AppInfoProvider;
 import com.zurich.mobile.model.AppInfo;
 import com.zurich.mobile.utils.DensityUtil;

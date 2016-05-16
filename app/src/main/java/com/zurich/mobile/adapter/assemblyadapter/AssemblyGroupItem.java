@@ -1,17 +1,16 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.content.Context;
 import android.view.View;
 
-public abstract class AssemblyChildItem<BEAN, ITEM_FACTORY extends AssemblyChildItemFactory> {
-    private View convertView;
-    private ITEM_FACTORY itemFactory;
-    private int groupPosition;
-    private int childPosition;
-    private boolean isLastChild;
-    private BEAN data;
+public abstract class AssemblyGroupItem<BEAN, ITEM_FACTORY extends AssemblyGroupItemFactory> {
+    protected View convertView;
+    protected ITEM_FACTORY itemFactory;
+    protected int groupPosition;
+    protected boolean isExpanded;
+    protected BEAN data;
 
-    protected AssemblyChildItem(View convertView, ITEM_FACTORY itemFactory) {
+    protected AssemblyGroupItem(View convertView, ITEM_FACTORY itemFactory) {
         if(convertView == null){
             throw new IllegalArgumentException("param convertView is null");
         }
@@ -25,19 +24,18 @@ public abstract class AssemblyChildItem<BEAN, ITEM_FACTORY extends AssemblyChild
         onConfigViews(convertView.getContext());
     }
 
-    public void setData(int groupPosition, int childPosition, boolean isLastChild, BEAN bean){
+    public void setData(int groupPosition, boolean isExpanded, BEAN bean){
         this.groupPosition = groupPosition;
-        this.childPosition = childPosition;
-        this.isLastChild = isLastChild;
+        this.isExpanded = isExpanded;
         this.data = bean;
-        onSetData(groupPosition, childPosition, isLastChild, bean);
+        onSetData(groupPosition, isExpanded, bean);
     }
 
     protected abstract void onFindViews(View convertView);
 
     protected abstract void onConfigViews(Context context);
 
-    protected abstract void onSetData(int groupPosition, int childPosition, boolean isLastChild, BEAN bean);
+    protected abstract void onSetData(int groupPosition, boolean isExpanded, BEAN bean);
 
     public final View getConvertView(){
         return this.convertView;
@@ -45,10 +43,6 @@ public abstract class AssemblyChildItem<BEAN, ITEM_FACTORY extends AssemblyChild
 
     public ITEM_FACTORY getItemFactory() {
         return itemFactory;
-    }
-
-    public int getChildPosition() {
-        return childPosition;
     }
 
     public BEAN getData() {
@@ -59,7 +53,7 @@ public abstract class AssemblyChildItem<BEAN, ITEM_FACTORY extends AssemblyChild
         return groupPosition;
     }
 
-    public boolean isLastChild() {
-        return isLastChild;
+    public boolean isExpanded() {
+        return isExpanded;
     }
 }

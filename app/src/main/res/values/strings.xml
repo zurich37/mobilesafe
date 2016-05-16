@@ -28,7 +28,8 @@
     <string name="title_activity_setting">设置</string>
     <string name="setting_auto_update">自动检测更新</string>
     <string name="setting_location">来电归属地显示</string>
-    <string name="setting_black_number">骚扰拦截</string>
+    <string name="setting_black_number">通信拦截</string>
+    <string name="setting_app_lock">隐私保护</string>
     <string name="setting_toast_id">归属地提示框</string>
 
     <!--setting menu-->

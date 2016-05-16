@@ -1,10 +1,10 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.view.ViewGroup;
 
-public abstract class AssemblyGroupItemFactory<ITEM extends AssemblyGroupItem>{
+public abstract class AssemblyItemFactory<ITEM extends AssemblyItem>{
     protected int itemType;
-    protected AssemblyExpandableAdapter adapter;
+    protected AssemblyAdapter adapter;
 
     public int getItemType() {
         return itemType;
@@ -14,12 +14,12 @@ public abstract class AssemblyGroupItemFactory<ITEM extends AssemblyGroupItem>{
         this.itemType = itemType;
     }
 
-    public AssemblyExpandableAdapter getAdapter() {
-        return adapter;
+    public void setAdapter(AssemblyAdapter adapter) {
+        this.adapter = adapter;
     }
 
-    public void setAdapter(AssemblyExpandableAdapter adapter) {
-        this.adapter = adapter;
+    public AssemblyAdapter getAdapter() {
+        return adapter;
     }
 
     public abstract boolean isTarget(Object itemObject);

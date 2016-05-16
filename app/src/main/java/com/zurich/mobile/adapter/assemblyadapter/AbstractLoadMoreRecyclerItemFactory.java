@@ -1,14 +1,14 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.content.Context;
 import android.view.View;
 
-public abstract class AbstractLoadMoreListItemFactory extends AssemblyItemFactory<AbstractLoadMoreListItemFactory.AbstractLoadMoreListItem> {
+public abstract class AbstractLoadMoreRecyclerItemFactory extends AssemblyRecyclerItemFactory<AbstractLoadMoreRecyclerItemFactory.AbstractLoadMoreRecyclerItem> {
     boolean loadMoreRunning;
     boolean end;
-    private OnLoadMoreListener eventListener;
+    private OnRecyclerLoadMoreListener eventListener;
 
-    public AbstractLoadMoreListItemFactory(OnLoadMoreListener eventListener) {
+    public AbstractLoadMoreRecyclerItemFactory(OnRecyclerLoadMoreListener eventListener) {
         this.eventListener = eventListener;
     }
 
@@ -17,8 +17,8 @@ public abstract class AbstractLoadMoreListItemFactory extends AssemblyItemFactor
         return false;
     }
 
-    public abstract static class AbstractLoadMoreListItem extends AssemblyItem<String, AbstractLoadMoreListItemFactory>{
-        protected AbstractLoadMoreListItem(View convertView, AbstractLoadMoreListItemFactory baseFactory) {
+    public abstract static class AbstractLoadMoreRecyclerItem extends AssemblyRecyclerItem<String, AbstractLoadMoreRecyclerItemFactory> {
+        protected AbstractLoadMoreRecyclerItem(View convertView, AbstractLoadMoreRecyclerItemFactory baseFactory) {
             super(convertView, baseFactory);
         }
 
@@ -37,7 +37,7 @@ public abstract class AbstractLoadMoreListItemFactory extends AssemblyItemFactor
                 public void onClick(View v) {
                     if (getItemFactory().eventListener != null) {
                         getItemFactory().loadMoreRunning = false;
-                        setData(getPosition(), getData());
+                        setData(getLayoutPosition(), getData());
                     }
                 }
             });

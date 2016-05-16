@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItemFactory;
 import com.zurich.mobile.model.SmsDataInfo;
 
 /**
@@ -16,6 +16,12 @@ import com.zurich.mobile.model.SmsDataInfo;
  * Created by weixinfei on 16/5/8.
  */
 public class SmsInterceptItemFactory extends AssemblyRecyclerItemFactory<SmsInterceptItemFactory.SmsInterceptItem> {
+    private InterceptSmsEvent mEvent;
+
+    public SmsInterceptItemFactory(InterceptSmsEvent event) {
+        this.mEvent = event;
+    }
+
     @Override
     public boolean isTarget(Object itemObject) {
         return itemObject instanceof SmsDataInfo;
@@ -43,6 +49,14 @@ public class SmsInterceptItemFactory extends AssemblyRecyclerItemFactory<SmsInte
 
         @Override
         protected void onConfigViews(Context context) {
+            getConvertView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mEvent != null) {
+                        mEvent.onInterceptSmsClick(getData());
+                    }
+                }
+            });
         }
 
         @Override
@@ -50,5 +64,9 @@ public class SmsInterceptItemFactory extends AssemblyRecyclerItemFactory<SmsInte
             tvSmsContent.setText(smsDataInfo.smsInfo);
             tvSmsName.setText(smsDataInfo.senderNum);
         }
+    }
+
+    public interface InterceptSmsEvent {
+        void onInterceptSmsClick(SmsDataInfo smsDataInfo);
     }
 }

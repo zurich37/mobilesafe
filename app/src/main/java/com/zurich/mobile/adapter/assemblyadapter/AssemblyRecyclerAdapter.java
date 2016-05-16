@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;

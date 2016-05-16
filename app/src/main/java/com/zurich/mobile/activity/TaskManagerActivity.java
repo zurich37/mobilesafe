@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.TaskManagerItemFactory;
 import com.zurich.mobile.adapter.itemfactory.TaskManagerTitleFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.engine.TaskInfoProvider;
 import com.zurich.mobile.model.TaskInfo;
 import com.zurich.mobile.utils.GlobalUtils;

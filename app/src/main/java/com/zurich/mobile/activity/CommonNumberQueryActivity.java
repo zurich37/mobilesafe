@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
@@ -28,15 +27,11 @@ import butterknife.ButterKnife;
  * Created by weixinfei on 16/5/11.
  */
 public class CommonNumberQueryActivity extends BaseActivity {
-    @Bind(R.id.iv_toolbar_back)
-    ImageView ivToolbarBack;
-    @Bind(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @Bind(R.id.elv)
     ExpandableListView elv;
     @Bind(R.id.hint_common_number_hint)
     HintView hintCommonNumberHint;
-    @Bind(R.id.tool_bar)
+    @Bind(R.id.common_number_toolbar)
     Toolbar mToolbar;
     private SQLiteDatabase db;
     public static final String path = "/data/data/com.zurich.mobile/files/commonnum.db";

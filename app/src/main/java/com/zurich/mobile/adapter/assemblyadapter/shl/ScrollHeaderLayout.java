@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter.shl;
+package com.zurich.mobile.adapter.assemblyadapter.shl;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

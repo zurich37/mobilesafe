@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.AssemblyPinnedSectionAdapter;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItemFactory;
 
 /**
  * 进程管理title

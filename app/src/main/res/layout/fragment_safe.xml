@@ -14,10 +14,10 @@
 
         <RelativeLayout
             android:id="@+id/rl_safe_score"
-            android:layout_marginTop="20dp"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -60,58 +60,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_safe_lost_find"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_button_bg"
-            android:gravity="center"
-            android:text="@string/safe_lost_find"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            style="@style/tv_four_main"
+            android:drawableRight="@drawable/ic_security_light"
+            android:text="@string/safe_lost_find" />
 
         <TextView
             android:id="@+id/tv_safe_anti_virus"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_button_bg"
-            android:gravity="center"
-            android:text="@string/safe_anti_virus"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            style="@style/tv_four_main"
+            android:drawableRight="@drawable/ic_antivirus_light"
+            android:text="@string/safe_anti_virus" />
 
         <TextView
             android:id="@+id/tv_task_manager"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_button_bg"
-            android:gravity="center"
-            android:text="@string/safe_task_manager"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            style="@style/tv_four_main"
+            android:drawableRight="@drawable/ic_tune_light"
+            android:text="@string/safe_task_manager" />
 
         <TextView
             android:id="@+id/tv_app_manager"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_button_bg"
-            android:gravity="center"
-            android:text="@string/safe_soft_manager"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            style="@style/tv_four_main"
+            android:drawableRight="@drawable/ic_app_light"
+            android:text="@string/safe_soft_manager" />
     </LinearLayout>
 
 </LinearLayout>

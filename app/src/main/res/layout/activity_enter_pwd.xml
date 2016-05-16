@@ -4,14 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_layout" />
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/enter_pass_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_height"
+        android:background="?attr/colorPrimary"
+        android:minHeight="@dimen/tool_bar_height" />
 
     <TextView
         android:id="@+id/tv_appname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="当前锁定的应用："
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        style="@style/text_title_style"
+        android:text="当前锁定的应用：" />
 
     <ImageView
         android:id="@+id/iv_appicon"
@@ -28,7 +34,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ripple_button_bg"
         android:onClick="enter"
+        android:layout_gravity="center_horizontal"
         android:text="确定" />
 
 </LinearLayout>

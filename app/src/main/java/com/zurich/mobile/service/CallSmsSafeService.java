@@ -7,15 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.Telephony.Sms;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.zurich.mobile.db.Dao.BlackNumberDao;
+import com.zurich.mobile.db.Dao.SmsInterceptDao;
+import com.zurich.mobile.utils.GlobalUtils;
 
 import java.lang.reflect.Method;
 
@@ -31,6 +35,7 @@ public class CallSmsSafeService extends Service {
     //监听当前呼叫的状态
     private TelephonyManager tm;
     private MyPhoneListener listener;
+    private ContentObserver mObserver;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -54,6 +59,8 @@ public class CallSmsSafeService extends Service {
                 }
 
                 String body = smsMessage.getMessageBody();
+                SmsInterceptDao interceptDao = new SmsInterceptDao(getBaseContext());
+                interceptDao.add(sender, body);
                 //遍历查询数据库
                 if(body.contains("fapiao")){
                     Log.i(TAG,"拦截到卖发票的短信");
@@ -78,6 +85,38 @@ public class CallSmsSafeService extends Service {
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
         filter.setPriority(Integer.MAX_VALUE);
         registerReceiver(receiver, filter);
+
+        mObserver = new ContentObserver(new Handler()) {
+
+            @Override
+            public void onChange(boolean selfChange) {
+                super.onChange(selfChange);
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(Uri.parse("content://sms/inbox"), new String[] { "_id", "address", "body" }, null, null, "_id desc");
+                long id = -1;
+
+                if (cursor.getCount() > 0 && cursor.moveToFirst()) {
+                    id = cursor.getLong(0);
+                    String address = cursor.getString(1);
+                    String body = cursor.getString(2);
+
+                    GlobalUtils.showToast(getBaseContext(), String.format("address: %s\n body: %s", address, body));
+                }
+                cursor.close();
+
+                if (id != -1) {
+                    int count = 0;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                        count = resolver.delete(Sms.CONTENT_URI, "_id=" + id, null);
+                    }
+                    GlobalUtils.showToast(getBaseContext(), count == 1 ? "删除成功" : "删除失败");
+                }
+            }
+
+        };
+
+        getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, mObserver);
+
         super.onCreate();
     }
 
@@ -122,6 +161,8 @@ public class CallSmsSafeService extends Service {
         receiver = null;
         tm.listen(listener, PhoneStateListener.LISTEN_NONE);
         listener = null;
+        getContentResolver().unregisterContentObserver(mObserver);
+        mObserver = null;
         super.onDestroy();
     }
 

@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.rey.material.widget.CheckBox;
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyChildItem;
-import com.zurich.mobile.assemblyadapter.AssemblyChildItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyChildItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyChildItemFactory;
 import com.zurich.mobile.model.AppPackage;
 import com.zurich.mobile.model.PackageClearGroup;
 

@@ -1,6 +1,6 @@
 package com.zurich.mobile.model;
 
-import com.zurich.mobile.assemblyadapter.AssemblyGroup;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyGroup;
 
 import java.util.ArrayList;
 import java.util.List;

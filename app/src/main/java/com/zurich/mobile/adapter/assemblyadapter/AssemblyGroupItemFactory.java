@@ -1,10 +1,10 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.view.ViewGroup;
 
-public abstract class AssemblyChildItemFactory<ITEM extends AssemblyChildItem>{
-    private int itemType;
-    private AssemblyExpandableAdapter adapter;
+public abstract class AssemblyGroupItemFactory<ITEM extends AssemblyGroupItem>{
+    protected int itemType;
+    protected AssemblyExpandableAdapter adapter;
 
     public int getItemType() {
         return itemType;

@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 public interface OnGroupLoadMoreListener {
     void onLoadMore(AssemblyExpandableAdapter adapter);

@@ -1,11 +1,14 @@
 package com.zurich.mobile.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -68,10 +71,15 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
     public void onInitViews(View view, Bundle savedInstanceState) {
         rlSafeScore = (RelativeLayout)findViewById(R.id.rl_safe_score);
         tvSafeScore = (TextView) findViewById(R.id.tv_safe_score);
+
         tvLostFind = (TextView) findViewById(R.id.tv_safe_lost_find);
         tvSafeAntiVirus = (TextView) findViewById(R.id.tv_safe_anti_virus);
         tvTaskManager = (TextView) findViewById(R.id.tv_task_manager);
         tvAppManager = (TextView) findViewById(R.id.tv_app_manager);
+
+        setTextIcon();
+
+        tvLostFind.setDrawingCacheBackgroundColor(Color.RED);
 
         mSnackBar = (SnackBar) getActivity().findViewById(R.id.main_sn);
         mSnackBar.applyStyle(R.style.Material_Widget_SnackBar_Tablet);
@@ -88,6 +96,29 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
         });
 
         initScore();
+    }
+
+    private void setTextIcon() {
+        TypedValue value = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.colorPrimary,value,true);
+
+        boolean themeMode = SharedPreferenceUtil.getThemeMode();
+        Drawable drawable1 = getResources().getDrawable(themeMode ? R.drawable.ic_security_dark : R.drawable.ic_security_light);
+        drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+        tvLostFind.setCompoundDrawables(null,null,drawable1,null);
+
+        Drawable drawable2 = getResources().getDrawable(themeMode ? R.drawable.ic_antivirus_dark : R.drawable.ic_antivirus_light);
+        drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
+        tvSafeAntiVirus.setCompoundDrawables(null,null,drawable2,null);
+
+        Drawable drawable3 = getResources().getDrawable(themeMode ? R.drawable.ic_app_dark : R.drawable.ic_app_light);
+        drawable3.setBounds(0, 0, drawable3.getMinimumWidth(), drawable3.getMinimumHeight());
+        tvAppManager.setCompoundDrawables(null,null,drawable3,null);
+
+        Drawable drawable4 = getResources().getDrawable(themeMode ? R.drawable.ic_tune_dark : R.drawable.ic_tune_light);
+        drawable4.setBounds(0, 0, drawable4.getMinimumWidth(), drawable4.getMinimumHeight());
+        tvTaskManager.setCompoundDrawables(null,null,drawable4,null);
+
     }
 
     @Override

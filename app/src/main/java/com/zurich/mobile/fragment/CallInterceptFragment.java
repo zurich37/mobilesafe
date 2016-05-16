@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.CallInterceptItemFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.db.Dao.CallInterceptDao;
 import com.zurich.mobile.model.BlackNumberInfo;
 import com.zurich.mobile.utils.GlobalUtils;

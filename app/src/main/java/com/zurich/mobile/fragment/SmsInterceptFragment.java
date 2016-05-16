@@ -1,9 +1,6 @@
 package com.zurich.mobile.fragment;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Canvas;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,25 +11,26 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rey.material.app.Dialog;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.SmsInterceptItemFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.db.Dao.SmsInterceptDao;
 import com.zurich.mobile.model.SmsDataInfo;
 import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.widget.HintView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
  * 短信拦截页面
  * Created by weixinfei on 16/5/6.
  */
-public class SmsInterceptFragment extends AppBaseFragment {
+public class SmsInterceptFragment extends AppBaseFragment implements SmsInterceptItemFactory.InterceptSmsEvent {
 
     private RecyclerView rvSmsList;
     private List<SmsDataInfo> smsDataInfos;
@@ -81,7 +79,6 @@ public class SmsInterceptFragment extends AppBaseFragment {
     }
 
     private void loadSmsData() {
-        initAdapter();
         new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -90,7 +87,7 @@ public class SmsInterceptFragment extends AppBaseFragment {
                     smsDataInfos.clear();
                 }
                 smsDataInfos = dao.findAll();
-                if (smsDataInfos != null && smsDataInfos.size() > 0){
+                if (smsDataInfos != null && smsDataInfos.size() > 0) {
                     return true;
                 }
                 return false;
@@ -103,9 +100,10 @@ public class SmsInterceptFragment extends AppBaseFragment {
                     if (mAdapter != null) {
                         mAdapter.notifyDataSetChanged();
                     } else {
+                        initAdapter();
                         mAdapter.notifyDataSetChanged();
                     }
-                }else {
+                } else {
                     tvNullTip.setVisibility(View.VISIBLE);
                 }
             }
@@ -116,17 +114,15 @@ public class SmsInterceptFragment extends AppBaseFragment {
 
     private void initAdapter() {
         tvNullTip.setVisibility(View.GONE);
-        if (mAdapter == null) {
-            mAdapter = new AssemblyRecyclerAdapter(smsDataInfos);
-            mAdapter.addItemFactory(new SmsInterceptItemFactory());
-            rvSmsList.setAdapter(mAdapter);
-        }
+        mAdapter = new AssemblyRecyclerAdapter(smsDataInfos);
+        mAdapter.addItemFactory(new SmsInterceptItemFactory(this));
+        rvSmsList.setAdapter(mAdapter);
 
         initRvSwipe();
     }
 
     private void initRvSwipe() {
-        ItemTouchHelper.Callback mCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.Callback mCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
             /**
              * @param recyclerView
              * @param viewHolder 拖动的ViewHolder
@@ -137,7 +133,7 @@ public class SmsInterceptFragment extends AppBaseFragment {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
                 int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
-                if (fromPosition == smsDataInfos.size()-1 && toPosition == smsDataInfos.size()){
+                if (fromPosition == smsDataInfos.size() - 1 && toPosition == smsDataInfos.size()) {
                     return false;
                 }
                 Collections.swap(smsDataInfos, fromPosition, toPosition);
@@ -157,9 +153,9 @@ public class SmsInterceptFragment extends AppBaseFragment {
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                     //左右滑动时改变Item的透明度
-                    final float alpha = 1 - Math.abs(dX) / (float)viewHolder.itemView.getWidth();
+                    final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
                     viewHolder.itemView.setAlpha(alpha);
                     viewHolder.itemView.setTranslationX(dX);
                 }
@@ -183,15 +179,16 @@ public class SmsInterceptFragment extends AppBaseFragment {
 
     /**
      * 从数据库中删除号码
+     *
      * @param number
      */
     private void deletSmsFromDB(final String number) {
-        new AsyncTask<Void, Void, Boolean>(){
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
             protected Boolean doInBackground(Void... params) {
                 dao.delete(number);
-                if (!dao.find(number)){
+                if (!dao.find(number)) {
                     return true;
                 }
                 return false;
@@ -200,78 +197,39 @@ public class SmsInterceptFragment extends AppBaseFragment {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 super.onPostExecute(aBoolean);
-                if (aBoolean){
+                if (aBoolean) {
                     GlobalUtils.showToast(getContext(), "删除成功");
-                }else {
+                } else {
                     GlobalUtils.showToast(getContext(), "删除失败");
                 }
             }
         }.execute();
     }
 
-    public void getIterceptSms() {
+    @Override
+    public void onInterceptSmsClick(SmsDataInfo smsDataInfo) {
+        showSmsDataDiaglog(smsDataInfo);
+    }
 
-        final String SMS_URI_ALL = "content://sms/";
-        final String SMS_URI_INBOX = "content://sms/inbox";
-        final String SMS_URI_SEND = "content://sms/sent";
-        final String SMS_URI_DRAFT = "content://sms/draft";
-        final String SMS_URI_OUTBOX = "content://sms/outbox";
-        final String SMS_URI_FAILED = "content://sms/failed";
-        final String SMS_URI_QUEUED = "content://sms/queued";
-
-        try {
-            Uri uri = Uri.parse(SMS_URI_ALL);
-            String[] projection = new String[]{"_id", "address", "person", "body", "date", "type"};
-            Cursor cur = getContext().getContentResolver().query(uri, projection, null, null, "date desc");      // 获取手机内部短信
-
-            if (cur.moveToFirst()) {
-                int index_Address = cur.getColumnIndex("address");
-                int index_Person = cur.getColumnIndex("person");
-                int index_Body = cur.getColumnIndex("body");
-                int index_Date = cur.getColumnIndex("date");
-                int index_Type = cur.getColumnIndex("type");
-
-                smsDataInfos.clear();
-
-                do {
-                    String strAddress = cur.getString(index_Address);
-                    String intPerson = String.valueOf(cur.getInt(index_Person));
-                    String strbody = cur.getString(index_Body);
-                    long longDate = cur.getLong(index_Date);
-                    int intType = cur.getInt(index_Type);
-
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    Date d = new Date(longDate);
-                    String strDate = dateFormat.format(d);
-
-                    if (intType == 1) {
-                        SmsDataInfo smsDataInfo = new SmsDataInfo();
-                        smsDataInfo.date = strDate;
-                        smsDataInfo.senderNum = intPerson;
-                        smsDataInfo.smsInfo = strbody;
-                        smsDataInfos.add(smsDataInfo);
-                    } else if (intType == 2) {
-//                        strType = "发送";
-                    } else {
-//                        strType = "null";
-                    }
-//                    smsBuilder.append("[ ");
-//                    smsBuilder.append(strAddress + ", ");
-//                    smsBuilder.append(intPerson + ", ");
-//                    smsBuilder.append(strbody + ", ");
-//                    smsBuilder.append(strDate + ", ");
-//                    smsBuilder.append(strType);
-//                    smsBuilder.append(" ]\n\n");
-                } while (cur.moveToNext());
-
-                if (!cur.isClosed()) {
-                    cur.close();
-                    cur = null;
-                }
+    private void showSmsDataDiaglog(SmsDataInfo smsDataInfo) {
+        Dialog.Builder builder = null;
+        builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
+            @Override
+            public void onPositiveActionClicked(DialogFragment fragment) {
+                super.onPositiveActionClicked(fragment);
             }
-        } catch (SQLiteException ex) {
-            ex.printStackTrace();
-        }
 
+            @Override
+            public void onNegativeActionClicked(DialogFragment fragment) {
+                super.onNegativeActionClicked(fragment);
+            }
+        };
+
+        ((SimpleDialog.Builder) builder).message(smsDataInfo.senderNum+"\n\n"+smsDataInfo.smsInfo)
+                .title("短信内容")
+                .positiveAction("确认")
+                .negativeAction("关闭");
+        DialogFragment fragment = DialogFragment.newInstance(builder);
+        fragment.show(getChildFragmentManager(), null);
     }
 }

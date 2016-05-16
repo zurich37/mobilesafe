@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import com.rey.material.widget.ListView;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.SelectContactItemFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyAdapter;
 import com.zurich.mobile.model.ContactInfo;
 import com.zurich.mobile.utils.GlobalUtils;
 

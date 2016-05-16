@@ -20,12 +20,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="127dp"
         android:text="手机安全卫士"
+        android:textColor="@color/white"
+        android:shadowColor="?attr/colorPrimary"
+        android:shadowRadius="5.0"
+        android:shadowDx="5"
+        android:shadowDy="5"
         android:textSize="35dp" />
 
     <TextView
         android:id="@+id/splsh_logo"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:alpha="0.0"
         android:background="@drawable/ic_launcher" />

@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyItem;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyItemFactory;
 import com.zurich.mobile.model.ContactInfo;
 
 /**

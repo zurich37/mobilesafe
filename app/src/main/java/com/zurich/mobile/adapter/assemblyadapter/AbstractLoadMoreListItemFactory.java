@@ -1,14 +1,14 @@
-package com.zurich.mobile.assemblyadapter;
+package com.zurich.mobile.adapter.assemblyadapter;
 
 import android.content.Context;
 import android.view.View;
 
-public abstract class AbstractLoadMoreGroupItemFactory extends AssemblyGroupItemFactory<AbstractLoadMoreGroupItemFactory.AbstractLoadMoreGroupItem> {
+public abstract class AbstractLoadMoreListItemFactory extends AssemblyItemFactory<AbstractLoadMoreListItemFactory.AbstractLoadMoreListItem> {
     boolean loadMoreRunning;
     boolean end;
-    private OnGroupLoadMoreListener eventListener;
+    private OnLoadMoreListener eventListener;
 
-    public AbstractLoadMoreGroupItemFactory(OnGroupLoadMoreListener eventListener) {
+    public AbstractLoadMoreListItemFactory(OnLoadMoreListener eventListener) {
         this.eventListener = eventListener;
     }
 
@@ -17,8 +17,8 @@ public abstract class AbstractLoadMoreGroupItemFactory extends AssemblyGroupItem
         return false;
     }
 
-    public abstract static class AbstractLoadMoreGroupItem extends AssemblyGroupItem<String, AbstractLoadMoreGroupItemFactory>{
-        protected AbstractLoadMoreGroupItem(View convertView, AbstractLoadMoreGroupItemFactory baseFactory) {
+    public abstract static class AbstractLoadMoreListItem extends AssemblyItem<String, AbstractLoadMoreListItemFactory>{
+        protected AbstractLoadMoreListItem(View convertView, AbstractLoadMoreListItemFactory baseFactory) {
             super(convertView, baseFactory);
         }
 
@@ -37,14 +37,14 @@ public abstract class AbstractLoadMoreGroupItemFactory extends AssemblyGroupItem
                 public void onClick(View v) {
                     if (getItemFactory().eventListener != null) {
                         getItemFactory().loadMoreRunning = false;
-                        setData(groupPosition, isExpanded, data);
+                        setData(getPosition(), getData());
                     }
                 }
             });
         }
 
         @Override
-        public void onSetData(int groupPosition, boolean isExpanded, String s) {
+        public void onSetData(int position, String s) {
             if(itemFactory.end){
                 showEnd();
             }else{

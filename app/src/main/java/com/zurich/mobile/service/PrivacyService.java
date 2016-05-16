@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by weixinfei on 16/5/10.
  */
 public class PrivacyService extends Service {
-    public static final String TAG = "WatchDogService";
+    public static final String TAG = "PrivacyService";
     private ActivityManager am;
     private boolean flag;
     private AppLockDao dao;
@@ -74,10 +75,23 @@ public class PrivacyService extends Service {
             public void run() {
                 flag = true;
                 while(flag){
+                    String packname = "";
                     //巡逻 监视当前运行的应用程序  得到当前任务栈集合最前的任务栈信息  当前要开启的程序
-                    ActivityManager.RunningTaskInfo taskInfo  = am.getRunningTasks(1).get(0);
-                    String packname = taskInfo.topActivity.getPackageName();
-                    //if(dao.find(packname)){//不要频繁的查询操作数据库 改为查询内存。
+                    if (Build.VERSION.SDK_INT > 20) {
+                        // 5.0及其以后的版本
+                        List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
+                        if (null != tasks && tasks.size() > 0) {
+                            packname = tasks.get(0).processName;
+                        }
+                    } else{
+                        // 5.0之前
+                        // 获取正在运行的任务栈(一个应用程序占用一个任务栈) 最近使用的任务栈会在最前面
+                        // 1表示给集合设置的最大容量 List<RunningTaskInfo> infos = am.getRunningTasks(1);
+                        // 获取最近运行的任务栈中的栈顶Activity(即用户当前操作的activity)的包名
+                        ActivityManager.RunningTaskInfo taskInfo  = am.getRunningTasks(1).get(0);
+                        packname = taskInfo.topActivity.getPackageName();
+                    }
+
                     if(protectedPacknames.contains(packname)){//查询内存
                         //检查是否需要临时停止保护
                         if(packname.equals(tempStopProtectpackname)){

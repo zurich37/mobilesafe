@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -31,12 +30,16 @@ import com.rey.material.app.SimpleDialog;
 import com.zurich.mobile.Account;
 import com.zurich.mobile.R;
 import com.zurich.mobile.net.MySingleton;
+import com.zurich.mobile.receiver.DownloadCompleteReceiver;
+import com.zurich.mobile.service.AddressService;
+import com.zurich.mobile.service.CallSmsSafeService;
+import com.zurich.mobile.service.PrivacyService;
 import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.utils.PackageInfoUtil;
+import com.zurich.mobile.utils.ServiceStatusUtils;
 import com.zurich.mobile.utils.SharedPreferenceUtil;
 import com.zurich.mobile.view.kbv.KenBurnsView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -61,7 +64,7 @@ public class SplashActivity extends FragmentActivity {
 
     private Intent mainIntent;
     private long downloadId;
-    private DownLoadCompleteReceiver downLoadCompleteReceiver;
+    private DownloadCompleteReceiver downLoadCompleteReceiver;
 
     //views
     private TextView mLogo;
@@ -90,14 +93,50 @@ public class SplashActivity extends FragmentActivity {
 
         initDbSource();
 
-        if (localVersion.equals("")) {
+        checkCallSmsService();
+        checkApplockService();
+
+        if (localVersion.equals("") && SharedPreferenceUtil.getAutoUpdatePrefs()) {
+            registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             checkUpdate();
-        }else {
+        } else {
             enterHomePage();
         }
 
-        downLoadCompleteReceiver = new DownLoadCompleteReceiver();
-        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        downLoadCompleteReceiver = new DownloadCompleteReceiver();
+    }
+
+    private void checkApplockService() {
+        Boolean isOpenPrivacy = SharedPreferenceUtil.getPrivacyPrefs();
+        if (isOpenPrivacy) {
+            Intent intent = new Intent(this, PrivacyService.class);
+            if (ServiceStatusUtils.isServiceRunning(this, "com.zurich.service.PrivacyService")) {
+                return;
+            } else {
+                startService(intent);
+            }
+        }
+    }
+
+    private void checkCallSmsService() {
+        Boolean isOpenIntercept = SharedPreferenceUtil.getBlackInterceptPrefs();
+        Boolean isAddressOpen = SharedPreferenceUtil.getSettingLocationPrefs();
+        if (isOpenIntercept) {
+            Intent callSmsSafeIntent = new Intent(this, CallSmsSafeService.class);
+            if (ServiceStatusUtils.isServiceRunning(this, "com.zurich.service.CallSmsSafeService")) {
+                return;
+            } else {
+                startService(callSmsSafeIntent);
+            }
+        }
+        if (isAddressOpen) {
+            Intent addressIntent = new Intent(this, AddressService.class);
+            if (ServiceStatusUtils.isServiceRunning(this, "com.zurich.service.AddressService")) {
+                return;
+            } else {
+                startService(addressIntent);
+            }
+        }
     }
 
     private void initDbSource() {
@@ -144,10 +183,11 @@ public class SplashActivity extends FragmentActivity {
         aa.setDuration(2000);
         findViewById(R.id.rl_splash_root).startAnimation(aa);
 
-        setAnimation(SPLASH_SCREEN_OPTION_1);
+        setAnimation();
     }
 
-    private void animation1() {
+    private void setAnimation() {
+        mKenBurns.setImageResource(R.drawable.splash_background);
         ObjectAnimator var1 = ObjectAnimator.ofFloat(this.mLogo, "scaleX", new float[]{5.0F, 1.0F});
         var1.setInterpolator(new AccelerateDecelerateInterpolator());
         var1.setDuration(1200L);
@@ -163,11 +203,6 @@ public class SplashActivity extends FragmentActivity {
         var4.start();
     }
 
-    public void setAnimation(String animation) {
-        mKenBurns.setImageResource(R.drawable.splash_background);
-        animation1();
-    }
-
     /**
      * 检查版本更新
      */
@@ -178,39 +213,35 @@ public class SplashActivity extends FragmentActivity {
         JsonObjectRequest updRequest = new JsonObjectRequest(Request.Method.GET, updUrl, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    versionFromServer = response.getString("version");
-                    if (currentVersionName.equals(versionFromServer)) {
-                        SharedPreferenceUtil.setLocalVersionPrefs(currentVersionName);
-                        enterHomePage();
-                    } else {
-                        Dialog.Builder builder = null;
-                        String description = response.getString("description");
-                        final String apkUrl = response.getString("apkurl");
-                        builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
-                            @Override
-                            public void onPositiveActionClicked(DialogFragment fragment) {
-                                //开始升级
-                                startUpdate(apkUrl);
-                                super.onPositiveActionClicked(fragment);
-                            }
+                versionFromServer = response.optString("version");
+                if (currentVersionName.equals(versionFromServer)) {
+                    SharedPreferenceUtil.setLocalVersionPrefs(currentVersionName);
+                    enterHomePage();
+                } else {
+                    Dialog.Builder builder = null;
+                    String description = response.optString("description");
+                    final String apkUrl = response.optString("apkurl");
+                    builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
+                        @Override
+                        public void onPositiveActionClicked(DialogFragment fragment) {
+                            //开始升级
+                            startUpdate(apkUrl);
+                            super.onPositiveActionClicked(fragment);
+                        }
 
-                            @Override
-                            public void onNegativeActionClicked(DialogFragment fragment) {
-                                super.onNegativeActionClicked(fragment);
-                                enterHomePage();
-                            }
-                        };
+                        @Override
+                        public void onNegativeActionClicked(DialogFragment fragment) {
+                            super.onNegativeActionClicked(fragment);
+                            enterHomePage();
+                        }
+                    };
 
-                        ((SimpleDialog.Builder) builder).message(description)
-                                .title("新版本发布，点击立即更新")
-                                .positiveAction("立即更新")
-                                .negativeAction("下次再说");
-                        DialogFragment fragment = DialogFragment.newInstance(builder);
-                        fragment.show(getSupportFragmentManager(), null);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    ((SimpleDialog.Builder) builder).message(description)
+                            .title("新版本发布，点击立即更新")
+                            .positiveAction("立即更新")
+                            .negativeAction("下次再说");
+                    DialogFragment fragment = DialogFragment.newInstance(builder);
+                    fragment.show(getSupportFragmentManager(), null);
                 }
             }
         }, new Response.ErrorListener() {
@@ -243,10 +274,11 @@ public class SplashActivity extends FragmentActivity {
 
                 DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(apkUrl));
-                request.setDestinationInExternalFilesDir(mContext, null, fileName);
+                request.setDestinationInExternalPublicDir("mobile_download", fileName);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 request.setTitle("安全卫士");
                 request.setDescription("正在下载...");
+                request.setMimeType("application/com.mobile.download.file");
                 request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE + DownloadManager.Request.NETWORK_WIFI);
                 // 设置为可被媒体扫描器找到
                 request.allowScanningByMediaScanner();
@@ -257,32 +289,10 @@ public class SplashActivity extends FragmentActivity {
         }
     }
 
-    public class DownLoadCompleteReceiver extends BroadcastReceiver {
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            long myDwonloadID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-
-            if (downloadId == myDwonloadID) {
-
-                String serviceString = Context.DOWNLOAD_SERVICE;
-
-                DownloadManager dManager = (DownloadManager) context.getSystemService(serviceString);
-
-                Intent install = new Intent(Intent.ACTION_VIEW);
-                Uri downloadFileUri = dManager.getUriForDownloadedFile(myDwonloadID);
-                install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
-                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(install);
-
-                SplashActivity.this.finish();
-            }
-        }
-    }
-
     @Override
     protected void onStop() {
         unregisterReceiver(downLoadCompleteReceiver);
+        downLoadCompleteReceiver = null;
         super.onStop();
     }
 

@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.dao.AddressDao;
+import com.zurich.mobile.db.Dao.AddressDao;
 import com.zurich.mobile.utils.SharedPreferenceUtil;
 
 /**

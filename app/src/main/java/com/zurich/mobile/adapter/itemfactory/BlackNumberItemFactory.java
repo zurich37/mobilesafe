@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItem;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItemFactory;
 import com.zurich.mobile.model.BlackNumberInfo;
 
 /**

@@ -24,7 +24,7 @@ import com.rey.material.app.SimpleDialog;
 import com.rey.material.widget.EditText;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.BlackNumberItemFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyRecyclerAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.db.Dao.BlackNumberDao;
 import com.zurich.mobile.model.BlackNumberInfo;
 import com.zurich.mobile.utils.GlobalUtils;

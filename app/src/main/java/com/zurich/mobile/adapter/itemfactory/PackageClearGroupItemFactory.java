@@ -11,8 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyGroupItem;
-import com.zurich.mobile.assemblyadapter.AssemblyGroupItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyGroupItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyGroupItemFactory;
 import com.zurich.mobile.model.PackageClearGroup;
 
 public class PackageClearGroupItemFactory extends AssemblyGroupItemFactory<PackageClearGroupItemFactory.PackageClearGroupItem> {

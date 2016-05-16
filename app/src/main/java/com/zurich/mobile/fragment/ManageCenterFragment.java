@@ -14,6 +14,7 @@ import com.zurich.mobile.R;
 import com.zurich.mobile.activity.AppLockActivity;
 import com.zurich.mobile.activity.AtoolsActivity;
 import com.zurich.mobile.activity.CallSmsManagerActivity;
+import com.zurich.mobile.activity.FindAppActivity;
 import com.zurich.mobile.activity.GoogleInstallerActivity;
 import com.zurich.mobile.activity.PackageClearActivity;
 import com.zurich.mobile.activity.SettingActivity;
@@ -111,6 +112,9 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
                 break;
             case R.id.rl_protect://隐私保护
                 startActivity(new Intent(mContext, AppLockActivity.class));
+                break;
+            case R.id.rl_find_app://隐私保护
+                startActivity(new Intent(mContext, FindAppActivity.class));
                 break;
             default:
                 break;

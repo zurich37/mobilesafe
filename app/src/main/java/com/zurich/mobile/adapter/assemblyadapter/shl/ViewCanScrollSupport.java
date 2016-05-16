@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter.shl;
+package com.zurich.mobile.adapter.assemblyadapter.shl;
 
 import android.os.Build;
 import android.view.View;

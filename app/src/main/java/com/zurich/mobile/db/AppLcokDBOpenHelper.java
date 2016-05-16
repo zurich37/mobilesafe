@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
+ * 程序锁数据库帮助类
  * Created by weixinfei on 16/5/1.
  */
 public class AppLcokDBOpenHelper extends SQLiteOpenHelper{

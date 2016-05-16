@@ -1,4 +1,4 @@
-package com.zurich.mobile.assemblyadapter.shl;//package me.xiaopan.shl;
+package com.zurich.mobile.adapter.assemblyadapter.shl;//package me.xiaopan.shl;
 //
 //import android.support.v4.widget.SwipeRefreshLayout;
 //import android.support.v7.widget.RecyclerView;

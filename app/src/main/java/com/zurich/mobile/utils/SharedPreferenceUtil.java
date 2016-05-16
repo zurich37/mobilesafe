@@ -156,8 +156,8 @@ public class SharedPreferenceUtil {
         getSharedPreferences().edit().putBoolean("black_intercept", value).apply();
     }
 
-    public static Boolean getBlackInterceptPrefs(Context context, Boolean defValue) {
-        return context.getSharedPreferences(SETTING_PREFS_NAME, 0).getBoolean("black_intercept", defValue);
+    public static Boolean getBlackInterceptPrefs() {
+        return getSharedPreferences().getBoolean("black_intercept", false);
     }
 
     /*是否开启归属地显示*/
@@ -167,6 +167,24 @@ public class SharedPreferenceUtil {
 
     public static Boolean getSettingLocationPrefs() {
         return getSharedPreferences().getBoolean("setting_location", false);
+    }
+
+    /*是否开启骚扰拦截*/
+    public static void setPrivacyPrefs(Boolean value) {
+        getSharedPreferences().edit().putBoolean("setting_provacy", value).apply();
+    }
+
+    public static Boolean getPrivacyPrefs() {
+        return getSharedPreferences().getBoolean("setting_provacy", false);
+    }
+
+    /*骚扰拦截密码*/
+    public static void setPrivacyPassPrefs(String value) {
+        getSharedPreferences().edit().putString("setting_provacy_password", value).apply();
+    }
+
+    public static String getPrivacyPassPrefs() {
+        return getSharedPreferences().getString("setting_provacy_password", "");
     }
 
 

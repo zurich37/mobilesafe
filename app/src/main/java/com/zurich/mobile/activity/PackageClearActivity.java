@@ -25,7 +25,7 @@ import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.itemfactory.PackageClearChildAppItemFactory;
 import com.zurich.mobile.adapter.itemfactory.PackageClearChildResidualDataPacketItemFactory;
 import com.zurich.mobile.adapter.itemfactory.PackageClearGroupItemFactory;
-import com.zurich.mobile.assemblyadapter.AssemblyExpandableAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyExpandableAdapter;
 import com.zurich.mobile.model.AppPackage;
 import com.zurich.mobile.model.PackageClearChild;
 import com.zurich.mobile.model.PackageClearGroup;

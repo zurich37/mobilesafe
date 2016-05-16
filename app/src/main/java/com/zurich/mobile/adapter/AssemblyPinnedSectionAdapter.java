@@ -1,8 +1,8 @@
 package com.zurich.mobile.adapter;
 
 
-import com.zurich.mobile.assemblyadapter.AssemblyAdapter;
-import com.zurich.mobile.assemblyadapter.AssemblyItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyAdapter;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyItemFactory;
 import com.zurich.mobile.widget.PinnedSectionListView;
 
 import java.util.List;

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
-import com.zurich.mobile.assemblyadapter.AssemblyChildItem;
-import com.zurich.mobile.assemblyadapter.AssemblyChildItemFactory;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyChildItem;
+import com.zurich.mobile.adapter.assemblyadapter.AssemblyChildItemFactory;
 import com.zurich.mobile.model.PackageClearGroup;
 import com.zurich.mobile.model.ResidualDataPacket;
 
