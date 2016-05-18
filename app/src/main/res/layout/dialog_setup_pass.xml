@@ -7,21 +7,23 @@
 
     <com.rey.material.widget.EditText
         android:id="@+id/et_safe_password"
+        style="@style/LightEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="密码"
-        android:textDirection="locale"
+        android:inputType="numberPassword"
         android:paddingTop="8dp"
-        style="@style/LightEditText"/>
+        android:textDirection="locale" />
 
     <com.rey.material.widget.EditText
         android:id="@+id/et_safe_password_confirm"
+        style="@style/LightEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:et_supportMode="none"
+        android:inputType="numberPassword"
         android:hint="确认密码"
-        android:textDirection="locale"
         android:paddingTop="8dp"
-        style="@style/LightEditText"/>
+        android:textDirection="locale"
+        app:et_supportMode="none" />
 
 </LinearLayout>

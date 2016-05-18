@@ -8,6 +8,8 @@
         android:id="@+id/black_number_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tool_bar_height"
+        app:popupTheme="@style/MyOptionMenuStyle"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimary"
         android:minHeight="@dimen/tool_bar_height" />
 

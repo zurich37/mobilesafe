@@ -35,6 +35,7 @@ public class SetupFourthFragment extends AppBaseFragment {
                 } else {
                     settingLayout.setCheckBox(true);
                     SharedPreferenceUtil.setProtectConfigPrefs(true);
+                    SharedPreferenceUtil.setSafeSettingPrefs(1);
                     settingLayout.setTvSubName("已开启");
                 }
             }

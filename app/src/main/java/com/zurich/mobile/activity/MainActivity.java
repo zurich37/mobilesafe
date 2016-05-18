@@ -1,9 +1,11 @@
 package com.zurich.mobile.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 
@@ -37,17 +39,22 @@ public class MainActivity extends BaseActivity {
     ViewPagerCompat viewPager;
     @Bind(R.id.main_tool_bar)
     Toolbar mToolbar;
+    @Bind(R.id.nv_main_navigation)
+    NavigationView nvMainNavigation;
+    @Bind(R.id.dl_main_drawer)
+    DrawerLayout drawerLayout;
 
     private SkinTabIconController skinTabIconController;
     private FragmentSwitchController fragmentSwitchController;
 
     private static Boolean isQuit = false;
     Timer timer = new Timer();
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_drawer_layout);
         ButterKnife.bind(this);
 
         initToolbar();
@@ -56,34 +63,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initToolbar() {
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_drawer);
+        mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    //设置menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.men_action_settings:
-                SettingActivity.launch(MainActivity.this);
-                return true;
-            case R.id.men_action_change_mode:
-                SharedPreferenceUtil.setDarkMode(!SharedPreferenceUtil.getThemeMode());
-                MainActivity.this.recreate();//重新创建当前Activity实例
-                return true;
-            case R.id.men_action_about_me:
-                return true;
-            case R.id.menu_action_share:
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        //监听DrawerLayout
+        //将抽屉事件和 toolbar联系起来，这是 material design 的设计
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.open, R.string.close);
+        drawerLayout.setDrawerListener(toggle);
     }
 
     private void setupViews() {
@@ -93,7 +79,36 @@ public class MainActivity extends BaseActivity {
         skinTabIconController.addTab(radioMainActivityManage, R.drawable.ic_tab_manage);
         skinTabIconController.init();
 
+        setupDrawerContent(nvMainNavigation);
+
         setFragments();
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+
+                        switch (id) {
+                            case R.id.men_action_settings:
+                                SettingActivity.launch(MainActivity.this);
+                                return true;
+                            case R.id.men_action_change_mode:
+                                SharedPreferenceUtil.setDarkMode(!SharedPreferenceUtil.getThemeMode());
+                                MainActivity.this.recreate();//重新创建当前Activity实例
+                                return true;
+                            case R.id.men_action_about_me:
+                                return true;
+                            case R.id.menu_action_share:
+                                return true;
+                        }
+                        menuItem.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     private void setFragments() {

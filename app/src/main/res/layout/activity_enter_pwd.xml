@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <!--Toolbar-->
@@ -9,20 +10,22 @@
         android:id="@+id/enter_pass_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tool_bar_height"
+        app:popupTheme="@style/MyOptionMenuStyle"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimary"
         android:minHeight="@dimen/tool_bar_height" />
 
     <TextView
         android:id="@+id/tv_appname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/text_title_style"
-        android:text="当前锁定的应用：" />
+        android:text="当前锁定的应用" />
 
     <ImageView
         android:id="@+id/iv_appicon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_app_dark"/>
 
     <EditText
         android:id="@+id/et_password"

@@ -270,9 +270,9 @@ public class AppManagerActivity extends BaseActivity {
             }
         });
 
-        // 播放动画有一个前提 就是窗体必须有背景
+        //播放动画有一个前提 就是窗体必须有背景
         popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        // ☆ 注意： 必须要设置背景
+        //必须要设置背景
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         int[] location = new int[2];
         view.getLocationInWindow(location);
