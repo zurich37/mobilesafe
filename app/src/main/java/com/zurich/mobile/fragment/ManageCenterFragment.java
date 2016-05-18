@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.zurich.mobile.R;
 import com.zurich.mobile.activity.AppLockActivity;
 import com.zurich.mobile.activity.AtoolsActivity;
+import com.zurich.mobile.activity.CacheCleanActivity;
 import com.zurich.mobile.activity.CallSmsManagerActivity;
 import com.zurich.mobile.activity.FindAppActivity;
 import com.zurich.mobile.activity.GoogleInstallerActivity;
@@ -96,13 +97,13 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_call_access://通信助手
-                startActivity(new Intent(getContext(), CallSmsManagerActivity.class));
+                startActivity(new Intent(mContext, CallSmsManagerActivity.class));
                 break;
             case R.id.rl_apk_clearn://安装包清理
-                startActivity(new Intent(getContext(), PackageClearActivity.class));
+                startActivity(new Intent(mContext, PackageClearActivity.class));
                 break;
             case R.id.tv_all_tools://百宝箱
-                startActivity(new Intent(getContext(), AtoolsActivity.class));
+                startActivity(new Intent(mContext, AtoolsActivity.class));
                 break;
             case R.id.tv_google://谷歌检测
                 startActivity(new Intent(mContext, GoogleInstallerActivity.class));
@@ -116,6 +117,8 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
             case R.id.rl_find_app://隐私保护
                 startActivity(new Intent(mContext, FindAppActivity.class));
                 break;
+            case R.id.tv_clean_cache://缓存清理
+                startActivity(new Intent(mContext, CacheCleanActivity.class));
             default:
                 break;
         }

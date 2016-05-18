@@ -72,9 +72,7 @@ public class CallInterceptFragment extends AppBaseFragment {
     }
 
     private void loadCallInterData() {
-        initAdapter();
         loadBlackNumber();
-        hintView.hidden();
     }
 
     /**
@@ -98,7 +96,12 @@ public class CallInterceptFragment extends AppBaseFragment {
             protected void onPostExecute(Boolean aBoolean) {
                 super.onPostExecute(aBoolean);
                 if (aBoolean){
-                    mAdapter.notifyDataSetChanged();
+                    if (mAdapter != null) {
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        initAdapter();
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }else {
                     tvNullTip.setVisibility(View.VISIBLE);
                     rvCallList.setVisibility(View.GONE);
@@ -116,6 +119,8 @@ public class CallInterceptFragment extends AppBaseFragment {
         }
         rvCallList.setAdapter(mAdapter);
         initRvSwipe();
+
+        hintView.hidden();
     }
 
     private void initRvSwipe() {

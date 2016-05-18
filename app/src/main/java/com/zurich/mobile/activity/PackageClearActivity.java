@@ -678,24 +678,6 @@ public class PackageClearActivity extends BaseActivity {
             DialogFragment fragment = DialogFragment.newInstance(builder);
             fragment.show(getSupportFragmentManager(), null);
 
-            /*AppChinaDialog.Builder builder = new AppChinaDialog.Builder(PackageClearActivity.this);
-            builder.setTitle(residualDataPacket.obb ? "残留游戏数据包" : "残留应用数据");
-            builder.setMessage(
-                    "时间：" + DateUtil.formatTime(residualDataPacket.fileLastModified)
-                            + "\n"
-                            + "包名：" + StringUtil.makeSafe(residualDataPacket.appPackageName)
-                            + "\n"
-                            + "位置：" + residualDataPacket.filePath
-            );
-            builder.setNegativeButton("我知道了");
-            builder.setPositiveButton("去详情页", new AppChinaDialog.OnClickListener() {
-                @Override
-                public boolean onClick(AppChinaDialog dialog, View buttonView) {
-                    AppDetailActivity.launchByPackageName(PackageClearActivity.this, residualDataPacket.appPackageName, "");
-                    return false;
-                }
-            });
-            builder.show();*/
         }
     }
 

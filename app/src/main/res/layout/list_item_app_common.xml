@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ripple_button_bg">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/iv_app_common_icon"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dip" />
+
+        <TextView
+            android:id="@+id/tv_app_common_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_app_common_icon"
+            android:layout_toRightOf="@id/iv_app_common_icon"
+            android:ellipsize="end"
+            android:maxWidth="270dp"
+            android:singleLine="true"
+            android:text="程序名称程序名称程序名称程序名称程序名称程序名称程序名称程序名称"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_app_common_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_app_common_name"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="8dip"
+            android:layout_toRightOf="@id/iv_app_common_icon"
+            android:text="内存占用"
+            android:textColor="#88000000"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

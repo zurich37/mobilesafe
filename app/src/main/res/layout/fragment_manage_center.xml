@@ -88,7 +88,7 @@
                         style="@style/ManageCenterRelativeInfo"
                         android:layout_below="@+id/tv_download_title"
                         android:layout_toRightOf="@+id/iv_download"
-                        android:text="15个应用未安装" />
+                        android:text="更多优质App" />
 
                 </RelativeLayout>
 
@@ -120,7 +120,7 @@
                         style="@style/ManageCenterRelativeInfo"
                         android:layout_below="@+id/tv_unload_title"
                         android:layout_toRightOf="@+id/iv_unload"
-                        android:text="已安装12个应用" />
+                        android:text="隐私不再担心" />
 
                 </RelativeLayout>
             </LinearLayout>

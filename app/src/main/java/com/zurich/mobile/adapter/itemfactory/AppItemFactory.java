@@ -70,7 +70,7 @@ public class AppItemFactory extends AssemblyRecyclerItemFactory<AppItemFactory.A
             //实例化ImageLoader
             ImageLoader loader = new ImageLoader(requestQueue, new BFImageCache());
             //设置默认图片
-            ivAppIcon.setDefaultImageResId(R.drawable.ic_launcher);
+            ivAppIcon.setDefaultImageResId(R.drawable.ic_app_light);
             //设置错误图片
             ivAppIcon.setErrorImageResId(R.drawable.ic_launcher);
             //设置图片url和ImageLoader

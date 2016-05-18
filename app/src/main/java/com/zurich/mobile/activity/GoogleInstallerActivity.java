@@ -1,8 +1,11 @@
 package com.zurich.mobile.activity;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zurich.mobile.R;
+import com.zurich.mobile.receiver.DownloadCompleteReceiver;
+import com.zurich.mobile.utils.GlobalUtils;
 import com.zurich.mobile.widget.GifMovieView;
 
 import java.util.List;
@@ -58,15 +63,33 @@ public class GoogleInstallerActivity extends BaseActivity {
                     } else {
                         imageView.setImageResource(R.drawable.google_wrong);
                         statusTv.setText("尚未安装‘谷歌服务框架’，部分大型游戏可能出现黑屏闪退的现象，建议使用‘谷歌安装器’一键安装");
-                        operationTv.setText("下载谷歌安装器");
+                        operationTv.setText("下载谷歌安装器" +
+                                "");
                         infoTv.setVisibility(View.VISIBLE);
                         operationTv.setOnClickListener(new OnClickListener() {
 
                             @Override
                             public void onClick(View v) {
-//							Asset asset = new Asset();
-//							asset.pkgName = "com.appchina.googleinstaller";
-//							AppDetailActivity.launch(mActivity, asset, "GoogleInstallerActivity");
+                                if (GlobalUtils.haveSDCard()) {
+                                    if (GlobalUtils.getSDFreeSize() > 20) {
+
+                                        String fileName = "Google服务" + ".apk";
+
+                                        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("http://mobile.d.appchina.com/McDonald/r/3690919/com.google.android.gms?channel=aplus.direct&uid=8088cb4d-0c09-473d-80af-b165f51eaae5&page=appplus.detail"));
+                                        request.setDestinationInExternalPublicDir("mobile_download", fileName);
+                                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                                        request.setTitle("Google服务");
+                                        request.setDescription("正在下载...");
+                                        request.setMimeType("application/com.mobile.download.file");
+                                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE + DownloadManager.Request.NETWORK_WIFI);
+                                        // 设置为可被媒体扫描器找到
+                                        request.allowScanningByMediaScanner();
+                                        // 设置为可见和可管理
+                                        request.setVisibleInDownloadsUi(true);
+                                        downloadManager.enqueue(request);
+                                    }
+                                }
                             }
                         });
                     }
@@ -77,7 +100,20 @@ public class GoogleInstallerActivity extends BaseActivity {
             }
         }
     };
+    private DownloadCompleteReceiver downLoadCompleteReceiver;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(downLoadCompleteReceiver);
+        downLoadCompleteReceiver = null;
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -85,6 +121,7 @@ public class GoogleInstallerActivity extends BaseActivity {
         setContentView(R.layout.activity_google_installer);
 
         initActionBar();
+        downLoadCompleteReceiver = new DownloadCompleteReceiver();
 
         setTitle("谷歌检测");
         mActivity = this;

@@ -53,7 +53,6 @@ import java.io.InputStream;
  */
 public class SplashActivity extends FragmentActivity {
 
-    private String SPLASH_SCREEN_OPTION_1 = "Fade in + Ken Burns";
     protected static final String TAG = "SplashActivity";
 
     private Activity mActivity;
@@ -97,13 +96,18 @@ public class SplashActivity extends FragmentActivity {
         checkApplockService();
 
         if (localVersion.equals("") && SharedPreferenceUtil.getAutoUpdatePrefs()) {
-            registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
             checkUpdate();
         } else {
             enterHomePage();
         }
 
         downLoadCompleteReceiver = new DownloadCompleteReceiver();
+    }
+
+    @Override
+    protected void onResume() {
+        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        super.onResume();
     }
 
     private void checkApplockService() {

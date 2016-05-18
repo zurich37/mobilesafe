@@ -64,7 +64,6 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
         assets = new ArrayList<Asset>();
 
         downLoadCompleteReceiver = new DownloadCompleteReceiver();
-        registerDownloadReceiver();
 
         initActionBar();
 
@@ -113,7 +112,7 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://192.168.1.101:8080/hot_app.json", null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://10.19.3.184:8080/hot_app.json", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -232,6 +231,12 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
                 request.setVisibleInDownloadsUi(true);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        registerDownloadReceiver();
+        super.onResume();
     }
 
     @Override

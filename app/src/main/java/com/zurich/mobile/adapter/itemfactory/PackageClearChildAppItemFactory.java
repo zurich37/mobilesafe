@@ -1,7 +1,6 @@
 package com.zurich.mobile.adapter.itemfactory;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,9 +45,6 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
         private TextView descTextView;
         private TextView sizeTextView;
         private CheckBox checkBox;
-
-        private Drawable checkedDrawable;
-        private Drawable uncheckedDrawable;
 
         protected PackageClearChildAppItem(View convertView, PackageClearChildAppItemFactory itemFactory) {
             super(convertView, itemFactory);
@@ -95,13 +91,8 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
                 iconNetworkImageView.setTag(null);
                 appNameTextView.setText(appPackage.fileName);
                 versionNameTextView.setText("未知");
-                if (appPackage.yyhSelfDownload) {
-                    descTextView.setText("未完成");
-                } else {
-                    descTextView.setText(null);
-                }
             } else {
-//                BitmapHelper.loadFromLocal(appPackage.appPackageName, iconNetworkImageView, appPackage.filePath);
+//                iconNetworkImageView.setImageUrl(appPackage.filePath, loader);
                 appNameTextView.setText(appPackage.appName);
                 versionNameTextView.setText(appPackage.appVersionName);
 
@@ -118,11 +109,6 @@ public class PackageClearChildAppItemFactory extends AssemblyChildItemFactory<Pa
                 }
             }
 
-            if (appPackage.isChecked()) {
-                checkBox.setChecked(true);
-            } else {
-                checkBox.setChecked(false);
-            }
         }
     }
 }

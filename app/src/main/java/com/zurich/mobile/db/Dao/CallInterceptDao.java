@@ -139,4 +139,29 @@ public class CallInterceptDao {
         return result;
     }
 
+    /**
+     * 查询黑名单号码拦截次数
+     *
+     * @param number
+     * @return
+     */
+    public int findCount(String number) {
+        int count = 0;
+        Cursor cursor = null;
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try {
+            cursor = db.rawQuery("select count from callintercept", new String[]{number});
+            if (cursor != null && cursor.moveToFirst()){
+                count  = cursor.getColumnIndex("count");
+            }
+        }catch (IllegalArgumentException e){
+            count = 0;
+        }finally {
+            if (cursor != null)
+                cursor.close();
+            db.close();
+        }
+        return count;
+    }
+
 }

@@ -123,6 +123,10 @@
             android:name=".activity.FindAppActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CacheCleanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <!-- Activity that allows the user to send new SMS/MMS messages -->
         <activity android:name=".activity.ComposeSmsActivity" >

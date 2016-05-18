@@ -49,7 +49,7 @@ public class CallInterceptItemFactory extends AssemblyRecyclerItemFactory<CallIn
         @Override
         protected void onSetData(int position, BlackNumberInfo info) {
             tvNumber.setText(info.number);
-            tvCount.setText(info.count + "");
+            tvCount.setText("已拦截" + info.count + "次");
         }
     }
 }

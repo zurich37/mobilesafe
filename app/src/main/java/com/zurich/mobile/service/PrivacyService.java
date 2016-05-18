@@ -67,7 +67,6 @@ public class PrivacyService extends Service {
         Uri uri = Uri.parse("content://com.zurich.mobile/applockdb");
         observer = new MyObserver(new Handler());
         getContentResolver().registerContentObserver(uri, true, observer);
-
         am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         final Intent intent = new Intent(this,EnterPwdActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -101,8 +100,6 @@ public class PrivacyService extends Service {
                             intent.putExtra("packname", packname);
                             startActivity(intent);
                         }
-                    }else{
-
                     }
                     try {
                         Thread.sleep(100);
