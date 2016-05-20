@@ -54,6 +54,8 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
     private long downloadId;
     private DownloadCompleteReceiver downLoadCompleteReceiver;
 
+    private boolean flag = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,10 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
     }
 
     private void registerDownloadReceiver() {
-        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        if (!flag){
+            registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            flag = true;
+        }
     }
 
 
@@ -241,8 +246,11 @@ public class FindAppActivity extends BaseActivity implements AppItemFactory.AppI
 
     @Override
     protected void onStop() {
+        if (flag){
+            unRegisterDownloadReceiver();
+            flag = false;
+        }
         super.onStop();
-        unRegisterDownloadReceiver();
     }
 
     private void unRegisterDownloadReceiver() {

@@ -105,6 +105,7 @@ public class CallInterceptFragment extends AppBaseFragment {
                 }else {
                     tvNullTip.setVisibility(View.VISIBLE);
                     rvCallList.setVisibility(View.GONE);
+                    hintView.hidden();
                 }
             }
         }.execute();

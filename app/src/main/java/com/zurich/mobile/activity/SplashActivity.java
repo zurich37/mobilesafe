@@ -54,6 +54,7 @@ import java.io.InputStream;
 public class SplashActivity extends FragmentActivity {
 
     protected static final String TAG = "SplashActivity";
+    private boolean flag = false;
 
     private Activity mActivity;
     private Context mContext;
@@ -106,7 +107,10 @@ public class SplashActivity extends FragmentActivity {
 
     @Override
     protected void onResume() {
-        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        if (!flag){
+            registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            flag = true;
+        }
         super.onResume();
     }
 
@@ -295,7 +299,10 @@ public class SplashActivity extends FragmentActivity {
 
     @Override
     protected void onStop() {
-        unregisterReceiver(downLoadCompleteReceiver);
+        if (flag){
+            unregisterReceiver(downLoadCompleteReceiver);
+            flag = false;
+        }
         downLoadCompleteReceiver = null;
         super.onStop();
     }

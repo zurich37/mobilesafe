@@ -100,19 +100,25 @@ public class GoogleInstallerActivity extends BaseActivity {
             }
         }
     };
+
     private DownloadCompleteReceiver downLoadCompleteReceiver;
+    private boolean flag;
 
     @Override
     protected void onResume() {
+        if (!flag){
+            registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            flag = true;
+        }
         super.onResume();
-        registerReceiver(downLoadCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
-    protected void onStop() {
-        unregisterReceiver(downLoadCompleteReceiver);
+    protected void onDestroy() {
+        if (downLoadCompleteReceiver != null && flag)
+            unregisterReceiver(downLoadCompleteReceiver);
         downLoadCompleteReceiver = null;
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override
