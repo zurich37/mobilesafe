@@ -1,5 +1,6 @@
 package com.zurich.mobile.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -100,6 +101,7 @@ public class MainActivity extends BaseActivity {
                                 MainActivity.this.recreate();//重新创建当前Activity实例
                                 return true;
                             case R.id.men_action_about_me:
+                                startActivity(new Intent(getBaseContext(), AboutMeActivity.class));
                                 return true;
                             case R.id.menu_action_share:
                                 return true;

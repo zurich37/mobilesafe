@@ -97,7 +97,7 @@ public class GlobalUtils {
      * @param text 显示文本
      */
     public static void showToast(Context context, String text){
-        Toast.makeText(context, text, 1).show();
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
     public static boolean isInstallSoftware(Context context, String packageName) {

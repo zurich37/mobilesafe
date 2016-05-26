@@ -23,7 +23,8 @@
     <ExpandableListView
         android:id="@+id/elv"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        style="@style/ExpandableListView.NoDivider"/>
 
     <com.zurich.mobile.widget.HintView
         android:id="@+id/hint_common_number_hint"

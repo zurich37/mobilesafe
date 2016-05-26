@@ -1,6 +1,10 @@
 package com.zurich.mobile.controller;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,8 +16,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.widget.RadioButton;
-
-import com.zurich.mobile.skin.SkinManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,8 +40,13 @@ public class SkinTabIconController {
         init();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void init() {
-        int mainColor = SkinManager.with(context).getSkin().getPrimaryColor();
+
+        int[] attrsArray = { android.R.attr.colorPrimary };
+        @SuppressLint("Recycle") TypedArray typedArray = context.obtainStyledAttributes(attrsArray);
+        int mainColor = typedArray.getColor(0, Color.parseColor("#2196F3"));
+
         if (itemList == null) {
             return;
         }
@@ -68,7 +75,7 @@ public class SkinTabIconController {
             colors[0] = mainColor;
             colors[1] = Color.parseColor("#717171");
 
-//            item.tabButton.setTextColor(new ColorStateList(states, colors));
+            item.tabButton.setTextColor(new ColorStateList(states, colors));
         }
     }
 

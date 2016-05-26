@@ -25,6 +25,9 @@
         <item name="stateSelector">@color/state_selector_dark</item>
     </style>
 
+    <!--about app style-->
+    <style name="Theme.DesignDemo" parent="AppTheme"/>
+
     <style name="SimpleDialogLight" parent="Material.App.Dialog.Simple.Light">
         <item name="di_inAnimation">@anim/anim_scale_in</item>
         <item name="di_outAnimation">@anim/anim_scale_out</item>
@@ -40,14 +43,18 @@
         <item name="rd_rippleColor">#33FFFFFF</item>
     </style>
     <!--管理中心style-->
-    <style name="ManageCenterRelative">
+    <style name="ManageCenterRelative" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/ripple_manage_button</item>
         <item name="android:paddingBottom">15dp</item>
         <item name="android:paddingRight">5dp</item>
         <item name="android:paddingTop">10dp</item>
+
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">4dp</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
+        <item name="android:textColor">@color/text_second</item>
     </style>
 
     <style name="ManageCenterRelativeTitle">
@@ -69,7 +76,7 @@
         <item name="android:textColor">#777777</item>
     </style>
 
-    <style name="ManageCenterExtraFunction">
+    <style name="ManageCenterExtraFunction" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -82,7 +89,10 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">#333333</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:background">@drawable/ripple_manage_button</item>
+
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">4dp</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
     </style>
 
     <style name="BottomLine">
@@ -207,16 +217,42 @@
         <item name="overlapAnchor">false</item>
     </style>
 
-    <!--首页textview样式-->
-    <style name="tv_four_main">
+    <!--Ripple Button-->
+    <style name="LightFlatButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:background">@drawable/ripple_button_bg</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:textSize">18dp</item>
         <item name="android:textStyle">bold</item>
+
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">4dp</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
+        <item name="android:textColor">@color/text_second</item>
+    </style>
+
+    <!--Ripple Button-->
+    <style name="tv_four_main" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">4dp</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Button</item>
+        <item name="android:textColor">@color/text_second</item>
+    </style>
+
+    <!-- common ripple button -->
+    <style name="common_button_ripple" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_cornerRadius">4dp</item>
     </style>
 </resources>

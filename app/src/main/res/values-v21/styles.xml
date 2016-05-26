@@ -17,4 +17,9 @@
         <item name="android:colorBackground">@color/window_background</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="Theme.DesignDemo" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 </resources>

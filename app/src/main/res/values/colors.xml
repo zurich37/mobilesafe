@@ -20,6 +20,8 @@
     <color name="text_second">#727272</color>
     <color name="text_content">#777777</color>
 
+    <color name="common_bg">#efd1d1d1</color>
+
     <color name="primary_bg">#59B4AD</color>
     <color name="primary_dark">#34879E</color>
     <color name="gray">#C8C8C8</color>

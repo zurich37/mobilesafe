@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * 程序锁输入密码
  * Created by weixinfei on 16/5/10.
  */
-public class EnterPwdActivity extends FragmentActivity {
+public class EnterPwdActivity extends BaseActivity {
     @Bind(R.id.enter_pass_tool_bar)
     Toolbar mToolbar;
     private TextView tv_appname;
@@ -55,6 +55,14 @@ public class EnterPwdActivity extends FragmentActivity {
     }
 
     private void initToolbar() {
+        mToolbar.setTitle(getResources().getString(R.string.manage_center_privacy_protect));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

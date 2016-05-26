@@ -1,7 +1,6 @@
 package com.zurich.mobile.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -78,8 +77,6 @@ public class SafeFragment extends AppBaseFragment implements View.OnClickListene
         tvAppManager = (TextView) findViewById(R.id.tv_app_manager);
 
         setTextIcon();
-
-        tvLostFind.setDrawingCacheBackgroundColor(Color.RED);
 
         mSnackBar = (SnackBar) getActivity().findViewById(R.id.main_sn);
         mSnackBar.applyStyle(R.style.Material_Widget_SnackBar_Tablet);

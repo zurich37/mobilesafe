@@ -63,25 +63,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <com.rey.material.widget.Button
             android:id="@+id/tv_safe_lost_find"
             style="@style/tv_four_main"
             android:drawableRight="@drawable/ic_security_light"
             android:text="@string/safe_lost_find" />
 
-        <TextView
+        <com.rey.material.widget.Button
             android:id="@+id/tv_safe_anti_virus"
             style="@style/tv_four_main"
             android:drawableRight="@drawable/ic_antivirus_light"
             android:text="@string/safe_anti_virus" />
 
-        <TextView
+        <com.rey.material.widget.Button
             android:id="@+id/tv_task_manager"
             style="@style/tv_four_main"
             android:drawableRight="@drawable/ic_tune_light"
             android:text="@string/safe_task_manager" />
 
-        <TextView
+        <com.rey.material.widget.Button
             android:id="@+id/tv_app_manager"
             style="@style/tv_four_main"
             android:drawableRight="@drawable/ic_app_light"

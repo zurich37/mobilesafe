@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <com.rey.material.widget.RelativeLayout
                 android:id="@+id/rl_call_access"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
@@ -43,7 +43,7 @@
                     android:text="通信小管家"
                     android:textColor="#777777"
                     android:textSize="12dp" />
-            </RelativeLayout>
+            </com.rey.material.widget.RelativeLayout>
 
             <TextView
                 android:id="@+id/bg_divider"
@@ -60,7 +60,7 @@
                 android:layout_below="@+id/bg_divider"
                 android:orientation="horizontal">
 
-                <RelativeLayout
+                <com.rey.material.widget.RelativeLayout
                     android:id="@+id/rl_find_app"
                     style="@style/ManageCenterRelative">
 
@@ -90,9 +90,9 @@
                         android:layout_toRightOf="@+id/iv_download"
                         android:text="更多优质App" />
 
-                </RelativeLayout>
+                </com.rey.material.widget.RelativeLayout>
 
-                <RelativeLayout
+                <com.rey.material.widget.RelativeLayout
                     android:id="@+id/rl_protect"
                     style="@style/ManageCenterRelative">
 
@@ -122,7 +122,7 @@
                         android:layout_toRightOf="@+id/iv_unload"
                         android:text="隐私不再担心" />
 
-                </RelativeLayout>
+                </com.rey.material.widget.RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -132,7 +132,7 @@
                 android:layout_below="@+id/ll_manager_center_main1"
                 android:orientation="horizontal">
 
-                <RelativeLayout
+                <com.rey.material.widget.RelativeLayout
                     android:id="@+id/rl_apk_clearn"
                     style="@style/ManageCenterRelative">
 
@@ -156,9 +156,9 @@
                         android:layout_toRightOf="@+id/iv_clear"
                         android:text="清清更健康" />
 
-                </RelativeLayout>
+                </com.rey.material.widget.RelativeLayout>
 
-                <RelativeLayout
+                <com.rey.material.widget.RelativeLayout
                     android:id="@+id/rl_fast_pass"
                     style="@style/ManageCenterRelative">
 
@@ -182,7 +182,7 @@
                         android:layout_toRightOf="@+id/iv_pass"
                         android:text="嗖的一下就传完了" />
 
-                </RelativeLayout>
+                </com.rey.material.widget.RelativeLayout>
             </LinearLayout>
 
             <View
@@ -204,13 +204,13 @@
                 android:paddingRight="5dp">
 
 
-                <TextView
+                <com.rey.material.widget.Button
                     android:id="@+id/tv_clean_cache"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_favorite1"
                     android:text="@string/manage_center_favorite" />
 
-                <TextView
+                <com.rey.material.widget.Button
                     android:id="@+id/tv_all_tools"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_backup"
@@ -228,14 +228,14 @@
                 android:paddingRight="5dp">
 
 
-                <TextView
+                <com.rey.material.widget.Button
                     android:id="@+id/tv_google"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_google"
                     android:text="@string/manage_center_google" />
 
 
-                <TextView
+                <com.rey.material.widget.Button
                     android:id="@+id/tv_setting"
                     style="@style/ManageCenterExtraFunction"
                     android:drawableTop="@drawable/manage_center_setting"

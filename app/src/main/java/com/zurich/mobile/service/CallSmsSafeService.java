@@ -39,6 +39,8 @@ public class CallSmsSafeService extends Service {
     private MyPhoneListener listener;
     private ContentObserver mObserver;
 
+    private String needDeleteNumber = null;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -52,10 +54,11 @@ public class CallSmsSafeService extends Service {
             for(Object obj : objs){
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
                 //得到短信发件人
-                String sender = smsMessage.getOriginatingAddress();
+                String sender =  smsMessage.getOriginatingAddress();
                 String mode = blackNumberDao.findMode(sender);
                 if("2".equals(mode)||"3".equals(mode)){
                     Log.i(TAG,"拦截到黑名单短信");
+                    needDeleteNumber = sender;
                     abortBroadcast();
                 }
 
@@ -104,12 +107,14 @@ public class CallSmsSafeService extends Service {
                 }
                 cursor.close();
 
-                if (id != -1) {
+                if (id != -1 && needDeleteNumber != null) {
                     int count = 0;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                         count = resolver.delete(Sms.CONTENT_URI, "_id=" + id, null);
                     }
                     GlobalUtils.showToast(getBaseContext(), count == 1 ? "删除成功" : "删除失败");
+
+                    needDeleteNumber = null;
                 }
             }
 
