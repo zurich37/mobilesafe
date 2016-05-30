@@ -27,4 +27,10 @@
         android:layout_below="@id/app_bar_fuli"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <com.zurich.mobile.widget.HintView
+        android:id="@+id/hint_fuli_hint"
+        android:layout_below="@id/app_bar_fuli"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

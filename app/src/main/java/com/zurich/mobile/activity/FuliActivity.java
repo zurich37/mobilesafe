@@ -1,5 +1,6 @@
 package com.zurich.mobile.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -19,10 +20,12 @@ import com.zurich.mobile.adapter.itemfactory.LoadMoreRecyclerListItemFactory;
 import com.zurich.mobile.model.GankInfo;
 import com.zurich.mobile.retrofit.GankRetrofit;
 import com.zurich.mobile.retrofit.GankService;
+import com.zurich.mobile.widget.HintView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,6 +36,8 @@ import rx.schedulers.Schedulers;
  * Created by weixinfei on 16/5/30.
  */
 public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, FuliInfoItemFactory.FuliEventListener, OnRecyclerLoadMoreListener {
+    @Bind(R.id.hint_fuli_hint)
+    HintView hintView;
     private Toolbar mToolbar;
     private EasyRecyclerView recyclerFuli;
     private List<GankInfo.ResultsBean> gankInfos;
@@ -46,6 +51,7 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         setContentView(R.layout.activity_fuli);
         ButterKnife.bind(this);
 
+        hintView.loading().show();
         initToolbar();
         initView();
         initAdapter();
@@ -58,7 +64,7 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         recyclerFuli.setRefreshListener(this);
 
         gankInfos = new ArrayList<>();
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerFuli.setLayoutManager(staggeredGridLayoutManager);
         recyclerFuli.setItemAnimator(new DefaultItemAnimator());
     }
@@ -91,8 +97,8 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     /**
      * 初始化adaptor
      */
-    public void initAdapter(){
-        if (mAdapter == null){
+    public void initAdapter() {
+        if (mAdapter == null) {
             mAdapter = new AssemblyRecyclerAdapter(gankInfos);
             mAdapter.addItemFactory(new FuliInfoItemFactory(this));
             mAdapter.enableLoadMore(new LoadMoreRecyclerListItemFactory(FuliActivity.this));
@@ -118,7 +124,7 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
                     @Override
                     public void onError(Throwable e) {
-                        Snackbar.make(recyclerFuli,"NO WIFI，不能愉快的看妹纸啦..",Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(recyclerFuli, "NO WIFI，不能愉快的看妹纸啦..", Snackbar.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -131,6 +137,9 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                         else
                             mAdapter.loadMoreFinished();
                         refreshAdapter();
+                        if (hintView.isShowing()){
+                            hintView.hidden();
+                        }
                     }
                 });
     }
@@ -149,7 +158,11 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     @Override
     public void onMeizhiClick(GankInfo.ResultsBean gankInfo) {
-
+        Intent intent = new Intent();
+        intent.putExtra("desc", gankInfo.getDesc());
+        intent.putExtra("url", gankInfo.getUrl());
+        intent.setClass(FuliActivity.this, MeizhiActivity.class);
+        startActivity(intent);
     }
 
     @Override

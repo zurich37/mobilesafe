@@ -64,6 +64,10 @@ public class HintView extends FrameLayout{
         return new LoadingBuilder(this);
     }
 
+    public boolean isShowing(){
+        return currentStatus == LOADING;
+    }
+
     public static class LoadingBuilder {
         private HintView hintView;
         private String message;

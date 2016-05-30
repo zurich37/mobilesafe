@@ -136,6 +136,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.MeizhiActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.AboutAppActivity"
             android:theme="@style/Theme.DesignDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"

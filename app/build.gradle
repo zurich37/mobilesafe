@@ -44,15 +44,13 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
-
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.jude:easyrecyclerview:3.5.7'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
 }
 

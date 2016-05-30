@@ -262,4 +262,5 @@
         <item name="android:layout_width">18dp</item>
         <item name="android:layout_height">18dp</item>
     </style>
+
 </resources>

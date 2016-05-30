@@ -50,4 +50,11 @@
     <color name="window_background_dark">#403f4d</color>
     <color name="list_background">#E5E5E5</color>
     <color name="list_background_dark">@color/window_background_dark</color>
+
+    <array name="progress_colors_light">
+        <item>#FF03A9F4</item>
+        <item>#FFD8433C</item>
+        <item>#FFF2AF3A</item>
+        <item>#FF279B5E</item>
+    </array>
 </resources>
