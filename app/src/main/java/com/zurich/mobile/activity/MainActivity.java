@@ -105,6 +105,9 @@ public class MainActivity extends BaseActivity {
                                 return true;
                             case R.id.menu_action_share:
                                 return true;
+                            case R.id.men_action_about_app:
+                                startActivity(new Intent(getBaseContext(), AboutAppActivity.class));
+                                return true;
                         }
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();

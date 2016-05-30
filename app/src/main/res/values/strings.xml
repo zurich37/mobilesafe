@@ -15,7 +15,7 @@
     <string name="manage_center_favorite">缓存清理</string>
     <string name="manage_center_apk_manage">安装包清理</string>
     <string name="manage_center_installed_backup">百宝箱</string>
-    <string name="manage_center_fast_pass">免流量快传</string>
+    <string name="manage_center_meizhi">福利</string>
     <string name="manage_center_google">谷歌检测</string>
     <string name="manage_center_setting">设置</string>
 
@@ -39,6 +39,7 @@
     <!--setting menu-->
     <string name="menu_share">分享</string>
     <string name="menu_about_me">关于我</string>
+    <string name="menu_about_app">关于App</string>
     <string name="menu_mode">切换主题</string>
     <string name="query_location">归属地查询</string>
     <string name="query_common">常用号码查询</string>

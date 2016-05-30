@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:title="@string/app_name"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
@@ -32,7 +33,7 @@
 
             <!--Toolbar-->
             <android.support.v7.widget.Toolbar
-                android:id="@+id/app_lock_toolbar"
+                android:id="@+id/about_app_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tool_bar_height"
                 app:layout_collapseMode="pin"
@@ -92,7 +93,7 @@
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="zurich 2016  MobileSafe V1.0" />
+                android:text="zurich  2016  MobileSafe V1.0" />
 
         </LinearLayout>
 

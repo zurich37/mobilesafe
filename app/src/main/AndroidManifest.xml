@@ -129,6 +129,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutMeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FuliActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutAppActivity"
             android:theme="@style/Theme.DesignDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />

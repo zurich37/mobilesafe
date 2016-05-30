@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/loading_layout"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight">
+
+        <ProgressBar
+            android:layout_gravity="center_vertical"
+            style="@style/LoadingProgress"/>
+
+        <TextView
+            android:paddingLeft="6.0dip"
+            android:paddingTop="2.0dip"
+            android:layout_width="wrap_content"
+            android:textSize="14dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1.0dip"
+            android:text="加载中..."
+            android:textColor="@color/text_second">
+        </TextView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/footer_retry_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="14dip"
+        android:text="网络错误，请稍后重试"
+        android:minHeight="48dip"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/footer_retry_end"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="14dip"
+        android:text="~到底啦，别脱了`"
+        android:minHeight="80dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:clickable="true"/>
+</LinearLayout>

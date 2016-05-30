@@ -12,6 +12,9 @@
         android:id="@+id/men_action_about_me"
         android:title="@string/menu_about_me" />
     <item
+        android:id="@+id/men_action_about_app"
+        android:title="@string/menu_about_app" />
+    <item
         android:id="@+id/menu_action_share"
         android:title="@string/menu_share" />
 

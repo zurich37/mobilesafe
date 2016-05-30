@@ -12,25 +12,29 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 关于我页面
+ * 关于App页面
  * Created by weixinfei on 16/5/25.
  */
-public class AboutMeActivity extends BaseActivity {
-    @Bind(R.id.about_me_toolbar)
+public class AboutAppActivity extends BaseActivity {
+    @Bind(R.id.about_app_toolbar)
     Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_me);
+        setContentView(R.layout.activity_about_app);
         ButterKnife.bind(this);
 
-        initActionBar();
+        initToolbar();
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.toolbar_back_normal);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
-    private void initActionBar() {
-        mToolbar.setTitle(getResources().getString(R.string.safe_soft_manager));
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+    private void initToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

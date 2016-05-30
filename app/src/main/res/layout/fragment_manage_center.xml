@@ -159,7 +159,7 @@
                 </com.rey.material.widget.RelativeLayout>
 
                 <com.rey.material.widget.RelativeLayout
-                    android:id="@+id/rl_fast_pass"
+                    android:id="@+id/rl_fuli_meizhi"
                     style="@style/ManageCenterRelative">
 
                     <ImageView
@@ -173,14 +173,14 @@
                         android:id="@+id/tv_pass_title"
                         style="@style/ManageCenterRelativeTitle"
                         android:layout_toRightOf="@+id/iv_pass"
-                        android:text="@string/manage_center_fast_pass" />
+                        android:text="@string/manage_center_meizhi" />
 
                     <TextView
                         android:id="@+id/tv_pass_info"
                         style="@style/ManageCenterRelativeInfo"
                         android:layout_below="@+id/tv_pass_title"
                         android:layout_toRightOf="@+id/iv_pass"
-                        android:text="嗖的一下就传完了" />
+                        android:text="福利多多，点我！" />
 
                 </com.rey.material.widget.RelativeLayout>
             </LinearLayout>

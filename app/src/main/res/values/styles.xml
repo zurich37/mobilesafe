@@ -255,4 +255,11 @@
     <style name="common_button_ripple" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="rd_cornerRadius">4dp</item>
     </style>
+
+    <!--加载中-->
+    <style name="LoadingProgress">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+    </style>
 </resources>

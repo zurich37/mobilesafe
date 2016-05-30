@@ -16,6 +16,7 @@ import com.zurich.mobile.activity.AtoolsActivity;
 import com.zurich.mobile.activity.CacheCleanActivity;
 import com.zurich.mobile.activity.CallSmsManagerActivity;
 import com.zurich.mobile.activity.FindAppActivity;
+import com.zurich.mobile.activity.FuliActivity;
 import com.zurich.mobile.activity.GoogleInstallerActivity;
 import com.zurich.mobile.activity.PackageClearActivity;
 import com.zurich.mobile.activity.SettingActivity;
@@ -53,12 +54,12 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
         RelativeLayout rlFindApp = (RelativeLayout) findViewById(R.id.rl_find_app);
         RelativeLayout rlProtect = (RelativeLayout) findViewById(R.id.rl_protect);
         RelativeLayout rlApkClearn = (RelativeLayout) findViewById(R.id.rl_apk_clearn);
-        RelativeLayout rlFastPass = (RelativeLayout) findViewById(R.id.rl_fast_pass);
+        RelativeLayout rlFuliMeizhi = (RelativeLayout) findViewById(R.id.rl_fuli_meizhi);
 
         rlFindApp.setOnClickListener(this);
         rlProtect.setOnClickListener(this);
         rlApkClearn.setOnClickListener(this);
-        rlFastPass.setOnClickListener(this);
+        rlFuliMeizhi.setOnClickListener(this);
 
         //4个普通功能
         TextView tvFavorite = (TextView) findViewById(R.id.tv_clean_cache);
@@ -101,6 +102,9 @@ public class ManageCenterFragment extends AppBaseFragment implements View.OnClic
                 break;
             case R.id.rl_apk_clearn://安装包清理
                 startActivity(new Intent(mContext, PackageClearActivity.class));
+                break;
+            case R.id.rl_fuli_meizhi://福利
+                startActivity(new Intent(mContext, FuliActivity.class));
                 break;
             case R.id.tv_all_tools://百宝箱
                 startActivity(new Intent(mContext, AtoolsActivity.class));
