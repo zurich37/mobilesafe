@@ -5,7 +5,7 @@
     android:title="@string/title_activity_setting">
     <PreferenceCategory
         android:layout="@layout/preference_category_widget"
-        android:title="基本设置">
+        android:title=" 基本设置">
         <CheckBoxPreference
             android:key="@string/setting_auto_update"
             android:layout="@layout/preference_item"
@@ -39,7 +39,7 @@
 
     <PreferenceCategory
         android:layout="@layout/preference_category_widget"
-        android:title="版本信息">
+        android:title="  版本信息">
         <Preference
             android:layout="@layout/preference_item"
             android:summary="V 1.0"
