@@ -17,8 +17,8 @@ import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerAdapter;
 import com.zurich.mobile.adapter.assemblyadapter.OnRecyclerLoadMoreListener;
 import com.zurich.mobile.adapter.itemfactory.FuliInfoItemFactory;
 import com.zurich.mobile.adapter.itemfactory.LoadMoreRecyclerListItemFactory;
-import com.zurich.mobile.model.GankInfo;
-import com.zurich.mobile.retrofit.GankRetrofit;
+import com.zurich.mobile.entity.GankResult;
+import com.zurich.mobile.net.HttpMethods;
 import com.zurich.mobile.retrofit.GankService;
 import com.zurich.mobile.widget.HintView;
 
@@ -28,8 +28,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 福利页面
@@ -40,10 +38,11 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     HintView hintView;
     private Toolbar mToolbar;
     private EasyRecyclerView recyclerFuli;
-    private List<GankInfo.ResultsBean> gankInfos;
     private AssemblyRecyclerAdapter mAdapter;
     private int mPage = 1;
     private GankService gankService;
+    private Subscriber subscriber;
+    private List<GankResult> gankInfos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,36 +111,36 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
      */
     public void getMeizhi(int count, int page) {
 
-        gankService = GankRetrofit.getRetrofit().create(GankService.class);
+        subscriber = new Subscriber<List<GankResult>>() {
 
-        gankService.getGankInfo("福利", count, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GankInfo>() {
-                    @Override
-                    public void onCompleted() {
-                    }
+            @Override
+            public void onCompleted() {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Snackbar.make(recyclerFuli, "NO WIFI，不能愉快的看妹纸啦..", Snackbar.LENGTH_LONG).show();
-                    }
+            }
 
-                    @Override
-                    public void onNext(GankInfo gankInfo) {
-                        gankInfos = gankInfo.getResults();
-                        if (gankInfos != null && gankInfos.size() > 0)
-                            mAdapter.append(gankInfos);
-                        if (gankInfo.getResults().size() < 20)
-                            mAdapter.loadMoreEnd();
-                        else
-                            mAdapter.loadMoreFinished();
-                        refreshAdapter();
-                        if (hintView.isShowing()){
-                            hintView.hidden();
-                        }
-                    }
-                });
+            @Override
+            public void onError(Throwable e) {
+                Snackbar.make(recyclerFuli, "NO WIFI，不能愉快的看妹纸啦..", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNext(List<GankResult> gankInfo) {
+                gankInfos = gankInfo;
+                if (gankInfos != null && gankInfos.size() > 0)
+                    mAdapter.append(gankInfos);
+                if (gankInfo.size() < 20)
+                    mAdapter.loadMoreEnd();
+                else
+                    mAdapter.loadMoreFinished();
+                refreshAdapter();
+                if (hintView.isShowing()){
+                    hintView.hidden();
+                }
+            }
+        };
+
+        HttpMethods.getInstance().getGankInfo(subscriber, count, page);
+
     }
 
     @Override
@@ -157,7 +156,7 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onMeizhiClick(GankInfo.ResultsBean gankInfo) {
+    public void onMeizhiClick(GankResult gankInfo) {
         Intent intent = new Intent();
         intent.putExtra("desc", gankInfo.getDesc());
         intent.putExtra("url", gankInfo.getUrl());

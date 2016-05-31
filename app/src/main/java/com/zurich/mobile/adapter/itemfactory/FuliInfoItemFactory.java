@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zurich.mobile.R;
 import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItem;
 import com.zurich.mobile.adapter.assemblyadapter.AssemblyRecyclerItemFactory;
-import com.zurich.mobile.model.GankInfo;
+import com.zurich.mobile.entity.GankResult;
 
 /**
  * 福利factory
@@ -25,7 +25,7 @@ public class FuliInfoItemFactory extends AssemblyRecyclerItemFactory<FuliInfoIte
 
     @Override
     public boolean isTarget(Object itemObject) {
-        return itemObject instanceof GankInfo.ResultsBean;
+        return itemObject instanceof GankResult;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FuliInfoItemFactory extends AssemblyRecyclerItemFactory<FuliInfoIte
         return new FuliInfoItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_fuli, parent, false), this);
     }
 
-    public class FuliInfoItem extends AssemblyRecyclerItem<GankInfo.ResultsBean, FuliInfoItemFactory> {
+    public class FuliInfoItem extends AssemblyRecyclerItem<GankResult, FuliInfoItemFactory> {
 
         private ImageView ivMeizhi;
 
@@ -59,15 +59,15 @@ public class FuliInfoItemFactory extends AssemblyRecyclerItemFactory<FuliInfoIte
         }
 
         @Override
-        protected void onSetData(int position, GankInfo.ResultsBean resultsBean) {
+        protected void onSetData(int position, GankResult gankResult) {
             Glide.with(ivMeizhi.getContext())
-                    .load(resultsBean.getUrl())
+                    .load(gankResult.getUrl())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(ivMeizhi);
         }
     }
 
     public interface FuliEventListener {
-        void onMeizhiClick(GankInfo.ResultsBean gankInfo);
+        void onMeizhiClick(GankResult gankInfo);
     }
 }

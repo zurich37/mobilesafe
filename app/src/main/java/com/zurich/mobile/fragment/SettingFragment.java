@@ -121,7 +121,7 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
 
             final String[] items = new String[]{"半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿"};
 
-            builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            builder.setSingleChoiceItems(items, SharedPreferenceUtil.getToastPrefs(), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     GlobalUtils.showToast(mActivity, "已选择" + items[which]);
