@@ -119,4 +119,13 @@ public class GlobalUtils {
         return (int) (dip * scale + 0.5f * (dip >= 0 ? 1 : -1));
     }
 
+    /**
+     * 打开浏览器
+     * @param url
+     */
+    public static void openBrowser(Context context, String url) {
+        Uri uri = Uri.parse(url.substring(url.indexOf("http")));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
+    }
 }

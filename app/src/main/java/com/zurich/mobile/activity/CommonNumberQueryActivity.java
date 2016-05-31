@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.zurich.mobile.R;
 import com.zurich.mobile.db.Dao.CommonNumberDao;
+import com.zurich.mobile.utils.DensityUtil;
+import com.zurich.mobile.utils.SharedPreferenceUtil;
 import com.zurich.mobile.widget.HintView;
 
 import butterknife.Bind;
@@ -121,19 +123,21 @@ public class CommonNumberQueryActivity extends BaseActivity {
             }
             tv.setText("       " + CommonNumberDao.getGroupName(db, groupPosition));
             tv.setTextSize(20);
-            tv.setTextColor(Color.RED);
+            tv.setTextColor(SharedPreferenceUtil.getThemeMode() ? Color.parseColor("#525065") : Color.parseColor("#2196F3"));
             return tv;
         }
 
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             TextView tv;
+            int padding = DensityUtil.dip2px(CommonNumberQueryActivity.this, 20);
             if (convertView != null) {
                 tv = (TextView) convertView;
             } else {
                 tv = new TextView(getApplicationContext());
             }
             tv.setText(CommonNumberDao.getChildNameByPosition(db, groupPosition, childPosition));
+            tv.setPadding(padding, padding, padding, padding);
             tv.setTextSize(16);
             tv.setTextColor(Color.BLACK);
             return tv;

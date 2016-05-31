@@ -19,7 +19,6 @@ import com.zurich.mobile.adapter.itemfactory.FuliInfoItemFactory;
 import com.zurich.mobile.adapter.itemfactory.LoadMoreRecyclerListItemFactory;
 import com.zurich.mobile.entity.GankResult;
 import com.zurich.mobile.net.HttpMethods;
-import com.zurich.mobile.retrofit.GankService;
 import com.zurich.mobile.widget.HintView;
 
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private EasyRecyclerView recyclerFuli;
     private AssemblyRecyclerAdapter mAdapter;
     private int mPage = 1;
-    private GankService gankService;
     private Subscriber subscriber;
     private List<GankResult> gankInfos;
 
@@ -120,6 +118,7 @@ public class FuliActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
             @Override
             public void onError(Throwable e) {
+                hintView.hidden();
                 Snackbar.make(recyclerFuli, "NO WIFI，不能愉快的看妹纸啦..", Snackbar.LENGTH_LONG).show();
             }
 

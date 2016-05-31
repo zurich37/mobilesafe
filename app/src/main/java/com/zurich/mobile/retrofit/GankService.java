@@ -11,6 +11,7 @@ import retrofit2.http.Path;
 import rx.Observable;
 
 /**
+ * Retrofit service
  * Created by weixinfei on 16/5/27.
  */
 public interface GankService {
